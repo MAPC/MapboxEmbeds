@@ -1,22 +1,10 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
-let zoom = 8.4;
-let center = [-70.944, 42.37];
-if (window.innerWidth <= 480) {
-  zoom = 7.75;
-  center = [-71.043, 42.372];
-} else if (window.innerWidth <= 670) {
-  zoom = 8.27;
-  center = [-71.047, 42.377];
-} else if (window.innerWidth <= 770) {
-  zoom = 8.4;
-  center = [-71.039, 42.37];
-}
 
 const ppiMap = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/ihill/ckb7xc2iq1sxf1ip9rdi5x0u6/',
-  center,
-  zoom,
+  center: [-71.566, 42.112],
+  zoom: 7,
   minZoom: 6,
   maxZoom: 13,
   maxBounds: [
@@ -34,7 +22,7 @@ document.querySelector('.button__collapsible--minus').addEventListener('click', 
 })
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.map__legend').style.maxHeight = "300px";
+  document.querySelector('.map__legend').style.maxHeight = "360px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';

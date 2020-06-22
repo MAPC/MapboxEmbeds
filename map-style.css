@@ -51,9 +51,11 @@ p {
   transition: max-height 0.2s ease-out; }
 
 .legend__title {
+  display: block;
   fill: #231F20;
   font-size: 1rem;
-  font-weight: bolder; }
+  font-weight: bolder;
+  margin-bottom: .5rem; }
 
 .legend__entry {
   font-size: .75rem; }
@@ -61,7 +63,7 @@ p {
 .button__collapsible--minus {
   position: absolute;
   z-index: 30;
-  top: 290px;
+  bottom: 10px;
   right: 10px; }
 
 .button__collapsible--plus {
@@ -122,17 +124,16 @@ p {
 
   .legend__wrapper {
     left: 0;
-    top: 85px; } }
-.toggle__group .toggle__wrapper:not(:last-child) {
-  margin-bottom: 10px; }
+    top: 47px; } }
 .toggle__wrapper {
   align-items: center;
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  margin-bottom: 10px; }
 .toggle__switch {
   display: inline-block;
   height: 14px;
-  margin-right: 16px;
+  margin-right: 10px;
   position: relative;
   width: 30px; }
 .toggle__input {
@@ -157,7 +158,6 @@ p {
   cursor: pointer;
   height: 16px;
   left: 0;
-  margin: 0 10px;
   position: absolute;
   right: 0;
   top: 0;

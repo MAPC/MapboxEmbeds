@@ -61,9 +61,11 @@ p {
 }
 
 .legend__title {
+  display: block;
   fill: #231F20;
   font-size: 1rem;
   font-weight: bolder;
+  margin-bottom: .5rem;
 }
 
 .legend__entry {
@@ -73,7 +75,7 @@ p {
 .button__collapsible--minus {
   position: absolute;
   z-index: 30;
-  top: 290px;
+  bottom: 10px;
   right: 10px;
 }
 
@@ -153,25 +155,22 @@ p {
 
   .legend__wrapper {
     left: 0;
-    top: 85px;
+    top: 47px;
   }
 }
 
 .toggle {
-  &__group .toggle__wrapper:not(:last-child) {
-    margin-bottom: 10px;
-  }
-
   &__wrapper {
     align-items: center;
     display: flex;
     flex-direction: row;
+    margin-bottom: 10px;
   }
 
   &__switch {
     display: inline-block;
     height: 14px;
-    margin-right: 16px;
+    margin-right: 10px;
     position: relative;
     width: 30px;
   }
@@ -208,7 +207,6 @@ p {
     cursor: pointer;
     height: 16px;
     left: 0;
-    margin: 0 10px;
     position: absolute;
     right: 0;
     top: 0;
