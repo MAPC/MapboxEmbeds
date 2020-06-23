@@ -24,14 +24,14 @@ const ppiMap = new mapboxgl.Map({
 ppiMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
-  document.querySelector('.map__legend').style.maxHeight = "0";
+  document.querySelector('.legend').style.maxHeight = "0";
   document.querySelector('.maximize-instructions').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'inline';
   document.querySelector('.button__collapsible--minus').style.display = 'none';
 })
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.map__legend').style.maxHeight = "360px";
+  document.querySelector('.legend').style.maxHeight = "360px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';
