@@ -37,6 +37,6 @@ description: "Click to view data visualization"
     <label for="button__collapsible--plus" class="maximize-instructions">Expand legend</label>
     <button type="button" class="button__collapsible button__collapsible--plus">+</button>
   </div>
-
 </aside>
+
 <script src="{{'assets/javascripts/housing-assistance-map.js' | absolute_url }}" type="module"></script>
