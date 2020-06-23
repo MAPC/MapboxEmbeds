@@ -1,4 +1,4 @@
-d3.csv('/mapboxembeds/assets/data/b25041_bedrooms_per_unit_ct.csv')
+d3.csv('/MapboxEmbeds/assets/data/b25041_bedrooms_per_unit_ct.csv')
 .then((response) => {
   let map = new mapboxgl.Map({
     container: 'map',
@@ -12,7 +12,6 @@ d3.csv('/mapboxembeds/assets/data/b25041_bedrooms_per_unit_ct.csv')
     ],
     style: "mapbox://styles/ihill/ck62ok4dd0suv1imvxhizpng2",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
-    hash: true
   });
   const colorPalette = ['#0097c4', '#3b66b0', '#233069', '#111436'];
   const percentagesObj = {};

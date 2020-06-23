@@ -1,4 +1,4 @@
-d3.csv('/mapboxembeds/assets/data/b25041_bedrooms_per_unit_ct.csv')
+d3.csv('/MapboxEmbeds/assets/data/b25041_bedrooms_per_unit_ct.csv')
 .then((response) => {
   let map = new mapboxgl.Map({
     container: 'map',
