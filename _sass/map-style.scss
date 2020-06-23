@@ -53,6 +53,11 @@ p {
     position: absolute;
     right: 0;
     z-index: 10;
+
+    &--datacommon {
+      right: 8px;
+      width: 160px;
+    }
   }
 
   &__title {
@@ -61,10 +66,23 @@ p {
     font-size: 1rem;
     font-weight: bolder;
     margin-bottom: .5rem;
+
+    &--datacommon {
+      color: #1f4e46;
+      font-family: 'Montserrat';
+      font-size: .75rem;
+      font-weight: 700;
+    }
   }
 
   &__entry {
     font-size: .75rem;
+
+    &--datacommon {
+      color: #1f4e46;
+      font-family: 'Montserrat';
+      font-weight: 300;
+    }
   }
 }
 
