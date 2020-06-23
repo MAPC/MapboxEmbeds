@@ -1,9 +1,19 @@
 const colors = ["#6e40aa","#df40a1","#ff704e","#d2c934","#6bf75c","#1bd9ac","#3988e1"];
 const layerTypes = {
   'weststation-point': 'Point',
-  'westation-line': 'Line',
+  'weststation-line': 'Line',
   'weststation-polygon': 'Polygon',
 };
+
+const breakoutRooms = {
+  1: 'Eric B. and Alyssa K.',
+  2: 'Iolando S. and Sarah P.',
+  3: 'Alison F. and Conor G.',
+  4: 'David L. and Caitlin S.',
+  5: 'Tim R. and Ryan K.',
+  6: 'Travis P., Kristen M., and Annabelle T.',
+  7: 'Sarah L. and Marah H.',
+}
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 let center = [-71.14231, 42.35887];
@@ -34,11 +44,12 @@ resultsMap.on('load', () => {
       { layers: ['weststation-point', 'weststation-line', 'weststation-polygon'] },
     );
     const tooltipData = clickedData.map((point) => {
-      let type = layerTypes[`${point.layer.id}`]
+      const type = layerTypes[`${point.layer.id}`];
+      const room = breakoutRooms[`${point.properties.breakout_room}`];
       return `
       <h2>${type}</h2>
       <ul>
-        <li>Breakout room ${point.properties.breakout_room}</li>
+        <li>Breakout room ${point.properties.breakout_room} (${room})</li>
         <li>Question ${point.properties.user__question}</li>
         <li>Title: ${point.properties.user__title}</li>
         <li>Notes: ${point.properties.user__notes}</li>
