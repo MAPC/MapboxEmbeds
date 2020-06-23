@@ -23,30 +23,30 @@ const ppiMap = new mapboxgl.Map({
 });
 ppiMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-// document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
-//   document.querySelector('.map__legend').style.maxHeight = "0";
-//   document.querySelector('.maximize-instructions').style.display = 'inline';
-//   document.querySelector('.button__collapsible--plus').style.display = 'inline';
-//   document.querySelector('.button__collapsible--minus').style.display = 'none';
-// })
+document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
+  document.querySelector('.map__legend').style.maxHeight = "0";
+  document.querySelector('.maximize-instructions').style.display = 'inline';
+  document.querySelector('.button__collapsible--plus').style.display = 'inline';
+  document.querySelector('.button__collapsible--minus').style.display = 'none';
+})
 
-// document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-//   document.querySelector('.map__legend').style.maxHeight = "360px";
-//   document.querySelector('.maximize-instructions').style.display = 'none';
-//   document.querySelector('.button__collapsible--minus').style.display = 'inline';
-//   document.querySelector('.button__collapsible--plus').style.display = 'none';
-// })
+document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
+  document.querySelector('.map__legend').style.maxHeight = "360px";
+  document.querySelector('.maximize-instructions').style.display = 'none';
+  document.querySelector('.button__collapsible--minus').style.display = 'inline';
+  document.querySelector('.button__collapsible--plus').style.display = 'none';
+})
 
-// const borderToggle = document.querySelector('.toggle__input--borders');
-// const roadToggle = document.querySelector('.toggle__input--roads')
-// borderToggle.addEventListener('click', () => {
-//   if (ppiMap.isStyleLoaded()) {
-//     ppiMap.setPaintProperty('mapc-borders', 'line-opacity', (borderToggle.checked ? 1 : 0));
-//   }
-// });
+const borderToggle = document.querySelector('.toggle__input--borders');
+const roadToggle = document.querySelector('.toggle__input--roads')
+borderToggle.addEventListener('click', () => {
+  if (ppiMap.isStyleLoaded()) {
+    ppiMap.setPaintProperty('mapc-borders', 'line-opacity', (borderToggle.checked ? 1 : 0));
+  }
+});
 
-// roadToggle.addEventListener('click', () => {
-//   if (ppiMap.isStyleLoaded()) {
-//     ppiMap.setPaintProperty('roads', 'line-opacity', (roadToggle.checked ? 1 : 0));
-//   }
-// })
+roadToggle.addEventListener('click', () => {
+  if (ppiMap.isStyleLoaded()) {
+    ppiMap.setPaintProperty('roads', 'line-opacity', (roadToggle.checked ? 1 : 0));
+  }
+})
