@@ -1,0 +1,27 @@
+---
+---
+$font_size-base: 16px;
+$font_size-base--rem: 1rem;
+
+html {
+  font-family: 'Open Sans';
+  font-size: 16px;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  color: #231F20;
+  font-size: 1rem;
+  margin: 0;
+}
+
+@import url('https://use.typekit.net/sjn3oqj.css');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,800&display=swap');
+@import 'map-style';
