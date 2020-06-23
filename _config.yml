@@ -22,7 +22,7 @@ title: Mapbox Embeds
 email: ataylor@mapc.org
 description: >- # this means to ignore newlines until "baseurl:"
   Embeddable maps created with Mapbox GL JS
-baseurl: "/mapboxembeds" # the subpath of your site, e.g. /blog
+baseurl: "/MapboxEmbeds" # the subpath of your site, e.g. /blog
 url: "https://mapc.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: mapcmetroboston
 github_username:  mapc

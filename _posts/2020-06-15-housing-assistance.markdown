@@ -4,7 +4,6 @@ title:  "COVID-19 Housing Assistance"
 description: "Click to view data visualization"
 ---
 <main id="map" class="map"></main>
-
 <div class="map__title-box">
   <h1 class="map__title">Estimated Housing Assistance Need After CARES Act Benefits End (Monthly)</h1>
   <h2 class="map__subtitle">Based on May 2nd Unemployment Claims</h2>
