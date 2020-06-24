@@ -88,6 +88,26 @@ p {
 }
 
 
+.questions {
+  display:  flex;
+  flex-direction: column;
+  font-size: 16px;
+  height: 110px;
+  justify-content: space-between;
+  padding: 10px;
+  position: absolute;
+  right: 370px;
+  top: 10px;
+  width: 300px;
+
+  &__controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+}
+
 .button__collapsible--minus {
   position: absolute;
   z-index: 30;

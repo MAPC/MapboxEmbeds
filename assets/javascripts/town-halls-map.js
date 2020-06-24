@@ -1,5 +1,8 @@
 const questionText = document.querySelector('.legend__title');
 const answerText = document.querySelector('.legend__entry');
+const backButton = document.querySelector('.questions__controls--back');
+const forwardButton = document.querySelector('.questions__controls--forward');
+backButton.disabled = true;
 
 d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
   const halls = {};
@@ -13,7 +16,8 @@ d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
     }
   });
   const muniIds = response.map((row) => +row.muni_id);
-  let selectedMuni = halls[`${muniIds[0]}`];
+  let muniIndex = 0;
+  let selectedMuni = halls[`${muniIds[muniIndex]}`];
 
   let zoom = 9;
   let center = [-71.0408, 42.3317];
@@ -93,18 +97,33 @@ d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
     });
   });
 
-  document.querySelector('.questions__controls--forward').addEventListener('click', (e) => {
+  document.querySelector('.questions__controls').addEventListener('click', (e) => {
     if (e.target.className === 'questions__controls--back') {
-      console.log("back")
-
-    } else if (e.target.className === 'questions__controls--forward') {
-      console.log("forward")
-      selectedMuni = halls[`${muniIds[1]}`];
+      selectedMuni = halls[`${muniIds[--muniIndex]}`];
       draw.deleteAll();
       draw.changeMode('draw_point');
       townHallMap.setPaintProperty('town-halls', 'icon-opacity', 0);
       questionText.innerText = `Where is ${selectedMuni.muni}'s ${selectedMuni.muni_type} Hall?`;
       answerText.innerText = '';
+
+    } else if (e.target.className === 'questions__controls--forward') {
+      selectedMuni = halls[`${muniIds[++muniIndex]}`];
+      draw.deleteAll();
+      draw.changeMode('draw_point');
+      townHallMap.setPaintProperty('town-halls', 'icon-opacity', 0);
+      questionText.innerText = `Where is ${selectedMuni.muni}'s ${selectedMuni.muni_type} Hall?`;
+      answerText.innerText = '';
+    }
+
+    if (muniIndex == 0) {
+      backButton.disabled = true;
+      forwardButton.disabled = false;
+    } else if (muniIndex >= muniIds.length - 1) {
+      backButton.disabled = false;
+      forwardButton.disabled = true;
+    } else {
+      backButton.disabled = false;
+      forwardButton.disabled = false;
     }
   })
 });
