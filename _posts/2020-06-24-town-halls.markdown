@@ -4,6 +4,10 @@ title:  "Town Hall Game"
 description: "Click to view data visualization"
 ---
 <main id="map" class="map"></main>
+<aside class="legend__wrapper">
+  <span class="legend__title"></span>
+  <span class="legend__entry"></span>
+</aside>
 
 <link
 rel="stylesheet"
