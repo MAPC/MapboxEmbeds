@@ -7,6 +7,10 @@ description: "Click to view data visualization"
 <aside class="legend__wrapper">
   <span class="legend__title"></span>
   <span class="legend__entry"></span>
+  <p class="questions__controls">
+    <button class="questions__controls--back" disabled>&#8592;</button>
+    <button class="questions__controls--forward">&#8594;</button>
+  </p>
 </aside>
 
 <link

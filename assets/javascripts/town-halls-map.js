@@ -2,6 +2,19 @@ const questionText = document.querySelector('.legend__title');
 const answerText = document.querySelector('.legend__entry');
 
 d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
+  const halls = {};
+  response.forEach((row) => {
+    halls[`${row.muni_id}`] = {
+        muni: row.muni,
+        muni_type: row.muni_type,
+        muni_id: +row.muni_id,
+        lng: +row.lng,
+        lat: +row.lat,
+    }
+  });
+  const muniIds = response.map((row) => +row.muni_id);
+  let selectedMuni = halls[`${muniIds[0]}`];
+
   let zoom = 9;
   let center = [-71.0408, 42.3317];
   if (window.innerWidth <= 500) {
@@ -13,7 +26,7 @@ d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
   }
   const townHallMap = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/ihill/ckbtlib0k0zrq1io0rf4viev8?fresh=true',
+    style: 'mapbox://styles/ihill/ckbtlib0k0zrq1io0rf4viev8',
     center,
     zoom,
     minZoom: 6,
@@ -24,7 +37,6 @@ d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
     ],
     accessToken: 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg',
   });
-  let muniIdToMatch = 35;
   const draw = new MapboxDraw({
     displayControlsDefault: false,
     controls: {}
@@ -36,7 +48,7 @@ d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
   townHallMap.addControl(draw);
   townHallMap.addControl(scale);
   scale.setUnit('imperial');
-  const hallList = response.map((row) => {
+  const featureList = response.map((row) => {
     return {
       type: 'Feature',
       geometry: {
@@ -52,8 +64,6 @@ d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
       }
     }
   })
-
-  const selectedMuni = response.find(row => row.muni_id == muniIdToMatch);
   questionText.innerText = `Where is ${selectedMuni.muni}'s ${selectedMuni.muni_type} Hall?`;
 
   townHallMap.on('load', () => {
@@ -64,7 +74,7 @@ d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
         'type': 'geojson',
         'data': {
           'type': 'FeatureCollection',
-          'features': hallList
+          'features': featureList
         }
       },
       'layout': {
@@ -79,8 +89,22 @@ d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
     townHallMap.on('draw.create', () => {
       const distance = turf.length(turf.lineString([[selectedMuni.lng, selectedMuni.lat], draw.getAll().features[0].geometry.coordinates]), {units: 'miles'});
       answerText.innerText = `Your guess: ${distance.toLocaleString()} miles off`;
-      townHallMap.setPaintProperty('town-halls', 'icon-opacity', ["match", ["get", "muni_id"], [muniIdToMatch], 1, 0]);
+      townHallMap.setPaintProperty('town-halls', 'icon-opacity', ["match", ["get", "muni_id"], [selectedMuni.muni_id], 1, 0]);
     });
-  
   });
+
+  document.querySelector('.questions__controls--forward').addEventListener('click', (e) => {
+    if (e.target.className === 'questions__controls--back') {
+      console.log("back")
+
+    } else if (e.target.className === 'questions__controls--forward') {
+      console.log("forward")
+      selectedMuni = halls[`${muniIds[1]}`];
+      draw.deleteAll();
+      draw.changeMode('draw_point');
+      townHallMap.setPaintProperty('town-halls', 'icon-opacity', 0);
+      questionText.innerText = `Where is ${selectedMuni.muni}'s ${selectedMuni.muni_type} Hall?`;
+      answerText.innerText = '';
+    }
+  })
 });
