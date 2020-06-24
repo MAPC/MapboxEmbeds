@@ -56,6 +56,7 @@ p {
 
     &--datacommon {
       right: 8px;
+      top: 8px;
       width: 160px;
     }
   }
@@ -208,42 +209,52 @@ p {
 @media only screen and (max-width: 700px) {
   .map {
     height: 500px;
-  }
 
-  .map__title-box {
-    max-width: 270px;
-  }
+    &__title-box {
+      max-width: 270px;
+    }
 
-  .map__title {
-    font-size: 1.15rem;
-    line-height: 1.2rem;
-  }
+    &__title {
+      font-size: 1.15rem;
+      line-height: 1.2rem;
+    }
 
-  .map__subtitle {
-    font-size: 1rem;
-    line-height: 1.05rem;
+    &__subtitle {
+      font-size: 1rem;
+      line-height: 1.05rem;
+    }
   }
 }
 
 @media only screen and (max-width: 600px) {
-  .map__title {
-    font-size: 1rem;
-    line-height: 1rem;
-  }
+  .map {
+    &__title {
+      font-size: 1rem;
+      line-height: 1rem;
+    }
 
-  .map__subtitle {
-    font-size: .75rem;
-    line-height: .75rem;
+    &__subtitle {
+      font-size: .75rem;
+      line-height: .75rem;
+    }
   }
 }
 
 @media only screen and (max-width: 500px) {
-  .map__title-box {
-    max-width: 100%;
+  .map {
+    &__title-box {
+      max-width: 100%;
+    }
   }
 
-  .legend__wrapper {
-    left: 0;
-    top: 47px;
+  .legend {
+    &__wrapper {
+      left: 0;
+      top: 47px;
+
+      &--datacommon {
+        top: 0;
+      }
+    }
   }
 }
