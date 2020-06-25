@@ -53,4 +53,13 @@ map.on('load', () => {
     var img = map.getCanvas().toDataURL('image/png')
     document.querySelector('.print').href = img
   })
+
+  map.on('click', 'MAPC municipalities', (e) => {
+    map.setPaintProperty('MAPC municipalities', 'fill-outline-color', ['match', ['get', 'muni_id'], [e.features[0].properties.muni_id], 'red', 'hsla(140, 0%, 0%, 0)'])
+    new mapboxgl.Popup()
+    .setLngLat(e.lngLat)
+    .setHTML(e.features[0].properties.municipal)
+    .addTo(map);
+  })
+  console.log(map.getStyle())
 })
