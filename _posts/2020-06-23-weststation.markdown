@@ -4,7 +4,7 @@ title:  "West Station Results"
 description: "Click to view data visualization"
 ---
 <main id="map" class="map"></main>
-<aside class="legend__wrapper">
+<aside class="legend__wrapper legend__wrapper--datacommon">
   <div class="legend" style="max-height: 360px;">
     <span class="legend__title">Breakout Room</span>
     <svg height="190" width="160">

@@ -5,7 +5,7 @@ description: "Click to view data visualization"
 ---
 <main id="map" class="map"></main>
 <aside class="legend__wrapper legend__wrapper--datacommon">
-  <svg height='188' width='160' class='legend'>
+  <svg height='170' width='168' class='legend'>
     <rect x='10' y='11' width='16' height='16' style='fill:#0097c4; stroke: black; stroke-width: 1px;'></rect>
     <text x='32' y='23' class='legend__entry legend__entry--datacommon'>0%-25%</text>
     <rect x='10' y='39' width='16' height='16' style='fill:#3b66b0; stroke: black; stroke-width: 1px;'></rect>
@@ -24,7 +24,7 @@ description: "Click to view data visualization"
   </svg>
   <button type="button" class="button__collapsible button__collapsible--minus">-</button>
   <div>
-    <label for="button__collapsible--plus" class="maximize-instructions legend__entry--datacommon">Expand legend</label>
+    <label for="button__collapsible--plus" class="maximize-instructions legend__entry legend__entry--datacommon">Expand legend</label>
     <button type="button" class="button__collapsible button__collapsible--plus">+</button>
   </div>
 </aside>

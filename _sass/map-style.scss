@@ -64,7 +64,6 @@ p {
     &--datacommon {
       right: 8px;
       top: 8px;
-      width: 160px;
     }
   }
 
@@ -270,8 +269,8 @@ p {
     }
 
     &__title-box {
-      position: unset;
       max-width: 100%;
+      position: unset;
     }
   }
 
@@ -281,14 +280,13 @@ p {
     }
   }
 
-  // .legend {
-  //   &__wrapper {
-  //     left: 0;
-  //     // top: 47px;
-
-  //     &--datacommon {
-  //       top: 0;
-  //     }
-  //   }
-  // }
+  .legend {
+    &__wrapper {
+      &--datacommon {
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+    }
+  }
 }
