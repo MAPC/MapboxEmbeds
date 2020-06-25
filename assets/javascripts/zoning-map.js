@@ -54,6 +54,16 @@ map.on('load', () => {
     document.querySelector('.print').href = img
   })
 
+  // Can't query based on conditional styling, but can based on property matches; will need to do this alongside setting paint property (opacity)
+  // when filtering features
+  map.setPaintProperty('Testing Centers', 'circle-color', ['match', ['get', 'FID'], [36], 'blue', 'white'])
+  map.on('click', 'Testing Centers', (e) => {
+    if (e.features[0].properties.status == 'Remove') {
+      console.log("!")
+    }
+    console.log(e.features[0])
+  })
+
   map.on('click', 'MAPC municipalities', (e) => {
     map.setPaintProperty('MAPC municipalities', 'fill-outline-color', ['match', ['get', 'muni_id'], [e.features[0].properties.muni_id], 'red', 'hsla(140, 0%, 0%, 0)'])
     new mapboxgl.Popup()
