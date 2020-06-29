@@ -11,7 +11,7 @@ if (window.innerWidth <= 500) {
 
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/ihill/ck92yirkh2mt71ho83t7y60m9',
+  style: 'mapbox://styles/ihill/ckbwj9b7t16h11htdrlq9ondi/draft',
   center,
   zoom,
   minZoom: 6,
@@ -24,6 +24,8 @@ const map = new mapboxgl.Map({
 });
 
 
+
+
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 map.addControl(new mapboxgl.GeolocateControl(), 'top-left');
 map.addControl(
@@ -33,6 +35,7 @@ map.addControl(
     bbox: [-73.613892, 41.199323, -69.631348, 42.960443], // Northeast bound
   }), 'top-left'
 );
+map.scrollZoom.disable();
 
 map.on('load', () => {
   map.addLayer({
@@ -49,20 +52,65 @@ map.on('load', () => {
       'circle-stroke-color': '#03332D',
     },
   });
-  document.querySelector('.print').addEventListener('click', (e) => {
-    var img = map.getCanvas().toDataURL('image/png')
-    document.querySelector('.print').href = img
-  })
 
-  // Can't query based on conditional styling, but can based on property matches; will need to do this alongside setting paint property (opacity)
-  // when filtering features
-  map.setPaintProperty('Testing Centers', 'circle-color', ['match', ['get', 'FID'], [36], 'blue', 'white'])
-  map.on('click', 'Testing Centers', (e) => {
-    if (e.features[0].properties.status == 'Remove') {
-      console.log("!")
+  map.addLayer({
+    id: 'Existing Unimproved Shared Use Paths',
+    type: 'line',
+    'source-layer': 'Existing Unimproved Shared Use Paths',
+    layout: {
+      'line-cap': 'butt',
+      'line-join': 'miter',
+      'visibility': 'none',
+    },
+    paint: {
+      'line-color': '#4BAA40',
+      'line-width': 2,
+    },
+    source: {
+      type: 'vector',
+      id: 'MAPC trail vector tiles',
+      tiles: ['https://tiles.arcgis.com/tiles/c5WwApDsDjRhIVkH/arcgis/rest/services/Walking_trail_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf'],
     }
-    console.log(e.features[0])
   })
+  var activeChapterName = 'item1';
+
+
+  document.onscroll = function(e) {
+    var chapterNames = ['item1', 'item2', 'item3']
+    for (var i = 0; i < chapterNames.length; i++) {
+      var chapterName = chapterNames[i]
+        if (isElementOnScreen(chapterName)) {
+          setActiveChapter(chapterName);
+          break;
+      }
+    }
+  };
+  
+  function isElementOnScreen(id) {
+    var element = document.getElementById(id);
+    var bounds = element.getBoundingClientRect();
+    return bounds.top < window.innerHeight && bounds.bottom > 0;
+  }
+  
+
+  function setActiveChapter(chapterName) {
+    if (chapterName === activeChapterName) return;
+    if (chapterName === 'item1') {
+      map.setLayoutProperty('Existing Unimproved Shared Use Paths', 'visibility', 'none')
+      map.setLayoutProperty('Testing Centers', 'visibility', 'visible');    
+    } else if (chapterName === 'item2') {
+      map.setLayoutProperty('Testing Centers', 'visibility', 'none');
+      map.setLayoutProperty('Existing Unimproved Shared Use Paths', 'visibility', 'visible')
+    } else if (chapterName === 'item3') {
+      map.setLayoutProperty('Testing Centers', 'visibility', 'visible');
+      map.setLayoutProperty('Existing Unimproved Shared Use Paths', 'visibility', 'visible')
+    }
+    activeChapterName = chapterName;
+  }
+  // document.querySelector('.print').addEventListener('click', (e) => {
+  //   var img = map.getCanvas().toDataURL('image/png')
+  //   document.querySelector('.print').href = img
+  // })
 
   map.on('click', 'MAPC municipalities', (e) => {
     map.setPaintProperty('MAPC municipalities', 'fill-outline-color', ['match', ['get', 'muni_id'], [e.features[0].properties.muni_id], 'red', 'hsla(140, 0%, 0%, 0)'])
@@ -71,5 +119,5 @@ map.on('load', () => {
     .setHTML(e.features[0].properties.municipal)
     .addTo(map);
   })
-  console.log(map.getStyle())
+  // console.log(map.getStyle())
 })

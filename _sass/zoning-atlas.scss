@@ -1,0 +1,32 @@
+main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.map {
+  position: fixed;
+  right: 0;
+  width: calc(100% - 300px);
+}
+
+.sidebar {
+  width: 300px;
+  
+  &__item {
+    height: 100%;
+  }
+}
+
+.legend__wrapper {
+  position: fixed;
+  top: 0;
+}
+
+#item1 {
+  background: pink;
+}
+
+#item2 {
+  background: lightskyblue;
+}
