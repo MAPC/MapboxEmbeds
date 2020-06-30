@@ -1,20 +1,19 @@
-main {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
 .map {
   position: fixed;
   right: 0;
-  width: calc(100% - 300px);
+  width: calc(100% - 320px);
 }
 
 .sidebar {
-  width: 300px;
-  
-  &__item {
-    height: 100%;
+  width: 320px;
+}
+
+.panel {
+  opacity: .5;
+  padding: 2rem 3rem;
+
+  &--active {
+    opacity: 1;
   }
 }
 
@@ -23,10 +22,8 @@ main {
   top: 0;
 }
 
-#item1 {
-  background: pink;
+.mapboxgl-ctrl-top-left {
+  display: flex;
+  flex-direction: row;
 }
 
-#item2 {
-  background: lightskyblue;
-}

@@ -11,7 +11,7 @@ if (window.innerWidth <= 500) {
 
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/ihill/ckbwj9b7t16h11htdrlq9ondi/draft',
+  style: 'mapbox://styles/ihill/ckbwj9b7t16h11htdrlq9ondi',
   center,
   zoom,
   minZoom: 6,
@@ -20,7 +20,7 @@ const map = new mapboxgl.Map({
     [-74.728, 38.167], // Southwest bound
     [-66.541, 46.032], // Northeast bound
   ],
-  preserveDrawingBuffer: true
+  preserveDrawingBuffer: true,
 });
 
 
@@ -38,49 +38,20 @@ map.addControl(
 map.scrollZoom.disable();
 
 map.on('load', () => {
-  map.addLayer({
-    id: 'Testing Centers',
-    type: 'circle',
-    source: {
-      type: 'geojson',
-      data: 'https://services1.arcgis.com/TXaY625xGc0yvAuQ/arcgis/rest/services/Test_Sites_Public/FeatureServer/0/query?where=OBJECTID_1+%3D+OBJECTID_1&outfields=*&f=pgeojson',
-    },
-    paint: {
-      'circle-color': '#FFFFFF',
-      'circle-radius': 4,
-      'circle-stroke-width': 1,
-      'circle-stroke-color': '#03332D',
-    },
-  });
-
-  map.addLayer({
-    id: 'Existing Unimproved Shared Use Paths',
-    type: 'line',
-    'source-layer': 'Existing Unimproved Shared Use Paths',
-    layout: {
-      'line-cap': 'butt',
-      'line-join': 'miter',
-      'visibility': 'none',
-    },
-    paint: {
-      'line-color': '#4BAA40',
-      'line-width': 2,
-    },
-    source: {
-      type: 'vector',
-      id: 'MAPC trail vector tiles',
-      tiles: ['https://tiles.arcgis.com/tiles/c5WwApDsDjRhIVkH/arcgis/rest/services/Walking_trail_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf'],
-    }
-  })
-  var activeChapterName = 'item1';
-
-
+  let activePanel = 'item1';
+  map.setPaintProperty('Zone Types', 'fill-opacity', 1);
+  map.setPaintProperty('MultiFamily Housing', 'fill-opacity', 0)
+  map.setPaintProperty('DU per acre', 'fill-opacity', 0)
+  map.setPaintProperty('Density Overlay - No impact', 'fill-opacity', 0)
+  map.setPaintProperty('Density Overlay - Decreased density', 'fill-opacity', 0)
+  map.setPaintProperty('Density Overlay - Increased Density', 'fill-opacity', 0)
+  map.setPaintProperty('Effective FAR', 'fill-opacity', 0)
   document.onscroll = function(e) {
-    var chapterNames = ['item1', 'item2', 'item3']
-    for (var i = 0; i < chapterNames.length; i++) {
-      var chapterName = chapterNames[i]
-        if (isElementOnScreen(chapterName)) {
-          setActiveChapter(chapterName);
+    var panels = ['item1', 'item2', 'item3', 'item4', 'item5', 'item6']
+    for (var i = 0; i < panels.length; i++) {
+      var currentPanel = panels[i]
+        if (isElementOnScreen(currentPanel)) {
+          setActivePanel(currentPanel);
           break;
       }
     }
@@ -93,31 +64,98 @@ map.on('load', () => {
   }
   
 
-  function setActiveChapter(chapterName) {
-    if (chapterName === activeChapterName) return;
-    if (chapterName === 'item1') {
-      map.setLayoutProperty('Existing Unimproved Shared Use Paths', 'visibility', 'none')
-      map.setLayoutProperty('Testing Centers', 'visibility', 'visible');    
-    } else if (chapterName === 'item2') {
-      map.setLayoutProperty('Testing Centers', 'visibility', 'none');
-      map.setLayoutProperty('Existing Unimproved Shared Use Paths', 'visibility', 'visible')
-    } else if (chapterName === 'item3') {
-      map.setLayoutProperty('Testing Centers', 'visibility', 'visible');
-      map.setLayoutProperty('Existing Unimproved Shared Use Paths', 'visibility', 'visible')
-    }
-    activeChapterName = chapterName;
-  }
-  // document.querySelector('.print').addEventListener('click', (e) => {
-  //   var img = map.getCanvas().toDataURL('image/png')
-  //   document.querySelector('.print').href = img
-  // })
+  function setActivePanel(currentPanel) {
+    if (currentPanel === activePanel) return;
+    document.getElementById(currentPanel).classList.add('panel--active')
+    document.getElementById(activePanel).classList.remove('panel--active')
+    if (currentPanel === 'item1') {
+      map.setPaintProperty('Zone Types', 'fill-opacity', 1);
+      map.setPaintProperty('MultiFamily Housing', 'fill-opacity', 0)
+      map.setPaintProperty('DU per acre', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - No impact', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Decreased density', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Increased Density', 'fill-opacity', 0)
+      map.setPaintProperty('Effective FAR', 'fill-opacity', 0)
+    } else if (currentPanel === 'item2') {
+      map.setPaintProperty('Zone Types', 'fill-opacity', 0);
+      map.setPaintProperty('MultiFamily Housing', 'fill-opacity', 1)
+      map.setPaintProperty('DU per acre', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - No impact', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Decreased density', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Increased Density', 'fill-opacity', 0)
+      map.setPaintProperty('Effective FAR', 'fill-opacity', 0)
+    } else if (currentPanel === 'item3') {
+      map.setPaintProperty('Zone Types', 'fill-opacity', 0);
+      map.setPaintProperty('MultiFamily Housing', 'fill-opacity', 0)
+      map.setPaintProperty('DU per acre', 'fill-opacity', 1)
+      map.setPaintProperty('Density Overlay - No impact', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Decreased density', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Increased Density', 'fill-opacity', 0)
+      map.setPaintProperty('Effective FAR', 'fill-opacity', 0)
+      map.flyTo({
+        center: [-71.0408, 42.3317],
+        zoom: 9,
+        bearing: 0,
+        speed: 1,
+        curve: 1,
+        easing: function(t) {
+          return t;
+        },
+        essential: true
+      })
+    } else if (currentPanel === 'item4') {
+      map.setPaintProperty('Zone Types', 'fill-opacity', 0);
+      map.setPaintProperty('MultiFamily Housing', 'fill-opacity', 0)
+      map.setPaintProperty('DU per acre', 'fill-opacity', 1)
+      map.setPaintProperty('Density Overlay - No impact', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Decreased density', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Increased Density', 'fill-opacity', 0)
+      map.setPaintProperty('Effective FAR', 'fill-opacity', 0)
+      map.flyTo({
+          center: [-71.0909, 42.3365],
+          zoom: 11,
+          bearing: 0,
+          speed: 1, // make the flying slow
+          curve: 1, // change the speed at which it zooms out
+          easing: function(t) {
+            return t;
+          },
+          essential: true
+      })
+    } else if (currentPanel === 'item5') {
+      map.flyTo({
+        center: [-71.0408, 42.3317],
+        zoom: 9,
+        bearing: 0,
+        speed: 1, // make the flying slow
+        curve: 1, // change the speed at which it zooms out
+        easing: function(t) {
+          return t;
+        },
+        essential: true
+    })
+      map.setPaintProperty('Zone Types', 'fill-opacity', 0);
+      map.setPaintProperty('MultiFamily Housing', 'fill-opacity', 0)
+      map.setPaintProperty('DU per acre', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - No impact', 'fill-opacity', 1)
+      map.setPaintProperty('Density Overlay - Decreased density', 'fill-opacity', 1)
+      map.setPaintProperty('Density Overlay - Increased Density', 'fill-opacity', 1)
+      map.setPaintProperty('Effective FAR', 'fill-opacity', 0)
 
-  map.on('click', 'MAPC municipalities', (e) => {
-    map.setPaintProperty('MAPC municipalities', 'fill-outline-color', ['match', ['get', 'muni_id'], [e.features[0].properties.muni_id], 'red', 'hsla(140, 0%, 0%, 0)'])
-    new mapboxgl.Popup()
-    .setLngLat(e.lngLat)
-    .setHTML(e.features[0].properties.municipal)
-    .addTo(map);
+    } else if (currentPanel === 'item6') {
+      map.setPaintProperty('Zone Types', 'fill-opacity', 0);
+      map.setPaintProperty('MultiFamily Housing', 'fill-opacity', 0)
+      map.setPaintProperty('DU per acre', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - No impact', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Decreased density', 'fill-opacity', 0)
+      map.setPaintProperty('Density Overlay - Increased Density', 'fill-opacity', 0)
+      map.setPaintProperty('Effective FAR', 'fill-opacity', 1)
+    }
+    activePanel = currentPanel;
+  }
+  
+  document.querySelector('.print').addEventListener('click', (e) => {
+    var img = map.getCanvas().toDataURL('image/png')
+    document.querySelector('.print').href = img
   })
-  // console.log(map.getStyle())
 })
