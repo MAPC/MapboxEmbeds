@@ -27,14 +27,6 @@ const map = new mapboxgl.Map({
 
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-map.addControl(new mapboxgl.GeolocateControl(), 'top-left');
-map.addControl(
-  new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl,
-    bbox: [-73.613892, 41.199323, -69.631348, 42.960443], // Northeast bound
-  }), 'top-left'
-);
 map.scrollZoom.disable();
 
 map.on('load', () => {
@@ -153,9 +145,4 @@ map.on('load', () => {
     }
     activePanel = currentPanel;
   }
-  
-  document.querySelector('.print').addEventListener('click', (e) => {
-    var img = map.getCanvas().toDataURL('image/png')
-    document.querySelector('.print').href = img
-  })
 })
