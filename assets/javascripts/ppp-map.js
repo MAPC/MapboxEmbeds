@@ -10,7 +10,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       [-74.728, 38.167], // Southwest bound
       [-66.541, 46.032], // Northeast bound
     ],
-    style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp/draft",
+    style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
   });
   const colorPalette = ['#0097c4', '#3b66b0', '#233069', '#111436'];
@@ -39,6 +39,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     return zipCodes
   }, []);
 
+  console.log(loansByMuni)
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
     const muniColor = d3.scaleQuantize()
@@ -48,9 +49,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     loansByMuni.forEach((row) => {
       muniColorExpression.push(row.muni, muniColor(+row.loans))
     });
-    muniColorExpression.push('#B57F00');
-
-    // // // // //
+    muniColorExpression.push('#bfbeba');
 
     const colorZipcodes = d3.scaleQuantize()
       .domain([0, d3.max(loansByZip.map(d => d.loans))])
@@ -59,8 +58,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     loansByZip.forEach((row) => {
       zipColorExpression.push(`0${row.zip}`, colorZipcodes(+row.loans))
     })
-    zipColorExpression.push('#B57F00');
-
+    zipColorExpression.push('#bfbeba');
     map.addLayer({
       id: 'Muni choropleth',
       type: 'fill',
@@ -70,7 +68,6 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
         'fill-color': muniColorExpression
       }
     })
-
     map.addLayer({
       id: 'Muni borders',
       type: 'line',
@@ -80,7 +77,6 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
         'line-color': 'black',
       }
     })
-
     map.addLayer({
       id: 'ZIP choropleth',
       type: 'fill',
@@ -88,9 +84,11 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       'source-layer': 'ZipCodes-a3m7xa',
       paint: {
         'fill-color': zipColorExpression
+      },
+      layout: {
+        'visibility': 'none',
       }
     })
-
     map.addLayer({
       id: 'ZIP borders',
       type: 'line',
@@ -98,11 +96,50 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       'source-layer': 'ZipCodes-a3m7xa',
       paint: {
         'line-color': 'black',
+      },
+      layout: {
+        'visibility': 'none',
       }
     })
-  });
-})
 
+    map.on('click', 'Muni choropleth', function(e) {
+      const pppLoan = loansByMuni.find(row => row.muni === e.features[0].properties.muni).loans
+      const tooltipHtml = `
+      <p class="tooltip__title">${e.features[0].properties.muni}</p>
+      <p class="tooltip__text">${pppLoan}</p>
+    `;
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(tooltipHtml)
+        .addTo(map);
+    })
+
+    map.on('click', 'ZIP choropleth', function(e) {
+      const pppLoan = loansByZip.find(row => `0${row.zip}` == e.features[0].properties.POSTCODE).loans
+      const tooltipHtml = `
+      <p class="tooltip__title">${e.features[0].properties.POSTCODE}</p>
+      <p class="tooltip__text">${pppLoan}</p>
+    `;
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(tooltipHtml)
+        .addTo(map);
+    })
+  });
+  document.querySelector('.legend__controls').addEventListener('click', (e) => {
+    if (e.target.id === 'muni') {
+      map.setLayoutProperty('Muni choropleth', 'visibility', 'visible');
+      map.setLayoutProperty('Muni borders', 'visibility', 'visible');
+      map.setLayoutProperty('ZIP choropleth', 'visibility', 'none');
+      map.setLayoutProperty('ZIP borders', 'visibility', 'none');
+    } else {
+      map.setLayoutProperty('Muni choropleth', 'visibility', 'none');
+      map.setLayoutProperty('Muni borders', 'visibility', 'none');
+      map.setLayoutProperty('ZIP choropleth', 'visibility', 'visible');
+      map.setLayoutProperty('ZIP borders', 'visibility', 'visible');
+    }
+  })
+})
 
 document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
   document.querySelector('.legend').style.maxHeight = "0";
@@ -112,7 +149,7 @@ document.querySelector('.button__collapsible--minus').addEventListener('click', 
 })
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.legend').style.maxHeight = "188px";
+  document.querySelector('.legend').style.maxHeight = "221px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';
