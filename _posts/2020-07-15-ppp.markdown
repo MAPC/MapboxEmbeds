@@ -12,6 +12,13 @@ description: "Click to view data visualization"
       <br />
       <input type="radio" id="zip" name="view" autocomplete="off">
       <label for="zip" class='legend__entry legend__entry--datacommon'>ZIP codes</label>
+      <div class="toggle__wrapper">
+        <label class="toggle__switch">
+          <input type="checkbox" class="toggle__input toggle__input--envjustice" autocomplete="off" id="envjustice" />
+          <span class="toggle__circle"></span>
+        </label>
+        <span class="legend__entry legend__entry--datacommon">Environmental Justice communities</span>
+      </div>
     </form>
     <svg height='170' width='168'>
       <rect x='10' y='11' width='16' height='16' style='fill:#0097c4; stroke: black; stroke-width: 1px;'></rect>

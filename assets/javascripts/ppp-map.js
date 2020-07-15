@@ -10,7 +10,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       [-74.728, 38.167], // Southwest bound
       [-66.541, 46.032], // Northeast bound
     ],
-    style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
+    style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp?fresh=true",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
   });
   const colorPalette = ['#0097c4', '#3b66b0', '#233069', '#111436'];
@@ -39,7 +39,6 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     return zipCodes
   }, []);
 
-  console.log(loansByMuni)
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
     const muniColor = d3.scaleQuantize()
@@ -81,7 +80,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       id: 'ZIP choropleth',
       type: 'fill',
       source: 'composite',
-      'source-layer': 'ZipCodes-a3m7xa',
+      'source-layer': 'ZipCodes',
       paint: {
         'fill-color': zipColorExpression
       },
@@ -93,7 +92,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       id: 'ZIP borders',
       type: 'line',
       source: 'composite',
-      'source-layer': 'ZipCodes-a3m7xa',
+      'source-layer': 'ZipCodes',
       paint: {
         'line-color': 'black',
       },
@@ -125,18 +124,30 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
         .setHTML(tooltipHtml)
         .addTo(map);
     })
+
+    map.moveLayer('Muni choropleth', 'Environmental Justice');
+    map.moveLayer('ZIP choropleth', 'Environmental Justice');
+
+    console.log(map.getStyle())
   });
+
   document.querySelector('.legend__controls').addEventListener('click', (e) => {
     if (e.target.id === 'muni') {
       map.setLayoutProperty('Muni choropleth', 'visibility', 'visible');
       map.setLayoutProperty('Muni borders', 'visibility', 'visible');
       map.setLayoutProperty('ZIP choropleth', 'visibility', 'none');
       map.setLayoutProperty('ZIP borders', 'visibility', 'none');
-    } else {
+    } else if (e.target.id === 'zip') {
       map.setLayoutProperty('Muni choropleth', 'visibility', 'none');
       map.setLayoutProperty('Muni borders', 'visibility', 'none');
       map.setLayoutProperty('ZIP choropleth', 'visibility', 'visible');
       map.setLayoutProperty('ZIP borders', 'visibility', 'visible');
+    } else if (e.target.id === 'envjustice') {
+      if (e.target.checked) {
+        map.setPaintProperty('Environmental Justice', 'fill-opacity', 1);
+      } else {
+        map.setPaintProperty('Environmental Justice', 'fill-opacity', 0);
+      }
     }
   })
 })
