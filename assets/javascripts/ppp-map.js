@@ -10,7 +10,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       [-74.728, 38.167], // Southwest bound
       [-66.541, 46.032], // Northeast bound
     ],
-    style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
+    style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp/draft",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
   });
   const colorPalette = ['#0097c4', '#3b66b0', '#233069', '#111436'];
@@ -31,7 +31,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     let zip = zipCodes.find(row => { return row.zip == loan.Zip })
     if (!zip) {
       zip = {
-        zip: +loan.Zip,
+        zip: loan.Zip,
         loans: 0,
       }
       zipCodes.push(zip)
@@ -42,7 +42,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
 
   console.log(loansByMuni)
   console.log(loansByZip)
-  
+
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
     const colorPolygon = d3.scaleQuantize()
@@ -58,8 +58,15 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     colorExpressionOutsideMapc.push('#B57F00');
 
     const colorZipcodes = d3.scaleQuantize()
-      .domain([0,1])
+      .domain([0, d3.max(loansByZip.map(d => d.loans))])
       .range(colorPalette)
+
+    const colorZipcodesMatch = ['match', ['get', 'POSTCODE']];
+    loansByZip.forEach((row) => {
+      colorZipcodesMatch.push(`0${row.zip}`, colorZipcodes(+row.loans))
+    })
+    colorZipcodesMatch.push('#B57F00');
+
     map.addLayer({
       id: 'tracts-choropleth',
       type: 'fill',
@@ -96,6 +103,16 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
         'line-color': 'black',
       },
     });
+
+    map.addLayer({
+      id: 'ZIP choropleth',
+      type: 'fill',
+      source: 'composite',
+      'source-layer': 'ZipCodes-a3m7xa',
+      paint: {
+        'fill-color': colorZipcodesMatch
+      }
+    })
   });
 })
 
