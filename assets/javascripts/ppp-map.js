@@ -26,7 +26,6 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     municipality.loans += 1;
     return municipalities
   }, []);
-
   const loansByZip = response.reduce((zipCodes, loan) => {
     let zip = zipCodes.find(row => { return row.zip == loan.Zip })
     if (!zip) {
@@ -40,69 +39,47 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     return zipCodes
   }, []);
 
-  console.log(loansByMuni)
-  console.log(loansByZip)
-
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
-    const colorPolygon = d3.scaleQuantize()
+    const muniColor = d3.scaleQuantize()
       .domain([0,8000])
       .range(colorPalette);
-    const colorExpression = ['match', ['upcase', ['get', 'municipal']]];
-    const colorExpressionOutsideMapc = ['match', ['upcase', ['get', 'town']]];
+    const muniColorExpression = ['match', ['get', 'muni']];
     loansByMuni.forEach((row) => {
-      colorExpression.push(row.muni, colorPolygon(+row.loans))
-      colorExpressionOutsideMapc.push(row.muni, colorPolygon(+row.loans))
+      muniColorExpression.push(row.muni, muniColor(+row.loans))
     });
-    colorExpression.push('#B57F00');
-    colorExpressionOutsideMapc.push('#B57F00');
+    muniColorExpression.push('#B57F00');
+
+    // // // // //
 
     const colorZipcodes = d3.scaleQuantize()
       .domain([0, d3.max(loansByZip.map(d => d.loans))])
       .range(colorPalette)
-
-    const colorZipcodesMatch = ['match', ['get', 'POSTCODE']];
+    const zipColorExpression = ['match', ['get', 'POSTCODE']];
     loansByZip.forEach((row) => {
-      colorZipcodesMatch.push(`0${row.zip}`, colorZipcodes(+row.loans))
+      zipColorExpression.push(`0${row.zip}`, colorZipcodes(+row.loans))
     })
-    colorZipcodesMatch.push('#B57F00');
+    zipColorExpression.push('#B57F00');
 
     map.addLayer({
-      id: 'tracts-choropleth',
+      id: 'Muni choropleth',
       type: 'fill',
       source: 'composite',
-      'source-layer': 'Muni_Divisions-8ix6ih',
+      'source-layer': 'CovidHousingAssistance',
       paint: {
-        'fill-color': colorExpression,
-      },
-    });
+        'fill-color': muniColorExpression
+      }
+    })
+
     map.addLayer({
-      id: 'tracts-choropleth2',
-      type: 'fill',
-      source: 'composite',
-      'source-layer': 'MA_outside_mapc-93a45c',
-      paint: {
-        'fill-color': colorExpressionOutsideMapc,
-      },
-    });
-    map.addLayer({
-      id: 'MAPC borders',
+      id: 'Muni borders',
       type: 'line',
       source: 'composite',
-      'source-layer': 'Muni_Divisions-8ix6ih',
+      'source-layer': 'CovidHousingAssistance',
       paint: {
         'line-color': 'black',
-      },
-    });
-    map.addLayer({
-      id: 'MA borders',
-      type: 'line',
-      source: 'composite',
-      'source-layer': 'MA_outside_mapc-93a45c',
-      paint: {
-        'line-color': 'black',
-      },
-    });
+      }
+    })
 
     map.addLayer({
       id: 'ZIP choropleth',
@@ -110,7 +87,17 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       source: 'composite',
       'source-layer': 'ZipCodes-a3m7xa',
       paint: {
-        'fill-color': colorZipcodesMatch
+        'fill-color': zipColorExpression
+      }
+    })
+
+    map.addLayer({
+      id: 'ZIP borders',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'ZipCodes-a3m7xa',
+      paint: {
+        'line-color': 'black',
       }
     })
   });
