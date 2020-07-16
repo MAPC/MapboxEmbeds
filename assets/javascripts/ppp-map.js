@@ -86,16 +86,8 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       source: 'composite',
       'source-layer': 'CovidHousingAssistance',
       paint: {
-        'fill-color': muniColorExpression
-      }
-    })
-    map.addLayer({
-      id: 'Muni borders',
-      type: 'line',
-      source: 'composite',
-      'source-layer': 'CovidHousingAssistance',
-      paint: {
-        'line-color': 'black',
+        'fill-color': muniColorExpression,
+        'fill-outline-color': 'black',
       }
     })
     map.addLayer({
@@ -104,19 +96,8 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       source: 'composite',
       'source-layer': 'ZipCodes',
       paint: {
-        'fill-color': zipColorExpression
-      },
-      layout: {
-        'visibility': 'none',
-      }
-    })
-    map.addLayer({
-      id: 'ZIP borders',
-      type: 'line',
-      source: 'composite',
-      'source-layer': 'ZipCodes',
-      paint: {
-        'line-color': 'black',
+        'fill-color': zipColorExpression,
+        'fill-outline-color': 'black',
       },
       layout: {
         'visibility': 'none',
@@ -126,8 +107,8 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     map.on('click', 'Muni choropleth', function(e) {
       const pppLoan = loansByMuni.find(row => row.muni === e.features[0].properties.muni).loans
       const tooltipHtml = `
-      <p class="tooltip__title">${e.features[0].properties.muni}</p>
-      <p class="tooltip__text">${pppLoan}</p>
+      <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.muni}</p>
+      <p class="tooltip__text tooltip__text--datacommon">${d3.format(',')(pppLoan)} loans under $150K</p>
     `;
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
@@ -137,8 +118,8 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     map.on('click', 'ZIP choropleth', function(e) {
       const pppLoan = loansByZip.find(row => `0${row.zip}` == e.features[0].properties.POSTCODE).loans
       const tooltipHtml = `
-      <p class="tooltip__title">${e.features[0].properties.POSTCODE}</p>
-      <p class="tooltip__text">${pppLoan}</p>
+      <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.POSTCODE}</p>
+      <p class="tooltip__text tooltip__text--datacommon">${d3.format(',')(pppLoan)} loans under $150K</p>
     `;
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
@@ -150,6 +131,16 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     map.moveLayer('Future Flood 8');
     map.moveLayer('Future Flood 339');
     map.moveLayer('Environmental Justice');
+    map.addLayer({
+      id: 'Muni borders',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'CovidHousingAssistance',
+      paint: {
+        'line-color': 'black',
+      }
+    })
+    map.moveLayer('MAPC outline')
   });
 
   
@@ -157,23 +148,19 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     switch(e.target.id) {
       case 'muni':
         map.setLayoutProperty('Muni choropleth', 'visibility', 'visible');
-        map.setLayoutProperty('Muni borders', 'visibility', 'visible');
         map.setLayoutProperty('ZIP choropleth', 'visibility', 'none');
-        map.setLayoutProperty('ZIP borders', 'visibility', 'none');
-        legend1.textContent = "1–⁠99"
-        legend2.textContent = "100–4⁠99"
-        legend3.textContent = "500–14⁠99"
-        legend4.textContent = "1500+"
+        legend1.textContent = "1–⁠99 loans"
+        legend2.textContent = "100–4⁠99 loans"
+        legend3.textContent = "500–14⁠99 loans"
+        legend4.textContent = "1500+ loans"
         break;
       case 'zip':
         map.setLayoutProperty('Muni choropleth', 'visibility', 'none');
-        map.setLayoutProperty('Muni borders', 'visibility', 'none');
         map.setLayoutProperty('ZIP choropleth', 'visibility', 'visible');
-        map.setLayoutProperty('ZIP borders', 'visibility', 'visible');
-        legend1.textContent = "1–⁠99"
-        legend2.textContent = "100–249"
-        legend3.textContent = "250–4⁠99"
-        legend4.textContent = "500+"
+        legend1.textContent = "1–⁠99 loans"
+        legend2.textContent = "100–249 loans"
+        legend3.textContent = "250–4⁠99 loans"
+        legend4.textContent = "500+ loans"
         break;
       case 'envjustice':
         if (e.target.checked) {
@@ -228,7 +215,7 @@ document.querySelector('.button__collapsible--minus').addEventListener('click', 
 })
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.legend').style.maxHeight = "291px";
+  document.querySelector('.legend').style.maxHeight = "400px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';

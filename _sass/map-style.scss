@@ -140,12 +140,24 @@ p {
 
   &__title {
     font-weight: bold;
+
+    &--datacommon {
+      color: #1f4e46;
+      font-family: 'Montserrat';
+      font-size: .75rem;
+      font-weight: 700;
+    }
   }
 
   &__text {
     font-size: .75rem;
     line-height: 1rem;
     margin: 0;
+
+    &--datacommon {
+      color: #1f4e46;
+      font-family: 'Montserrat';
+    }
   }
 }
 

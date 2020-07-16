@@ -5,7 +5,7 @@ description: "Click to view data visualization"
 ---
 <main id="map" class="map"></main>
 <aside class="legend__wrapper legend__wrapper--datacommon" style="display: none;">
-  <div class="legend">
+  <div class="legend" style="max-height: 400px;">
     <form class="legend__controls">
       <span class="legend__title legend__title--datacommon">Views</span>
       <div class="toggle__wrapper">
@@ -59,22 +59,17 @@ description: "Click to view data visualization"
         <span class="legend__entry legend__entry--datacommon" style="margin-left: 10px;">Environmental Justice communities</span>
       </div>
     </form>
-    <svg height='170' width='168'>
+    <svg height='150' width='168'>
       <rect x='10' y='11' width='16' height='16' style='fill:#edf8fb; stroke: black; stroke-width: 1px;'></rect>
-      <text x='32' y='23' class='legend__entry legend__entry--datacommon' id="legend1" style='fill: #1f4e46;'>1–⁠99</text>
+      <text x='32' y='23' class='legend__entry legend__entry--datacommon' id="legend1" style='fill: #1f4e46;'>1–⁠99 loans</text>
       <rect x='10' y='39' width='16' height='16' style='fill:#b2e2e2; stroke: black; stroke-width: 1px;'></rect>
-      <text x='32' y='50' class='legend__entry legend__entry--datacommon' id="legend2" style='fill: #1f4e46;'>100–⁠499</text>
+      <text x='32' y='50' class='legend__entry legend__entry--datacommon' id="legend2" style='fill: #1f4e46;'>100–⁠499 loans</text>
       <rect x='10' y='67' width='16' height='16' style='fill:#66c2a4; stroke: black; stroke-width: 1px;'></rect>
-      <text x='32' y='79' class='legend__entry legend__entry--datacommon' id="legend3" style='fill: #1f4e46;'>500–⁠1499</text>
+      <text x='32' y='79' class='legend__entry legend__entry--datacommon' id="legend3" style='fill: #1f4e46;'>500–⁠1499 loans</text>
       <rect x='10' y='95' width='16' height='16' style='fill:#238b45; stroke: black; stroke-width: 1px;'></rect>
-      <text x='32' y='107' class='legend__entry legend__entry--datacommon' id="legend4" style='fill: #1f4e46;'>1500+</text>
+      <text x='32' y='107' class='legend__entry legend__entry--datacommon' id="legend4" style='fill: #1f4e46;'>1500+ loans</text>
       <rect x='10' y='123' width='16' height='16' style='fill:#bfbeba; stroke: black; stroke-width: 1px;'></rect>
       <text x='32' y='135' class='legend__entry legend__entry--datacommon'  style='fill: #1f4e46;'>Data unavailable</text>
-      <rect x='10' y='151' width='16' height='16' style='fill:black; stroke: black; stroke-width: 1px;'></rect>
-      <line x1='10' y1='159' x2='18' y2='151' style='stroke: #CFCECC;'></line>
-      <line x1='10' y1='167' x2='26' y2='151' style='stroke: #CFCECC;'></line>
-      <line x1='18' y1='167' x2='26' y2='159' style='stroke: #CFCECC;'></line>
-      <text x='32' y='163' class='legend__entry legend__entry--datacommon'  style='fill: #1f4e46;'>High margin of error</text>
     </svg>
   </div>
   <button type="button" class="button__collapsible button__collapsible--minus">-</button>
