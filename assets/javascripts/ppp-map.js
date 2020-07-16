@@ -145,38 +145,80 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
         .setHTML(tooltipHtml)
         .addTo(map);
     })
-    map.moveLayer('Muni choropleth', 'Environmental Justice');
-    map.moveLayer('ZIP choropleth', 'Environmental Justice');
+    map.moveLayer('Heat Vulnerability');
+    map.moveLayer('Flood');
+    map.moveLayer('Future Flood 8');
+    map.moveLayer('Future Flood 339');
+    map.moveLayer('Environmental Justice');
   });
 
+  
   document.querySelector('.legend__controls').addEventListener('click', (e) => {
-    if (e.target.id === 'muni') {
-      map.setLayoutProperty('Muni choropleth', 'visibility', 'visible');
-      map.setLayoutProperty('Muni borders', 'visibility', 'visible');
-      map.setLayoutProperty('ZIP choropleth', 'visibility', 'none');
-      map.setLayoutProperty('ZIP borders', 'visibility', 'none');
-      legend1.textContent = "1–⁠99"
-      legend2.textContent = "100–4⁠99"
-      legend3.textContent = "500–14⁠99"
-      legend4.textContent = "1500+"
-    } else if (e.target.id === 'zip') {
-      map.setLayoutProperty('Muni choropleth', 'visibility', 'none');
-      map.setLayoutProperty('Muni borders', 'visibility', 'none');
-      map.setLayoutProperty('ZIP choropleth', 'visibility', 'visible');
-      map.setLayoutProperty('ZIP borders', 'visibility', 'visible');
-      legend1.textContent = "1–⁠99"
-      legend2.textContent = "100–249"
-      legend3.textContent = "250–4⁠99"
-      legend4.textContent = "500+"
-    } else if (e.target.id === 'envjustice') {
-      if (e.target.checked) {
-        map.setPaintProperty('Environmental Justice', 'fill-opacity', 1);
-      } else {
-        map.setPaintProperty('Environmental Justice', 'fill-opacity', 0);
-      }
+    switch(e.target.id) {
+      case 'muni':
+        map.setLayoutProperty('Muni choropleth', 'visibility', 'visible');
+        map.setLayoutProperty('Muni borders', 'visibility', 'visible');
+        map.setLayoutProperty('ZIP choropleth', 'visibility', 'none');
+        map.setLayoutProperty('ZIP borders', 'visibility', 'none');
+        legend1.textContent = "1–⁠99"
+        legend2.textContent = "100–4⁠99"
+        legend3.textContent = "500–14⁠99"
+        legend4.textContent = "1500+"
+        break;
+      case 'zip':
+        map.setLayoutProperty('Muni choropleth', 'visibility', 'none');
+        map.setLayoutProperty('Muni borders', 'visibility', 'none');
+        map.setLayoutProperty('ZIP choropleth', 'visibility', 'visible');
+        map.setLayoutProperty('ZIP borders', 'visibility', 'visible');
+        legend1.textContent = "1–⁠99"
+        legend2.textContent = "100–249"
+        legend3.textContent = "250–4⁠99"
+        legend4.textContent = "500+"
+        break;
+      case 'envjustice':
+        if (e.target.checked) {
+          map.setPaintProperty('Environmental Justice', 'fill-opacity', 1);
+        } else {
+          map.setPaintProperty('Environmental Justice', 'fill-opacity', 0);
+        }
+        break;
+      case 'heat':
+        toggleVulnerabilityLayer('Heat Vulnerability', e.target);
+        break;
+      case 'flood':
+        toggleVulnerabilityLayer('Flood', e.target);
+        break;
+      case 'flood8':
+        toggleVulnerabilityLayer('Future Flood 8', e.target);
+        break;
+      case 'flood339':
+        toggleVulnerabilityLayer('Future Flood 339', e.target);
+        break;
     }
-  })
+  });
+
+  function toggleVulnerabilityLayer(selectedLayer, selectedElement) {
+    const layers = ['Heat Vulnerability', 'Flood', 'Future Flood 8', 'Future Flood 339'];
+    const selectionToggles = ['heat', 'flood', 'flood8', 'flood339']
+    if (selectedElement.checked) {
+      layers.forEach((layer) => {
+        if (layer === selectedLayer) {
+          map.setPaintProperty(layer, 'fill-opacity', 1)
+        } else {
+          map.setPaintProperty(layer, 'fill-opacity', 0)
+        }
+      });
+      selectionToggles.forEach((toggle) => {
+        if (toggle != selectedElement.id) {
+          document.getElementById(toggle).checked = false;
+        }
+      });
+    } else {
+      map.setPaintProperty(selectedLayer, 'fill-opacity', 0);
+    }
+  }
 })
+
 
 document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
   document.querySelector('.legend').style.maxHeight = "0";
@@ -186,7 +228,7 @@ document.querySelector('.button__collapsible--minus').addEventListener('click', 
 })
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.legend').style.maxHeight = "221px";
+  document.querySelector('.legend').style.maxHeight = "291px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';

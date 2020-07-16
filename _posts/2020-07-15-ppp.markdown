@@ -7,17 +7,56 @@ description: "Click to view data visualization"
 <aside class="legend__wrapper legend__wrapper--datacommon" style="display: none;">
   <div class="legend">
     <form class="legend__controls">
-      <input type="radio" id="muni" autocomplete="off" name="view" checked>
-      <label for="muni" class='legend__entry legend__entry--datacommon'>Municipalities</label>
-      <br />
-      <input type="radio" id="zip" name="view" autocomplete="off">
-      <label for="zip" class='legend__entry legend__entry--datacommon'>ZIP codes</label>
+      <span class="legend__title legend__title--datacommon">Views</span>
       <div class="toggle__wrapper">
+        <label class="toggle__switch">
+          <input type="radio" class="toggle__input toggle__input--muni" autocomplete="off" id="muni" name="view" checked />
+          <span class="toggle__circle"></span>
+        </label>
+        <span class="legend__entry legend__entry--datacommon">Municipalities</span>
+      </div>
+      <div class="toggle__wrapper">
+        <label class="toggle__switch">
+          <input type="radio" class="toggle__input toggle__input--zip" autocomplete="off" id="zip" name="view" />
+          <span class="toggle__circle"></span>
+        </label>
+        <span class="legend__entry legend__entry--datacommon">ZIP codes</span>
+      </div>
+      <span class="legend__title legend__title--datacommon">Climate Vulnerability</span>
+      <div class="toggle__wrapper">
+        <label class="toggle__switch">
+          <input type="checkbox" class="toggle__input toggle__input--heat" autocomplete="off" id="heat" name="climate" />
+          <span class="toggle__circle"></span>
+        </label>
+        <span class="legend__entry legend__entry--datacommon">Heat</span>
+      </div>
+      <div class="toggle__wrapper">
+        <label class="toggle__switch">
+          <input type="checkbox" class="toggle__input toggle__input--flood" autocomplete="off" id="flood" name="climate" />
+          <span class="toggle__circle"></span>
+        </label>
+        <span class="legend__entry legend__entry--datacommon">Flood</span>
+      </div>
+      <div class="toggle__wrapper">
+        <label class="toggle__switch">
+          <input type="checkbox" class="toggle__input toggle__input--flood8" autocomplete="off" id="flood8" name="climate" />
+          <span class="toggle__circle"></span>
+        </label>
+        <span class="legend__entry legend__entry--datacommon">Future 8" SLR</span>
+      </div>
+      <div class="toggle__wrapper">
+        <label class="toggle__switch">
+          <input type="checkbox" class="toggle__input toggle__input--flood339" autocomplete="off" id="flood339" name="climate" />
+          <span class="toggle__circle"></span>
+        </label>
+        <span class="legend__entry legend__entry--datacommon">Future 3'5" SLR</span>
+      </div>
+      <div class="toggle__wrapper" style="align-items: flex-start;">
         <label class="toggle__switch">
           <input type="checkbox" class="toggle__input toggle__input--envjustice" autocomplete="off" id="envjustice" />
           <span class="toggle__circle"></span>
         </label>
-        <span class="legend__entry legend__entry--datacommon">Environmental Justice communities</span>
+        <span class="legend__entry legend__entry--datacommon" style="margin-left: 10px;">Environmental Justice communities</span>
       </div>
     </form>
     <svg height='170' width='168'>
