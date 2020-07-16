@@ -190,7 +190,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     if (selectedElement.checked) {
       layers.forEach((layer) => {
         if (layer === selectedLayer) {
-          map.setPaintProperty(layer, 'fill-opacity', 1)
+          map.setPaintProperty(layer, 'fill-opacity', .5)
         } else {
           map.setPaintProperty(layer, 'fill-opacity', 0)
         }
