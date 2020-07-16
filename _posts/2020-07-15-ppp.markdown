@@ -4,7 +4,7 @@ title:  "August 2020 - PPP Loans"
 description: "Click to view data visualization"
 ---
 <main id="map" class="map"></main>
-<aside class="legend__wrapper legend__wrapper--datacommon">
+<aside class="legend__wrapper legend__wrapper--datacommon" style="display: none;">
   <div class="legend">
     <form class="legend__controls">
       <input type="radio" id="muni" autocomplete="off" name="view" checked>
@@ -21,13 +21,13 @@ description: "Click to view data visualization"
       </div>
     </form>
     <svg height='170' width='168'>
-      <rect x='10' y='11' width='16' height='16' style='fill:#0097c4; stroke: black; stroke-width: 1px;'></rect>
+      <rect x='10' y='11' width='16' height='16' style='fill:#edf8fb; stroke: black; stroke-width: 1px;'></rect>
       <text x='32' y='23' class='legend__entry legend__entry--datacommon' id="legend1" style='fill: #1f4e46;'>1–⁠99</text>
-      <rect x='10' y='39' width='16' height='16' style='fill:#3b66b0; stroke: black; stroke-width: 1px;'></rect>
+      <rect x='10' y='39' width='16' height='16' style='fill:#b2e2e2; stroke: black; stroke-width: 1px;'></rect>
       <text x='32' y='50' class='legend__entry legend__entry--datacommon' id="legend2" style='fill: #1f4e46;'>100–⁠499</text>
-      <rect x='10' y='67' width='16' height='16' style='fill:#233069; stroke: black; stroke-width: 1px;'></rect>
+      <rect x='10' y='67' width='16' height='16' style='fill:#66c2a4; stroke: black; stroke-width: 1px;'></rect>
       <text x='32' y='79' class='legend__entry legend__entry--datacommon' id="legend3" style='fill: #1f4e46;'>500–⁠1499</text>
-      <rect x='10' y='95' width='16' height='16' style='fill:#111436; stroke: black; stroke-width: 1px;'></rect>
+      <rect x='10' y='95' width='16' height='16' style='fill:#238b45; stroke: black; stroke-width: 1px;'></rect>
       <text x='32' y='107' class='legend__entry legend__entry--datacommon' id="legend4" style='fill: #1f4e46;'>1500+</text>
       <rect x='10' y='123' width='16' height='16' style='fill:#bfbeba; stroke: black; stroke-width: 1px;'></rect>
       <text x='32' y='135' class='legend__entry legend__entry--datacommon'  style='fill: #1f4e46;'>Data unavailable</text>

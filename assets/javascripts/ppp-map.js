@@ -18,7 +18,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
     style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp?fresh=true",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
   });
-  const colorPalette = ['#0097c4', '#3b66b0', '#233069', '#111436'];
+  const colorPalette = ["#edf8fb","#b2e2e2","#66c2a4","#238b45"];
   const loansByMuni = response.reduce((municipalities, loan) => {
     let municipality = municipalities.find(municipality => { return municipality.muni === loan.City })
     if (!municipality) {
@@ -46,6 +46,7 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
 
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
+    document.querySelector('.legend__wrapper').style.display = 'unset';
     const muniColor = (value) => {
       if (value >= 1500) {
         return colorPalette[3]
