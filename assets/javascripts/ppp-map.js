@@ -1,3 +1,8 @@
+const legend1 = document.querySelector('#legend1');
+const legend2 = document.querySelector('#legend2');
+const legend3 = document.querySelector('#legend3');
+const legend4 = document.querySelector('#legend4');
+
 d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
 .then((response) => {
   let map = new mapboxgl.Map({
@@ -41,18 +46,34 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
 
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
-    const muniColor = d3.scaleQuantize()
-      .domain([0,8000])
-      .range(colorPalette);
+    const muniColor = (value) => {
+      if (value >= 1500) {
+        return colorPalette[3]
+      } else if (value >= 500) {
+        return colorPalette[2]
+      } else if (value >= 100) {
+        return colorPalette[1]
+      } else if (value >= 1) {
+        return colorPalette[0]
+      }
+    }
     const muniColorExpression = ['match', ['get', 'muni']];
     loansByMuni.forEach((row) => {
       muniColorExpression.push(row.muni, muniColor(+row.loans))
     });
     muniColorExpression.push('#bfbeba');
 
-    const colorZipcodes = d3.scaleQuantize()
-      .domain([0, d3.max(loansByZip.map(d => d.loans))])
-      .range(colorPalette)
+    const colorZipcodes = (value) => {
+      if (value >= 500) {
+        return colorPalette[3]
+      } else if (value >= 250) {
+        return colorPalette[2]
+      } else if (value >= 100) {
+        return colorPalette[1]
+      } else if (value >= 1) {
+        return colorPalette[0]
+      }
+    }
     const zipColorExpression = ['match', ['get', 'POSTCODE']];
     loansByZip.forEach((row) => {
       zipColorExpression.push(`0${row.zip}`, colorZipcodes(+row.loans))
@@ -112,7 +133,6 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
         .setHTML(tooltipHtml)
         .addTo(map);
     })
-
     map.on('click', 'ZIP choropleth', function(e) {
       const pppLoan = loansByZip.find(row => `0${row.zip}` == e.features[0].properties.POSTCODE).loans
       const tooltipHtml = `
@@ -124,11 +144,8 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
         .setHTML(tooltipHtml)
         .addTo(map);
     })
-
     map.moveLayer('Muni choropleth', 'Environmental Justice');
     map.moveLayer('ZIP choropleth', 'Environmental Justice');
-
-    console.log(map.getStyle())
   });
 
   document.querySelector('.legend__controls').addEventListener('click', (e) => {
@@ -137,11 +154,19 @@ d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
       map.setLayoutProperty('Muni borders', 'visibility', 'visible');
       map.setLayoutProperty('ZIP choropleth', 'visibility', 'none');
       map.setLayoutProperty('ZIP borders', 'visibility', 'none');
+      legend1.textContent = "1–⁠99"
+      legend2.textContent = "100–4⁠99"
+      legend3.textContent = "500–14⁠99"
+      legend4.textContent = "1500+"
     } else if (e.target.id === 'zip') {
       map.setLayoutProperty('Muni choropleth', 'visibility', 'none');
       map.setLayoutProperty('Muni borders', 'visibility', 'none');
       map.setLayoutProperty('ZIP choropleth', 'visibility', 'visible');
       map.setLayoutProperty('ZIP borders', 'visibility', 'visible');
+      legend1.textContent = "1–⁠99"
+      legend2.textContent = "100–249"
+      legend3.textContent = "250–4⁠99"
+      legend4.textContent = "500+"
     } else if (e.target.id === 'envjustice') {
       if (e.target.checked) {
         map.setPaintProperty('Environmental Justice', 'fill-opacity', 1);

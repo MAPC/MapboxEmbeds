@@ -22,13 +22,13 @@ description: "Click to view data visualization"
     </form>
     <svg height='170' width='168'>
       <rect x='10' y='11' width='16' height='16' style='fill:#0097c4; stroke: black; stroke-width: 1px;'></rect>
-      <!-- <text x='32' y='23' class='legend__entry legend__entry--datacommon' style='fill: #1f4e46;'>0%-25%</text> -->
+      <text x='32' y='23' class='legend__entry legend__entry--datacommon' id="legend1" style='fill: #1f4e46;'>1–⁠99</text>
       <rect x='10' y='39' width='16' height='16' style='fill:#3b66b0; stroke: black; stroke-width: 1px;'></rect>
-      <!-- <text x='32' y='50' class='legend__entry legend__entry--datacommon'  style='fill: #1f4e46;'>26%-50%</text> -->
+      <text x='32' y='50' class='legend__entry legend__entry--datacommon' id="legend2" style='fill: #1f4e46;'>100–⁠499</text>
       <rect x='10' y='67' width='16' height='16' style='fill:#233069; stroke: black; stroke-width: 1px;'></rect>
-      <!-- <text x='32' y='79' class='legend__entry legend__entry--datacommon'  style='fill: #1f4e46;'>51%-75%</text> -->
+      <text x='32' y='79' class='legend__entry legend__entry--datacommon' id="legend3" style='fill: #1f4e46;'>500–⁠1499</text>
       <rect x='10' y='95' width='16' height='16' style='fill:#111436; stroke: black; stroke-width: 1px;'></rect>
-      <!-- <text x='32' y='107' class='legend__entry legend__entry--datacommon'  style='fill: #1f4e46;'>76%-100%</text> -->
+      <text x='32' y='107' class='legend__entry legend__entry--datacommon' id="legend4" style='fill: #1f4e46;'>1500+</text>
       <rect x='10' y='123' width='16' height='16' style='fill:#bfbeba; stroke: black; stroke-width: 1px;'></rect>
       <text x='32' y='135' class='legend__entry legend__entry--datacommon'  style='fill: #1f4e46;'>Data unavailable</text>
       <rect x='10' y='151' width='16' height='16' style='fill:black; stroke: black; stroke-width: 1px;'></rect>
