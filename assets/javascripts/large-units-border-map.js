@@ -2,10 +2,10 @@ d3.csv('/MapboxEmbeds/assets/data/b25041_bedrooms_per_unit_ct.csv')
 .then((response) => {
   let map = new mapboxgl.Map({
     container: 'map',
-    zoom: 8,
+    zoom: 9.67,
     minZoom: 6,
     maxZoom: 13,
-    center: [-70.986, 42.413],
+    center: [-71.0712, 42.3405],
     maxBounds: [
       [-74.728, 38.167], // Southwest bound
       [-66.541, 46.032], // Northeast bound
@@ -85,7 +85,7 @@ document.querySelector('.button__collapsible--minus').addEventListener('click', 
 })
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.legend').style.maxHeight = "188px";
+  document.querySelector('.legend').style.maxHeight = "205px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';
