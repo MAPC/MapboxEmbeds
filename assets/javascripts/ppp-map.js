@@ -3,7 +3,7 @@ const legend2 = document.querySelector('#legend2');
 const legend3 = document.querySelector('#legend3');
 const legend4 = document.querySelector('#legend4');
 
-d3.csv('/MapboxEmbeds/assets/data/SBA-PPP-FOIA-UP-TO-150K.csv')
+d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/master/PPP-data-up-to-and-over-150K-MA-city-clean.csv')
 .then((response) => {
   let map = new mapboxgl.Map({
     container: 'map',
