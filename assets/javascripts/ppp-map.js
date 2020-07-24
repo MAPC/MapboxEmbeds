@@ -44,6 +44,27 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
     return zipCodes
   }, []);
 
+  const loansByNaicsAndMuni = response.reduce((municipalities, loan) => {
+    let municipality = municipalities.find(municipality => { return municipality.muni === loan.City })
+    if (!municipality) {
+      municipality = {
+        muni: loan.City,
+        totalLoans: 0,
+        loansByNaics: {}
+      }
+      municipalities.push(municipality)
+    }
+    municipality.totalLoans += 1;
+    if (!municipality.loansByNaics[`${loan.NAICSCode2}`]) {
+      municipality.loansByNaics[`${loan.NAICSCode2}`] = 1;
+    } else {
+      municipality.loansByNaics[`${loan.NAICSCode2}`] += 1;
+    }
+    return municipalities
+  }, []);
+
+  console.log(loansByNaicsAndMuni)
+
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
     document.querySelector('.legend__wrapper').style.display = 'unset';
