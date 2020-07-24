@@ -5,9 +5,22 @@ description: "Click to view data visualization"
 ---
 <main id="map" class="map"></main>
 <aside class="legend__wrapper legend__wrapper--datacommon" style="display: none;">
-  <div class="legend" style="max-height: 400px;">
+  <div class="legend" style="max-height: 317px;">
+    <span class="legend__title legend__title--datacommon">PPP Loans</span>
+    <svg height="132" width="160">
+      <rect x="2" y="2" width="32" height="16" fill="#edf8fb" stroke="black" stroke-width="1px" />
+      <text x="42" y="14" id="legend1" class="legend__entry legend__entry--datacommon">1–⁠99 loans</text>
+      <rect x="2" y="30" width="32" height="16" fill="#b2e2e2" stroke="black" stroke-width="1px"  />
+      <text x="42" y="42" id="legend2" class="legend__entry legend__entry--datacommon">100–⁠499 loans</text>
+      <rect x="2" y="58" width="32" height="16" fill="#66c2a4" stroke="black" stroke-width="1px"  />
+      <text x="42" y="70" id="legend3" class="legend__entry legend__entry--datacommon">500–⁠1499 loans</text>
+      <rect x="2" y="86" width="32" height="16" fill="#238b45" stroke="black" stroke-width="1px"  />
+      <text x="42" y="98" id="legend4" class="legend__entry legend__entry--datacommon">1500+ loans</text>
+      <rect x="2" y="114" width="32" height="16" fill="#bfbeba" stroke="black" stroke-width="1px"  />
+      <text x="42" y="126" id="legend5" class="legend__entry legend__entry--datacommon">Data unavailable</text>
+    </svg>
+    <span class="legend__title legend__title--datacommon">Views</span>
     <form class="legend__controls">
-      <span class="legend__title legend__title--datacommon">Views</span>
       <div class="toggle__wrapper">
         <label class="toggle__switch">
           <input type="radio" class="toggle__input toggle__input--muni" autocomplete="off" id="muni" name="view" checked />
@@ -22,55 +35,31 @@ description: "Click to view data visualization"
         </label>
         <span class="legend__entry legend__entry--datacommon">ZIP codes</span>
       </div>
-      <span class="legend__title legend__title--datacommon">Climate Vulnerability</span>
-      <div class="toggle__wrapper">
-        <label class="toggle__switch">
-          <input type="checkbox" class="toggle__input toggle__input--heat" autocomplete="off" id="heat" name="climate" />
-          <span class="toggle__circle"></span>
-        </label>
-        <span class="legend__entry legend__entry--datacommon">Heat</span>
-      </div>
-      <div class="toggle__wrapper">
-        <label class="toggle__switch">
-          <input type="checkbox" class="toggle__input toggle__input--flood" autocomplete="off" id="flood" name="climate" />
-          <span class="toggle__circle"></span>
-        </label>
-        <span class="legend__entry legend__entry--datacommon">Flood</span>
-      </div>
-      <div class="toggle__wrapper">
-        <label class="toggle__switch">
-          <input type="checkbox" class="toggle__input toggle__input--flood8" autocomplete="off" id="flood8" name="climate" />
-          <span class="toggle__circle"></span>
-        </label>
-        <span class="legend__entry legend__entry--datacommon">Future 8" SLR</span>
-      </div>
-      <div class="toggle__wrapper">
-        <label class="toggle__switch">
-          <input type="checkbox" class="toggle__input toggle__input--flood339" autocomplete="off" id="flood339" name="climate" />
-          <span class="toggle__circle"></span>
-        </label>
-        <span class="legend__entry legend__entry--datacommon">Future 3'5" SLR</span>
-      </div>
-      <div class="toggle__wrapper" style="align-items: flex-start;">
-        <label class="toggle__switch">
-          <input type="checkbox" class="toggle__input toggle__input--envjustice" autocomplete="off" id="envjustice" />
-          <span class="toggle__circle"></span>
-        </label>
-        <span class="legend__entry legend__entry--datacommon" style="margin-left: 10px;">Environmental Justice communities</span>
-      </div>
+      <span class="legend__title legend__title--datacommon">Two-digit NAICS Codes</span>
+      <select name="naics" id="naics" class="legend__select">
+        <option value="agriculture">Agriculture, forestry, fishing, hunting</option>
+        <option value="mining">Mining, quarrying, oil and gas extraction</option>
+        <option value="utilities">Utilities</option>
+        <option value="construction">Construction</option>
+        <option value="manufacturing">Manufacturing</option>
+        <option value="wholesale">Wholesale trade</option>
+        <option value="retail">Retail trade</option>
+        <option value="transportation">Transportation and warehousing</option>
+        <option value="information">Information</option>
+        <option value="finance">Finance and insurance</option>
+        <option value="realestate">Real estate and rental and leasing</option>
+        <option value="professional">Professional, scientific, and technical services</option>
+        <option value="construction">Management of companies and enterprises</option>
+        <option value="admin">Administrative and support and waste management and remediation services</option>
+        <option value="education">Educational services</option>
+        <option value="health">Health care and social assistance</option>
+        <option value="arts">Arts, entertainment, and recreation</option>
+        <option value="accomodation">Accomodation and food services</option>
+        <option value="other">Other services</option>
+        <option value="public">Public administration</option>
+      </select>
     </form>
-    <svg height='150' width='168'>
-      <rect x='10' y='11' width='16' height='16' style='fill:#edf8fb; stroke: black; stroke-width: 1px;'></rect>
-      <text x='32' y='23' class='legend__entry legend__entry--datacommon' id="legend1" style='fill: #1f4e46;'>1–⁠99 loans</text>
-      <rect x='10' y='39' width='16' height='16' style='fill:#b2e2e2; stroke: black; stroke-width: 1px;'></rect>
-      <text x='32' y='50' class='legend__entry legend__entry--datacommon' id="legend2" style='fill: #1f4e46;'>100–⁠499 loans</text>
-      <rect x='10' y='67' width='16' height='16' style='fill:#66c2a4; stroke: black; stroke-width: 1px;'></rect>
-      <text x='32' y='79' class='legend__entry legend__entry--datacommon' id="legend3" style='fill: #1f4e46;'>500–⁠1499 loans</text>
-      <rect x='10' y='95' width='16' height='16' style='fill:#238b45; stroke: black; stroke-width: 1px;'></rect>
-      <text x='32' y='107' class='legend__entry legend__entry--datacommon' id="legend4" style='fill: #1f4e46;'>1500+ loans</text>
-      <rect x='10' y='123' width='16' height='16' style='fill:#bfbeba; stroke: black; stroke-width: 1px;'></rect>
-      <text x='32' y='135' class='legend__entry legend__entry--datacommon'  style='fill: #1f4e46;'>Data unavailable</text>
-    </svg>
+    <a href="https://datacommon.mapc.org/browser/datasets/413" target="_PARENT" class="legend__title legend__title--datacommon">Explore & Download Data</a>
   </div>
   <button type="button" class="button__collapsible button__collapsible--minus">-</button>
   <div>

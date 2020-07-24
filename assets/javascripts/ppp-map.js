@@ -3,7 +3,7 @@ const legend2 = document.querySelector('#legend2');
 const legend3 = document.querySelector('#legend3');
 const legend4 = document.querySelector('#legend4');
 
-d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/master/PPP-data-up-to-and-over-150K-MA-city-clean.csv')
+d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/master/PPP-data-up-to-and-over-150K-MA-city-clean-joined.csv')
 .then((response) => {
   let map = new mapboxgl.Map({
     container: 'map',
@@ -126,11 +126,6 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
         .setHTML(tooltipHtml)
         .addTo(map);
     })
-    map.moveLayer('Heat Vulnerability');
-    map.moveLayer('Flood');
-    map.moveLayer('Future Flood 8');
-    map.moveLayer('Future Flood 339');
-    map.moveLayer('Environmental Justice');
     map.addLayer({
       id: 'Muni borders',
       type: 'line',
@@ -162,48 +157,8 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
         legend3.textContent = "250–4⁠99 loans"
         legend4.textContent = "500+ loans"
         break;
-      case 'envjustice':
-        if (e.target.checked) {
-          map.setPaintProperty('Environmental Justice', 'fill-opacity', 1);
-        } else {
-          map.setPaintProperty('Environmental Justice', 'fill-opacity', 0);
-        }
-        break;
-      case 'heat':
-        toggleVulnerabilityLayer('Heat Vulnerability', e.target);
-        break;
-      case 'flood':
-        toggleVulnerabilityLayer('Flood', e.target);
-        break;
-      case 'flood8':
-        toggleVulnerabilityLayer('Future Flood 8', e.target);
-        break;
-      case 'flood339':
-        toggleVulnerabilityLayer('Future Flood 339', e.target);
-        break;
     }
   });
-
-  function toggleVulnerabilityLayer(selectedLayer, selectedElement) {
-    const layers = ['Heat Vulnerability', 'Flood', 'Future Flood 8', 'Future Flood 339'];
-    const selectionToggles = ['heat', 'flood', 'flood8', 'flood339']
-    if (selectedElement.checked) {
-      layers.forEach((layer) => {
-        if (layer === selectedLayer) {
-          map.setPaintProperty(layer, 'fill-opacity', .5)
-        } else {
-          map.setPaintProperty(layer, 'fill-opacity', 0)
-        }
-      });
-      selectionToggles.forEach((toggle) => {
-        if (toggle != selectedElement.id) {
-          document.getElementById(toggle).checked = false;
-        }
-      });
-    } else {
-      map.setPaintProperty(selectedLayer, 'fill-opacity', 0);
-    }
-  }
 })
 
 
@@ -215,7 +170,7 @@ document.querySelector('.button__collapsible--minus').addEventListener('click', 
 })
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.legend').style.maxHeight = "400px";
+  document.querySelector('.legend').style.maxHeight = "345px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';
