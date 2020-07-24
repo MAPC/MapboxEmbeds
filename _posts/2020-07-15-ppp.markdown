@@ -6,18 +6,19 @@ description: "Click to view data visualization"
 <main id="map" class="map"></main>
 <aside class="legend__wrapper legend__wrapper--datacommon" style="display: none;">
   <div class="legend" style="max-height: 317px;">
-    <span class="legend__title legend__title--datacommon">PPP Loans</span>
-    <svg height="132" width="160">
+    <span class="legend__title legend__title--datacommon">% of establishments receiving PPP loans</span>
+    <svg height="150" width="160">
       <rect x="2" y="2" width="32" height="16" fill="#edf8fb" stroke="black" stroke-width="1px" />
-      <text x="42" y="14" id="legend1" class="legend__entry legend__entry--datacommon">1–⁠99 loans</text>
+      <text x="42" y="14" id="legend1" class="legend__entry legend__entry--datacommon">≤ 25%</text>
       <rect x="2" y="30" width="32" height="16" fill="#b2e2e2" stroke="black" stroke-width="1px"  />
-      <text x="42" y="42" id="legend2" class="legend__entry legend__entry--datacommon">100–⁠499 loans</text>
+      <text x="42" y="42" id="legend2" class="legend__entry legend__entry--datacommon">25–⁠50%</text>
       <rect x="2" y="58" width="32" height="16" fill="#66c2a4" stroke="black" stroke-width="1px"  />
-      <text x="42" y="70" id="legend3" class="legend__entry legend__entry--datacommon">500–⁠1499 loans</text>
+      <text x="42" y="70" id="legend3" class="legend__entry legend__entry--datacommon">50–⁠75%</text>
       <rect x="2" y="86" width="32" height="16" fill="#238b45" stroke="black" stroke-width="1px"  />
-      <text x="42" y="98" id="legend4" class="legend__entry legend__entry--datacommon">1500+ loans</text>
+      <text x="42" y="98" id="legend4" class="legend__entry legend__entry--datacommon">75%+</text>
       <rect x="2" y="114" width="32" height="16" fill="#bfbeba" stroke="black" stroke-width="1px"  />
-      <text x="42" y="126" id="legend5" class="legend__entry legend__entry--datacommon">Data unavailable</text>
+      <text x="42" y="126" id="legend5" class="legend__entry legend__entry--datacommon">Complete data</text>
+      <text x="42" y="144" id="legend5" class="legend__entry legend__entry--datacommon">unavailable</text>
     </svg>
     <form class="legend__controls">
       <span class="legend__title legend__title--datacommon">Two-digit NAICS Codes</span>
