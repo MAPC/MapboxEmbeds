@@ -56,12 +56,15 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       municipalities.push(municipality)
     }
     municipality.loans.total += 1;
-    if (!municipality.loans[`${loan.NAICSCode2}`]) {
-      municipality.loans[`${loan.NAICSCode2}`] = 1;
+    if (loan.NAICSCode2 == 31 || loan.NAICSCode2 == 32 || loan.NAICSCode2 == 33) {
+      municipality.loans['31'] += 1;
+    } else if (loan.NAICSCode2 == 44 || loan.NAICSCode2 == 45) {
+      municipality.loans['44'] += 1;
+    } else if (loan.NAICSCode2 == 48 || loan.NAICSCode2 == 49) {
+      municipality.loans['48'] += 1;
     } else {
       municipality.loans[`${loan.NAICSCode2}`] += 1;
     }
-    
     if (!municipality.establishments[`${loan.NAICSCode2}`] && loan.estab !== 'NA') {
       municipality.establishments.total += +loan.estab
       municipality.establishments[`${loan.NAICSCode2}`] = +loan.estab;
@@ -88,7 +91,7 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
     const muniColorExpression = ['match', ['get', 'muni']];
 
     loansByNaicsAndMuni.forEach((row) => {
-      muniColorExpression.push(row.muni, (+row.loans['11'] && +row.establishments['11']) ? muniColor((+row.loans['11'])/ (+row.establishments['11'])) : colorPalette[0])
+      muniColorExpression.push(row.muni, (+row.loans['11'] && +row.establishments['11']) ? muniColor((+row.loans['11'])/ (+row.establishments['11'])) : '#bfbeba')
     })
     muniColorExpression.push('#bfbeba');
 
@@ -108,13 +111,26 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       const pppPercentage = loansByNaicsAndMuni.find(row => row.muni === e.features[0].properties.muni)
       const borrowers = pppPercentage.loans[`${currentNaicsCode.value}`]
       const establishments = pppPercentage.establishments[`${currentNaicsCode.value}`]
+      const percentageCovered = (+borrowers / +establishments) < 1 ? (+borrowers / +establishments) : 1;
       console.log(pppPercentage)
-      const tooltipHtml = `
+      let tooltipHtml = `
         <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.muni}</p>
-        <p class="tooltip__title tooltip__title--datacommon">${+borrowers} loans</p>
-        <p class="tooltip__title tooltip__title--datacommon">${+establishments} total establishments (2018 ES-202)</p>
-        <p class="tooltip__title tooltip__title--datacommon">${d3.format('.1%')(+borrowers / +establishments)} of establishments covered</p>
+        <ul class='tooltip__list'>
+        <li class="tooltip__text tooltip__text--datacommon">${+borrowers} loans</li>
     `;
+    if (establishments) {
+      tooltipHtml += `
+        <li class="tooltip__text tooltip__text--datacommon">${+establishments} total establishments (2018 ES-202)</li>
+        <li class="tooltip__text tooltip__text--datacommon">${d3.format('.1%')(percentageCovered)} of establishments covered</li>
+        </ul>
+      `
+    } else {
+      tooltipHtml += `
+        <li class="tooltip__text tooltip__text--datacommon">Total # of establishments (2018 ES-202) unavailable</li>
+        <li class="tooltip__text tooltip__text--datacommon">Percentage of establishments covered unavailable</li>
+        </ul>
+      `
+    }
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(tooltipHtml)
