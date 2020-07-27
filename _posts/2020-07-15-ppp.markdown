@@ -22,8 +22,8 @@ description: "Click to view data visualization"
     </svg>
     <form class="legend__controls">
       <span class="legend__title legend__title--datacommon">Two-digit NAICS Codes</span>
-      <select name="naics" id="naics" class="legend__select">
-        <option value="0">All industries</option>
+      <select name="naics" id="naics" class="legend__select" autocomplete="off">
+        <option value="total">All industries</option>
         <option value="11">Agriculture, forestry, fishing, hunting</option>
         <option value="21">Mining, quarrying, oil and gas extraction</option>
         <option value="22">Utilities</option>

@@ -72,8 +72,9 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
     return municipalities
   }, []);
 
+  const muniNames = loansByNaicsAndMuni.map(row => row.muni).sort()
   console.log(loansByNaicsAndMuni)
-
+  console.log(muniNames)
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
     document.querySelector('.legend__wrapper').style.display = 'unset';
@@ -88,12 +89,74 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
         return colorPalette[0]
       }
     }
-    const muniColorExpression = ['match', ['get', 'muni']];
 
+    const muniColorExpression = {
+      total: ['match', ['get', 'muni']],
+      11: ['match', ['get', 'muni']],
+      21: ['match', ['get', 'muni']],
+      22: ['match', ['get', 'muni']],
+      23: ['match', ['get', 'muni']],
+      31: ['match', ['get', 'muni']], // 31, 32, 33
+      42: ['match', ['get', 'muni']],
+      44: ['match', ['get', 'muni']], // 44-45
+      48: ['match', ['get', 'muni']], //48-49
+      51: ['match', ['get', 'muni']],
+      52: ['match', ['get', 'muni']],
+      53: ['match', ['get', 'muni']],
+      54: ['match', ['get', 'muni']],
+      55: ['match', ['get', 'muni']],
+      56: ['match', ['get', 'muni']],
+      61: ['match', ['get', 'muni']],
+      62: ['match', ['get', 'muni']],
+      71: ['match', ['get', 'muni']],
+      72: ['match', ['get', 'muni']],
+      81: ['match', ['get', 'muni']],
+      92: ['match', ['get', 'muni']],
+    }
     loansByNaicsAndMuni.forEach((row) => {
-      muniColorExpression.push(row.muni, (+row.loans['11'] && +row.establishments['11']) ? muniColor((+row.loans['11'])/ (+row.establishments['11'])) : '#bfbeba')
+      muniColorExpression['total'].push(row.muni, (+row.loans['total'] && +row.establishments['total']) ? muniColor((+row.loans['total'])/ (+row.establishments['total'])) : '#bfbeba')
+      muniColorExpression['11'].push(row.muni, (+row.loans['11'] && +row.establishments['11']) ? muniColor((+row.loans['11'])/ (+row.establishments['11'])) : '#bfbeba')
+      muniColorExpression['21'].push(row.muni, (+row.loans['21'] && +row.establishments['21']) ? muniColor((+row.loans['21'])/ (+row.establishments['21'])) : '#bfbeba')
+      muniColorExpression['22'].push(row.muni, (+row.loans['22'] && +row.establishments['22']) ? muniColor((+row.loans['22'])/ (+row.establishments['22'])) : '#bfbeba')
+      muniColorExpression['23'].push(row.muni, (+row.loans['23'] && +row.establishments['23']) ? muniColor((+row.loans['23'])/ (+row.establishments['23'])) : '#bfbeba')
+      muniColorExpression['31'].push(row.muni, (+row.loans['31'] && +row.establishments['31']) ? muniColor((+row.loans['31'])/ (+row.establishments['31'])) : '#bfbeba')
+      muniColorExpression['42'].push(row.muni, (+row.loans['42'] && +row.establishments['42']) ? muniColor((+row.loans['42'])/ (+row.establishments['42'])) : '#bfbeba')
+      muniColorExpression['44'].push(row.muni, (+row.loans['44'] && +row.establishments['44']) ? muniColor((+row.loans['44'])/ (+row.establishments['44'])) : '#bfbeba')
+      muniColorExpression['48'].push(row.muni, (+row.loans['48'] && +row.establishments['48']) ? muniColor((+row.loans['48'])/ (+row.establishments['48'])) : '#bfbeba')
+      muniColorExpression['51'].push(row.muni, (+row.loans['51'] && +row.establishments['51']) ? muniColor((+row.loans['51'])/ (+row.establishments['51'])) : '#bfbeba')
+      muniColorExpression['52'].push(row.muni, (+row.loans['52'] && +row.establishments['52']) ? muniColor((+row.loans['52'])/ (+row.establishments['52'])) : '#bfbeba')
+      muniColorExpression['53'].push(row.muni, (+row.loans['53'] && +row.establishments['53']) ? muniColor((+row.loans['53'])/ (+row.establishments['53'])) : '#bfbeba')
+      muniColorExpression['54'].push(row.muni, (+row.loans['54'] && +row.establishments['54']) ? muniColor((+row.loans['54'])/ (+row.establishments['54'])) : '#bfbeba')
+      muniColorExpression['55'].push(row.muni, (+row.loans['55'] && +row.establishments['55']) ? muniColor((+row.loans['55'])/ (+row.establishments['55'])) : '#bfbeba')
+      muniColorExpression['56'].push(row.muni, (+row.loans['56'] && +row.establishments['56']) ? muniColor((+row.loans['56'])/ (+row.establishments['56'])) : '#bfbeba')
+      muniColorExpression['61'].push(row.muni, (+row.loans['61'] && +row.establishments['61']) ? muniColor((+row.loans['61'])/ (+row.establishments['61'])) : '#bfbeba')
+      muniColorExpression['62'].push(row.muni, (+row.loans['62'] && +row.establishments['62']) ? muniColor((+row.loans['62'])/ (+row.establishments['62'])) : '#bfbeba')
+      muniColorExpression['71'].push(row.muni, (+row.loans['71'] && +row.establishments['71']) ? muniColor((+row.loans['71'])/ (+row.establishments['71'])) : '#bfbeba')
+      muniColorExpression['72'].push(row.muni, (+row.loans['72'] && +row.establishments['72']) ? muniColor((+row.loans['72'])/ (+row.establishments['72'])) : '#bfbeba')
+      muniColorExpression['81'].push(row.muni, (+row.loans['81'] && +row.establishments['81']) ? muniColor((+row.loans['81'])/ (+row.establishments['81'])) : '#bfbeba')
+      muniColorExpression['92'].push(row.muni, (+row.loans['92'] && +row.establishments['92']) ? muniColor((+row.loans['92'])/ (+row.establishments['92'])) : '#bfbeba')
     })
-    muniColorExpression.push('#bfbeba');
+    muniColorExpression['total'].push('#bfbeba');
+    muniColorExpression['11'].push('#bfbeba');
+    muniColorExpression['21'].push('#bfbeba');
+    muniColorExpression['22'].push('#bfbeba');
+    muniColorExpression['23'].push('#bfbeba');
+    muniColorExpression['31'].push('#bfbeba');
+    muniColorExpression['42'].push('#bfbeba');
+    muniColorExpression['44'].push('#bfbeba');
+    muniColorExpression['48'].push('#bfbeba');
+    muniColorExpression['51'].push('#bfbeba');
+    muniColorExpression['52'].push('#bfbeba');
+    muniColorExpression['53'].push('#bfbeba');
+    muniColorExpression['54'].push('#bfbeba');
+    muniColorExpression['55'].push('#bfbeba');
+    muniColorExpression['56'].push('#bfbeba');
+    muniColorExpression['61'].push('#bfbeba');
+    muniColorExpression['62'].push('#bfbeba');
+    muniColorExpression['71'].push('#bfbeba');
+    muniColorExpression['72'].push('#bfbeba');
+    muniColorExpression['81'].push('#bfbeba');
+    muniColorExpression['92'].push('#bfbeba');
 
     map.addLayer({
       id: 'Muni choropleth',
@@ -101,13 +164,14 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       source: 'composite',
       'source-layer': 'CovidHousingAssistance',
       paint: {
-        'fill-color': muniColorExpression,
+        'fill-color': muniColorExpression['total'],
         'fill-outline-color': 'black',
       }
     })
     map.moveLayer('MAPC outline')
 
     map.on('click', 'Muni choropleth', function(e) {
+      console.log(e.features[0].properties.muni)
       const pppPercentage = loansByNaicsAndMuni.find(row => row.muni === e.features[0].properties.muni)
       const borrowers = pppPercentage.loans[`${currentNaicsCode.value}`]
       const establishments = pppPercentage.establishments[`${currentNaicsCode.value}`]
@@ -116,11 +180,11 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       let tooltipHtml = `
         <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.muni}</p>
         <ul class='tooltip__list'>
-        <li class="tooltip__text tooltip__text--datacommon">${+borrowers} loans</li>
+        <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+borrowers)} loans</li>
     `;
     if (establishments) {
       tooltipHtml += `
-        <li class="tooltip__text tooltip__text--datacommon">${+establishments} total establishments (2018 ES-202)</li>
+        <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+establishments)} total establishments (2018 ES-202)</li>
         <li class="tooltip__text tooltip__text--datacommon">${d3.format('.1%')(percentageCovered)} of establishments covered</li>
         </ul>
       `
@@ -135,6 +199,10 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
         .setLngLat(e.lngLat)
         .setHTML(tooltipHtml)
         .addTo(map);
+    })
+
+    document.querySelector('.legend__select').addEventListener('click', (e) => {
+      map.setPaintProperty('Muni choropleth', 'fill-color', muniColorExpression[`${e.target.value}`])
     })
 
   });
