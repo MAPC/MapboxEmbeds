@@ -20,32 +20,6 @@ description: "Click to view data visualization"
       <text x="42" y="126" id="legend5" class="legend__entry legend__entry--datacommon">Complete data</text>
       <text x="42" y="144" id="legend5" class="legend__entry legend__entry--datacommon">unavailable</text>
     </svg>
-    <form class="legend__controls">
-      <span class="legend__title legend__title--datacommon">Two-digit NAICS Codes</span>
-      <select name="naics" id="naics" class="legend__select" autocomplete="off">
-        <option value="total">All industries</option>
-        <option value="11">Agriculture, forestry, fishing, hunting</option>
-        <option value="21">Mining, quarrying, oil and gas extraction</option>
-        <option value="22">Utilities</option>
-        <option value="23">Construction</option>
-        <option value="31">Manufacturing</option> 
-        <option value="42">Wholesale trade</option>
-        <option value="44">Retail trade</option>
-        <option value="48">Transportation and warehousing</option>
-        <option value="51">Information</option>
-        <option value="52">Finance and insurance</option>
-        <option value="53">Real estate and rental and leasing</option>
-        <option value="54">Professional, scientific, and technical services</option>
-        <option value="55">Management of companies and enterprises</option>
-        <option value="56">Administrative and support and waste management and remediation services</option>
-        <option value="61">Educational services</option>
-        <option value="62">Health care and social assistance</option>
-        <option value="71">Arts, entertainment, and recreation</option>
-        <option value="72">Accomodation and food services</option>
-        <option value="81">Other services</option>
-        <option value="92">Public administration</option>
-      </select>
-    </form>
     <a href="https://datacommon.mapc.org/browser/datasets/413" target="_PARENT" class="legend__title legend__title--datacommon">Explore & Download Data</a>
   </div>
   <button type="button" class="button__collapsible button__collapsible--minus">-</button>
