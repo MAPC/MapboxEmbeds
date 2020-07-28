@@ -5,18 +5,28 @@ const legend4 = document.querySelector('#legend4');
 
 d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/master/PPP-202-join.csv')
 .then((response) => {
+  let zoom = 9;
+  let center = [-71.0408, 42.3317];
+  if (window.innerWidth <= 500) {
+    zoom = 7.75;
+    center = [-71.109, 42.356];
+  } else if (window.innerWidth <= 700) {
+    zoom = 8.27;
+    center = [-70.89, 42.369];
+  }
   let map = new mapboxgl.Map({
     container: 'map',
-    zoom: 8,
+    zoom,
     minZoom: 6,
     maxZoom: 13,
-    center: [-70.986, 42.413],
+    center,
     maxBounds: [
       [-74.728, 38.167], // Southwest bound
       [-66.541, 46.032], // Northeast bound
     ],
     style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp?fresh=true",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
+    hash: true,
   });
   const colorPalette = ["#edf8fb","#b2e2e2","#66c2a4","#238b45"];
   const naicsCodes = [11, 21, 22, 23, 31, 32, 33, 42, 44, 45, 48, 49, 51, 52, 53, 54, 55, 56, 61, 62, 71, 72, 81, 92]
@@ -69,7 +79,7 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
 
   loansByMuni.push({
     muni: 'LEVERETT',
-    establishments: '#N/A',
+    establishments: '49',
     loans: {
       total: 0
     }
@@ -85,7 +95,7 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
 
   loansByMuni.push({
     muni: 'MOUNT WASHINGTON',
-    establishments: '#N/A',
+    establishments: '3',
     loans: {
       total: 0
     }
