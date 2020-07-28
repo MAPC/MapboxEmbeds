@@ -36,8 +36,8 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       municipality = {
         muni: loan.City,
         establishments: loan.total_estab,
+        totalLoans: 0,
         loans: {
-          total: 0,
           11: 0,
           21: 0,
           22: 0,
@@ -63,7 +63,7 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       municipalities.push(municipality)
     }
     if (naicsCodes.includes(+loan.NAICSCode2)) {
-      municipality.loans.total += 1;
+      municipality.totalLoans += 1;
       if (loan.NAICSCode2 == 31 || loan.NAICSCode2 == 32 || loan.NAICSCode2 == 33) {
         municipality.loans['31'] += 1;
       } else if (loan.NAICSCode2 == 44 || loan.NAICSCode2 == 45) {
@@ -80,30 +80,22 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
   loansByMuni.push({
     muni: 'LEVERETT',
     establishments: '49',
-    loans: {
-      total: 0
-    }
+    totalLoans: 0,
   })
 
   loansByMuni.push({
     muni: 'MONROE',
     establishments: '#N/A',
-    loans: {
-      total: 0
-    }
+    totalLoans: 0,
   })
 
   loansByMuni.push({
     muni: 'MOUNT WASHINGTON',
     establishments: '3',
-    loans: {
-      total: 0
-    }
+    totalLoans: 0,
   })
 
-  const muniNames = loansByMuni.map(row => row.muni).sort()
   console.log(loansByMuni)
-  console.log(muniNames)
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
     document.querySelector('.legend__wrapper').style.display = 'unset';
@@ -119,33 +111,12 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       }
     }
 
-    const muniColorExpression = {
-      total: ['match', ['get', 'town']],
-      11: ['match', ['get', 'town']],
-      21: ['match', ['get', 'town']],
-      22: ['match', ['get', 'town']],
-      23: ['match', ['get', 'town']],
-      31: ['match', ['get', 'town']], // 31, 32, 33
-      42: ['match', ['get', 'town']],
-      44: ['match', ['get', 'town']], // 44-45
-      48: ['match', ['get', 'town']], //48-49
-      51: ['match', ['get', 'town']],
-      52: ['match', ['get', 'town']],
-      53: ['match', ['get', 'town']],
-      54: ['match', ['get', 'town']],
-      55: ['match', ['get', 'town']],
-      56: ['match', ['get', 'town']],
-      61: ['match', ['get', 'town']],
-      62: ['match', ['get', 'town']],
-      71: ['match', ['get', 'town']],
-      72: ['match', ['get', 'town']],
-      81: ['match', ['get', 'town']],
-      92: ['match', ['get', 'town']],
-    }
+    const muniColorExpression = ['match', ['get', 'town']];
+
     loansByMuni.forEach((row) => {
-      muniColorExpression['total'].push(row.muni, (+row.loans['total'] && +row.establishments) ? muniColor((+row.loans['total'])/ (+row.establishments)) : '#bfbeba')
+      muniColorExpression.push(row.muni, (+row.totalLoans && +row.establishments) ? muniColor((+row.totalLoans)/ (+row.establishments)) : '#bfbeba')
     })
-    muniColorExpression['total'].push('#bfbeba');
+    muniColorExpression.push('#bfbeba');
 
     map.addLayer({
       id: 'Muni choropleth',
@@ -153,7 +124,7 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       source: 'composite',
       'source-layer': 'MA_Munis',
       paint: {
-        'fill-color': muniColorExpression['total'],
+        'fill-color': muniColorExpression,
         'fill-outline-color': 'black',
       }
     })
@@ -161,7 +132,8 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
 
     map.on('click', 'Muni choropleth', function(e) {
       const pppPercentage = loansByMuni.find(row => row.muni === e.features[0].properties.town)
-      const borrowers = pppPercentage.loans.total
+      console.log(pppPercentage.loans)
+      const borrowers = pppPercentage.totalLoans
 
       if (pppPercentage.establishments !== '#N/A') {
       const establishments = +pppPercentage.establishments
