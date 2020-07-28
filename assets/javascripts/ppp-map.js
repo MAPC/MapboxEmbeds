@@ -20,6 +20,7 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
   });
   const colorPalette = ["#edf8fb","#b2e2e2","#66c2a4","#238b45"];
+  const naicsCodes = [11, 21, 22, 23, 31, 32, 33, 42, 44, 45, 48, 49, 51, 52, 53, 54, 55, 56, 61, 62, 71, 72, 81, 92]
   const loansByNaicsAndMuni = response.reduce((municipalities, loan) => {
     let municipality = municipalities.find(municipality => { return municipality.muni === loan.City })
     if (!municipality) {
@@ -54,19 +55,21 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       }
       municipalities.push(municipality)
     }
-    municipality.loans.total += 1;
-    if (loan.NAICSCode2 == 31 || loan.NAICSCode2 == 32 || loan.NAICSCode2 == 33) {
-      municipality.loans['31'] += 1;
-    } else if (loan.NAICSCode2 == 44 || loan.NAICSCode2 == 45) {
-      municipality.loans['44'] += 1;
-    } else if (loan.NAICSCode2 == 48 || loan.NAICSCode2 == 49) {
-      municipality.loans['48'] += 1;
-    } else {
-      municipality.loans[`${loan.NAICSCode2}`] += 1;
-    }
-    if (!municipality.establishments[`${loan.NAICSCode2}`] && loan.estab !== 'NA') {
-      municipality.establishments.total += +loan.estab
-      municipality.establishments[`${loan.NAICSCode2}`] = +loan.estab;
+    if (naicsCodes.includes(+loan.NAICSCode2)) {
+      municipality.loans.total += 1;
+      if (loan.NAICSCode2 == 31 || loan.NAICSCode2 == 32 || loan.NAICSCode2 == 33) {
+        municipality.loans['31'] += 1;
+      } else if (loan.NAICSCode2 == 44 || loan.NAICSCode2 == 45) {
+        municipality.loans['44'] += 1;
+      } else if (loan.NAICSCode2 == 48 || loan.NAICSCode2 == 49) {
+        municipality.loans['48'] += 1;
+      } else {
+        municipality.loans[`${loan.NAICSCode2}`] += 1;
+      }
+      if (!municipality.establishments[`${loan.NAICSCode2}`] && loan.estab !== 'NA' && loan.NAICSCode2 !== '32' && loan.NAICSCode2 !== '33' && loan.NAICSCode2 !== '45' && loan.NAICSCode2 !== '49') {
+        municipality.establishments.total += +loan.estab
+        municipality.establishments[`${loan.NAICSCode2}`] = +loan.estab;
+      }
     }
     return municipalities
   }, []);
