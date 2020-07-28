@@ -20,7 +20,7 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
   });
   const colorPalette = ["#edf8fb","#b2e2e2","#66c2a4","#238b45"];
   const naicsCodes = [11, 21, 22, 23, 31, 32, 33, 42, 44, 45, 48, 49, 51, 52, 53, 54, 55, 56, 61, 62, 71, 72, 81, 92]
-  const loansByNaicsAndMuni = response.reduce((municipalities, loan) => {
+  const loansByMuni = response.reduce((municipalities, loan) => {
     let municipality = municipalities.find(municipality => { return municipality.muni === loan.City })
     if (!municipality) {
       municipality = {
@@ -67,9 +67,32 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
     return municipalities
   }, []);
 
+  loansByMuni.push({
+    muni: 'LEVERETT',
+    establishments: '#N/A',
+    loans: {
+      total: 0
+    }
+  })
 
-  const muniNames = loansByNaicsAndMuni.map(row => row.muni).sort()
-  console.log(loansByNaicsAndMuni)
+  loansByMuni.push({
+    muni: 'MONROE',
+    establishments: '#N/A',
+    loans: {
+      total: 0
+    }
+  })
+
+  loansByMuni.push({
+    muni: 'MOUNT WASHINGTON',
+    establishments: '#N/A',
+    loans: {
+      total: 0
+    }
+  })
+
+  const muniNames = loansByMuni.map(row => row.muni).sort()
+  console.log(loansByMuni)
   console.log(muniNames)
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
@@ -109,7 +132,7 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       81: ['match', ['get', 'town']],
       92: ['match', ['get', 'town']],
     }
-    loansByNaicsAndMuni.forEach((row) => {
+    loansByMuni.forEach((row) => {
       muniColorExpression['total'].push(row.muni, (+row.loans['total'] && +row.establishments) ? muniColor((+row.loans['total'])/ (+row.establishments)) : '#bfbeba')
     })
     muniColorExpression['total'].push('#bfbeba');
@@ -127,32 +150,33 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
     map.moveLayer('MAPC outline')
 
     map.on('click', 'Muni choropleth', function(e) {
-      if (e.features[0].properties.town !== 'MOUNT WASHINGTON' && e.features[0].properties.town !== 'MONROE' && e.features[0].properties.town !== 'LEVERETT') {
-        const pppPercentage = loansByNaicsAndMuni.find(row => row.muni === e.features[0].properties.town)
-        const borrowers = pppPercentage.loans[`total`]
-        const establishments = pppPercentage.establishments;
-        const percentageCovered = (+borrowers / +establishments) < 1 ? (+borrowers / +establishments) : 1;
-        let tooltipHtml = `
+      const pppPercentage = loansByMuni.find(row => row.muni === e.features[0].properties.town)
+      const borrowers = pppPercentage.loans.total
+
+      if (pppPercentage.establishments !== '#N/A') {
+      const establishments = +pppPercentage.establishments
+      const percentageCovered = (+borrowers / +establishments) < 1 ? (+borrowers / +establishments) : 1;
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`
           <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.town}</p>
           <ul class='tooltip__list'>
           <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+borrowers)} loans</li>
-          <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+establishments)} total establishments (2018 ES-202)</li>
+          <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+pppPercentage.establishments)} total establishments (2018 ES-202)</li>
           <li class="tooltip__text tooltip__text--datacommon">${d3.format('.1%')(percentageCovered)} of establishments covered</li>
-          `;
-        new mapboxgl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(tooltipHtml)
-          .addTo(map);
+        `)
+        .addTo(map);
       } else {
         new mapboxgl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(`
+        .setLngLat(e.lngLat)
+        .setHTML(`
           <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.town}</p>
-          <p class="tooltip__text tooltip__text--datacommon">No loan or establishment data available</p>
-          `)
-          .addTo(map);
+          <ul class='tooltip__list'>
+          <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+borrowers)} loans</li>
+          <li class="tooltip__text tooltip__text--datacommon">Total # of establishments unavailable</li>
+        `)
+        .addTo(map);
       }
-      
     })
   });
 })
