@@ -24,7 +24,7 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
       [-74.728, 38.167], // Southwest bound
       [-66.541, 46.032], // Northeast bound
     ],
-    style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp?fresh=true",
+    style: "mapbox://styles/ihill/ckd4s0ptt1byo1hrlkjyn5zvy?fresh=true",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
   });
   const colorPalette = ["#edf8fb","#b2e2e2","#66c2a4","#238b45"];
@@ -149,7 +149,11 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
         'fill-outline-color': 'black',
       }
     })
+    map.moveLayer('MA muni borders')
     map.moveLayer('MAPC outline')
+    
+    map.moveLayer('settlement-major-label')
+    map.moveLayer('settlement-minor-label')
 
     map.on('click', 'Muni choropleth', function(e) {
       const pppPercentage = loansByMuni.find(row => row.muni === e.features[0].properties.town)
