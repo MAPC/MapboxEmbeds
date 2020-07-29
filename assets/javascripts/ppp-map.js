@@ -26,10 +26,32 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
     ],
     style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp?fresh=true",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
-    hash: true,
   });
   const colorPalette = ["#edf8fb","#b2e2e2","#66c2a4","#238b45"];
   const naicsCodes = [11, 21, 22, 23, 31, 32, 33, 42, 44, 45, 48, 49, 51, 52, 53, 54, 55, 56, 61, 62, 71, 72, 81, 92]
+  const sectors = {
+    11: 'Agrictulure, Forestry, Fishing and Hunting',
+    21: 'Mining, Quarrying, and Oil and Gas Extraction',
+    22: 'Utilities',
+    23: 'Construction',
+    31: 'Manufacturing',
+    42: 'Wholesale Trade',
+    44: 'Retail Trade',
+    48: 'Transportation and Warehousing',
+    51: 'Information',
+    52: 'Finance and Insurance',
+    53: 'Real Estate and Rental and Leasing',
+    54: 'Professional, Scientific, and Technical Services',
+    55: 'Management of Companies and Enterprises',
+    56: 'Administrative and Support and Waste Management and Remediation Services',
+    61: 'Educational Services',
+    62: 'Health Care and Social Assistance',
+    71: 'Arts, Entertainment, and Recreation',
+    72: 'Accomodation and Food Services',
+    81: 'Other Services (except Public Administration)',
+    92: 'Public Administration',
+  };
+
   const loansByMuni = response.reduce((municipalities, loan) => {
     let municipality = municipalities.find(municipality => { return municipality.muni === loan.City })
     if (!municipality) {
@@ -95,7 +117,6 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
     totalLoans: 0,
   })
 
-  console.log(loansByMuni)
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
     document.querySelector('.legend__wrapper').style.display = 'unset';
@@ -132,32 +153,48 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
 
     map.on('click', 'Muni choropleth', function(e) {
       const pppPercentage = loansByMuni.find(row => row.muni === e.features[0].properties.town)
-      console.log(pppPercentage.loans)
-      const borrowers = pppPercentage.totalLoans
-
-      if (pppPercentage.establishments !== '#N/A') {
-      const establishments = +pppPercentage.establishments
-      const percentageCovered = (+borrowers / +establishments) < 1 ? (+borrowers / +establishments) : 1;
+      if (pppPercentage.loans) {
+        let loans = Object.entries(pppPercentage.loans)
+        let max = loans[0];
+        loans.forEach((sector) => {
+          if (sector[1] > max[1]) {
+            max = sector
+          }
+        })
+        if (pppPercentage.establishments !== '#N/A') {
+          const establishments = +pppPercentage.establishments
+          const percentageCovered = (+pppPercentage.totalLoans / +establishments) < 1 ? (+pppPercentage.totalLoans / +establishments) : 1;
+            new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(`
+              <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.town}</p>
+              <ul class='tooltip__list'>
+              <li class="tooltip__text tooltip__text--datacommon">${d3.format('.1%')(percentageCovered)} of ${d3.format(',')(+pppPercentage.establishments)} establishments covered (${d3.format(',')(+pppPercentage.totalLoans)} total loans)</li>
+              <li class="tooltip__text tooltip__text--datacommon">Sector with the most loans: ${sectors[max[0]]}</li>
+            `)
+            .addTo(map);
+        } else {
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(`
+              <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.town}</p>
+              <ul class='tooltip__list'>
+              <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+pppPercentage.totalLoans)} total loans (total # of establishments unavailable)</li>
+              <li class="tooltip__text tooltip__text--datacommon">Sector with the most loans: ${sectors[max[0]]}</li>
+            `)
+            .addTo(map);
+        }
+      }
+      else {
         new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(`
-          <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.town}</p>
-          <ul class='tooltip__list'>
-          <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+borrowers)} loans</li>
-          <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+pppPercentage.establishments)} total establishments (2018 ES-202)</li>
-          <li class="tooltip__text tooltip__text--datacommon">${d3.format('.1%')(percentageCovered)} of establishments covered</li>
-        `)
-        .addTo(map);
-      } else {
-        new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(`
-          <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.town}</p>
-          <ul class='tooltip__list'>
-          <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+borrowers)} loans</li>
-          <li class="tooltip__text tooltip__text--datacommon">Total # of establishments unavailable</li>
-        `)
-        .addTo(map);
+          .setLngLat(e.lngLat)
+          .setHTML(`
+            <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.town}</p>
+            <ul class='tooltip__list'>
+            <li class="tooltip__text tooltip__text--datacommon">${d3.format(',')(+pppPercentage.totalLoans)} loans</li>
+            <li class="tooltip__text tooltip__text--datacommon">Total # of establishments unavailable</li>
+          `)
+          .addTo(map);
       }
     })
   });
