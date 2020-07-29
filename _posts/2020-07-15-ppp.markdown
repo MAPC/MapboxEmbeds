@@ -7,7 +7,7 @@ description: "Click to view data visualization"
 <aside class="legend__wrapper legend__wrapper--datacommon" style="display: none;">
   <div class="legend" style="max-height: 317px;">
     <span class="legend__title legend__title--datacommon">% of establishments receiving PPP loans</span>
-    <svg height="150" width="160">
+    <svg height="180" width="160">
       <rect x="2" y="2" width="32" height="16" fill="#edf8fb" stroke="black" stroke-width="1px" />
       <text x="42" y="14" id="legend1" class="legend__entry legend__entry--datacommon">≤ 25%</text>
       <rect x="2" y="30" width="32" height="16" fill="#b2e2e2" stroke="black" stroke-width="1px"  />
@@ -19,6 +19,8 @@ description: "Click to view data visualization"
       <rect x="2" y="114" width="32" height="16" fill="#bfbeba" stroke="black" stroke-width="1px"  />
       <text x="42" y="126" id="legend5" class="legend__entry legend__entry--datacommon">Complete data</text>
       <text x="42" y="144" id="legend5" class="legend__entry legend__entry--datacommon">unavailable</text>
+      <line x1="2" y1="166" x2="32" y2="166" style="stroke:#231F20;stroke-width:3.5" />
+      <text x="42" y="170" id="legend5" class="legend__entry legend__entry--datacommon">MAPC border</text>
     </svg>
     <a href="https://github.com/MAPC/paycheck-protection-program-ma" target="_PARENT" class="legend__title legend__title--datacommon">Explore & Download Data</a>
   </div>

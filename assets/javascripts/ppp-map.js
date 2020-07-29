@@ -151,7 +151,6 @@ d3.csv('https://raw.githubusercontent.com/MAPC/paycheck-protection-program-ma/ma
     })
     map.moveLayer('MA muni borders')
     map.moveLayer('MAPC outline')
-    
     map.moveLayer('settlement-major-label')
     map.moveLayer('settlement-minor-label')
 
