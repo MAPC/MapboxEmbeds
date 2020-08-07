@@ -1,7 +1,6 @@
-const colors = ['#F15B52', '#F37871', '#F8B4B0', '#FBD2CF', '#F0EFE7'];
+const colors = ["#feedde","#fdbe85","#fd8d3c","#e6550d", "#a63603", '#636363']
 
-fetch('https://api.census.gov/data/2020/dec/responserate?get=GEO_ID,NAME,CRRALL,DRRALL,CRRINT,DRRINT,RESP_DATE&for=tract:*&in=state:25&key=ENTERKEY')
-  .then(response => response.json())
+d3.json('/MapboxEmbeds/assets/data/census-september.json')
   .then((response) => {
     const map = new mapboxgl.Map({
       container: 'map',
@@ -17,6 +16,7 @@ fetch('https://api.census.gov/data/2020/dec/responserate?get=GEO_ID,NAME,CRRALL,
       accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     });
     response.shift()
+    console.log(response)
     const responseWithTitles = response.map(row => {
       return {
         "GEO_ID": row['0'],
@@ -32,27 +32,33 @@ fetch('https://api.census.gov/data/2020/dec/responserate?get=GEO_ID,NAME,CRRALL,
       }
     })
     const colorScale = (value) => {
-      if (isNaN(value)) {
-        return colors[4];
-      } if (value >= 90) {
+      if (value >= 80) {
         return colors[0];
-      } if (value >= 75) {
+      } if (value >= 70) {
         return colors[1];
-      } if (value >= 50) {
+      } if (value >= 60) {
         return colors[2];
+      } if (value >= 50) {
+        return colors[3];
       }
-      return colors[3];
+      return colors[4];
     };
-
+    
     const choropleth = ['match', ['get', 'ct10_id']];
     const responseRates = {};
     responseWithTitles.forEach((row) => {
-      choropleth.push(row.GEO_ID.slice(-11), colorScale(+row.CRRALL));
-      responseRates[row.GEO_ID.slice(-11)] = +row.CRRALL;
+      let fullTractId = row.state + row.county + row.tract
+      responseRates[fullTractId] = row;
+      choropleth.push(fullTractId, colorScale(+row.CRRALL));
     });
-    choropleth.push(colors[4]);
+
+    choropleth.push(colors[5]);
     map.on('load', () => {
+      console.log(map.getStyle())
       map.setPaintProperty('background', 'background-color', '#C4E7EB');
+      map.setPaintProperty('Non MAPC municipalities', 'fill-color', '#bf812d');
+      map.setPaintProperty('External State', 'fill-color', '#bf812d');
+      map.setPaintProperty('MAPC municipal borders', 'line-width', 1);
       map.addLayer({
         id: 'Response Rate by Tract',
         type: 'fill',
@@ -63,14 +69,16 @@ fetch('https://api.census.gov/data/2020/dec/responserate?get=GEO_ID,NAME,CRRALL,
           'fill-outline-color': 'black',
         },
       });
-      
+      map.moveLayer('MAPC municipal borders');
+
       map.on('click', 'Response Rate by Tract', (e) => {
-        console.log(e.features[0].properties)
+        console.log(e.features[0].properties.ct10_id)
+        console.log(responseRates[`${e.features[0].properties.ct10_id}`])
         new mapboxgl.Popup()
           .setLngLat(e.lngLat)
           .setHTML(`
             Tract ${e.features[0].properties.ct10_id}
-            <br/> Response rate: ${responseRates[`${e.features[0].properties.ct10_id}`]}
+            <br/> Response rate: ${responseRates[`${e.features[0].properties.ct10_id}`].CRRALL}
           `)
           .addTo(map);
       });
