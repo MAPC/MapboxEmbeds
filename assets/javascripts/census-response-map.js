@@ -2,21 +2,25 @@ const colors = ["#feedde","#fdbe85","#fd8d3c","#e6550d", "#a63603", '#636363']
 
 d3.json('/MapboxEmbeds/assets/data/census-september.json')
   .then((response) => {
+    let zoom = 9;
+    let center = [-71.0408, 42.3317];
+    if (window.innerWidth <= 500) {
+      zoom = 7.75;
+      center = [-71.109, 42.356];
+    } else if (window.innerWidth <= 700) {
+      zoom = 8.27;
+      center = [-70.89, 42.369];
+    }
     const map = new mapboxgl.Map({
       container: 'map',
-      zoom: 8,
+      zoom,
       minZoom: 6,
       maxZoom: 13,
-      center: [-70.986, 42.413],
-      maxBounds: [
-        [-74.728, 38.167], // Southwest bound
-        [-66.541, 46.032], // Northeast bound
-      ],
+      center,
       style: "mapbox://styles/ihill/ck7qhmh0715wv1ilds1q8cb4z",
       accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     });
     response.shift()
-    console.log(response)
     const responseWithTitles = response.map(row => {
       return {
         "GEO_ID": row['0'],
@@ -54,10 +58,10 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
 
     choropleth.push(colors[5]);
     map.on('load', () => {
-      console.log(map.getStyle())
-      map.setPaintProperty('background', 'background-color', '#C4E7EB');
-      map.setPaintProperty('Non MAPC municipalities', 'fill-color', '#bf812d');
-      map.setPaintProperty('External State', 'fill-color', '#bf812d');
+      map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+      map.setPaintProperty('background', 'background-color', '#F0F8F3');
+      map.setPaintProperty('Non MAPC municipalities', 'fill-color', '#F0F8F3');
+      map.setPaintProperty('External State', 'fill-color', '#F0F8F3');
       map.setPaintProperty('MAPC municipal borders', 'line-width', 1);
       map.addLayer({
         id: 'Response Rate by Tract',
@@ -65,22 +69,36 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
         source: 'composite',
         'source-layer': 'Tracts-2jsl06',
         paint: {
-          'fill-color': choropleth,
-          'fill-outline-color': 'black',
+          'fill-color': choropleth
         },
       });
       map.moveLayer('MAPC municipal borders');
 
       map.on('click', 'Response Rate by Tract', (e) => {
-        console.log(e.features[0].properties.ct10_id)
-        console.log(responseRates[`${e.features[0].properties.ct10_id}`])
-        new mapboxgl.Popup()
+        const clickedData = map.queryRenderedFeatures(
+          [e.point.x, e.point.y],
+          { layers: ['Response Rate by Tract', 'MAPC municipalities',] },
+        );
+        if (responseRates[`${e.features[0].properties.ct10_id}`]) {
+          new mapboxgl.Popup()
           .setLngLat(e.lngLat)
           .setHTML(`
-            Tract ${e.features[0].properties.ct10_id}
-            <br/> Response rate: ${responseRates[`${e.features[0].properties.ct10_id}`].CRRALL}
+            <p class="tooltip__title tooltip__title--datacommon">Tract ${clickedData[0].properties.ct10_id} (${clickedData[1].properties.municipal})</p>
+            <ul class='tooltip__list'>
+            <li class="tooltip__text tooltip__text--datacommon">Response rate: ${responseRates[`${clickedData[0].properties.ct10_id}`].CRRALL}%</li>
+            <li class="tooltip__text tooltip__text--datacommon">Internet response rate: ${responseRates[`${clickedData[0].properties.ct10_id}`].CRRINT}%</li>
+            </ul>
           `)
           .addTo(map);
+        } else {
+          new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(`
+            <p class="tooltip__title tooltip__title--datacommon">Tract ${clickedData[0].properties.ct10_id} (${clickedData[1].properties.municipal})</p>
+            <p class="tooltip__text tooltip__text--datacommon">Response rate data unavailable</p>
+          `)
+          .addTo(map);
+        }
       });
   });
 });

@@ -87,6 +87,7 @@ p {
 
     &--datacommon {
       color: #1f4e46;
+      fill: #1f4e46;
       font-family: 'Montserrat';
       font-weight: 300;
     }
@@ -95,6 +96,16 @@ p {
   &__select {
     margin-bottom: .5rem;
     width: 168px;
+  }
+
+  &__disclaimer {
+    font-size: .75rem;
+
+    &--datacommon {
+      color: #1f4e46;
+      font-family: 'Montserrat';
+      font-weight: 300;
+    }
   }
 }
 
