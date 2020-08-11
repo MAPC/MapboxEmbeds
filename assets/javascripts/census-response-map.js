@@ -17,7 +17,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
       minZoom: 6,
       maxZoom: 13,
       center,
-      style: "mapbox://styles/ihill/ckdq3sla500qn1io6hxywp97v",
+      style: "mapbox://styles/ihill/ckdq3sla500qn1io6hxywp97v/",
       accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     });
     response.shift()
@@ -52,7 +52,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
       ['concat',
         ['get', 'STATE'],
         ['get', 'COUNTY'],
-        ['get', 'TRACT'],
+        ['get', 'TRACT']
       ]
     ];
     const responseRates = {};
@@ -85,7 +85,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
           [e.point.x, e.point.y],
           { layers: ['Response Rate by Tract', 'MAPC municipalities',] },
         );
-        const clickedTractId = clickedData[0].properties.STATE + clickedData[0].properties.COUNTY + clickedData[0].properties.TRACT
+        const clickedTractId = clickedData[0].properties.STATE + clickedData[0].properties.COUNTY + clickedData[0].properties.TRACT;
         if (responseRates[`${clickedTractId}`]) {
           new mapboxgl.Popup()
           .setLngLat(e.lngLat)
