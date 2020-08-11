@@ -17,7 +17,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
       minZoom: 6,
       maxZoom: 13,
       center,
-      style: "mapbox://styles/ihill/ck7qhmh0715wv1ilds1q8cb4z",
+      style: "mapbox://styles/ihill/ckdq3sla500qn1io6hxywp97v",
       accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     });
     response.shift()
@@ -48,7 +48,13 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
       return colors[4];
     };
     
-    const choropleth = ['match', ['get', 'ct10_id']];
+    const choropleth = ['match', 
+      ['concat',
+        ['get', 'STATE'],
+        ['get', 'COUNTY'],
+        ['get', 'TRACT'],
+      ]
+    ];
     const responseRates = {};
     responseWithTitles.forEach((row) => {
       let fullTractId = row.state + row.county + row.tract
@@ -67,7 +73,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
         id: 'Response Rate by Tract',
         type: 'fill',
         source: 'composite',
-        'source-layer': 'Tracts-2jsl06',
+        'source-layer': 'MAPC-tracts-2020-8vkizf',
         paint: {
           'fill-color': choropleth
         },
@@ -79,14 +85,15 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
           [e.point.x, e.point.y],
           { layers: ['Response Rate by Tract', 'MAPC municipalities',] },
         );
-        if (responseRates[`${e.features[0].properties.ct10_id}`]) {
+        const clickedTractId = clickedData[0].properties.STATE + clickedData[0].properties.COUNTY + clickedData[0].properties.TRACT
+        if (responseRates[`${clickedTractId}`]) {
           new mapboxgl.Popup()
           .setLngLat(e.lngLat)
           .setHTML(`
-            <p class="tooltip__title tooltip__title--datacommon">Tract ${clickedData[0].properties.ct10_id} (${clickedData[1].properties.municipal})</p>
+            <p class="tooltip__title tooltip__title--datacommon">Tract ${clickedTractId} (${clickedData[1].properties.municipal})</p>
             <ul class='tooltip__list'>
-            <li class="tooltip__text tooltip__text--datacommon">Response rate: ${responseRates[`${clickedData[0].properties.ct10_id}`].CRRALL}%</li>
-            <li class="tooltip__text tooltip__text--datacommon">Internet response rate: ${responseRates[`${clickedData[0].properties.ct10_id}`].CRRINT}%</li>
+            <li class="tooltip__text tooltip__text--datacommon">Response rate: ${responseRates[`${clickedTractId}`].CRRALL}%</li>
+            <li class="tooltip__text tooltip__text--datacommon">Internet response rate: ${responseRates[`${clickedTractId}`].CRRINT}%</li>
             </ul>
           `)
           .addTo(map);
@@ -94,7 +101,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
           new mapboxgl.Popup()
           .setLngLat(e.lngLat)
           .setHTML(`
-            <p class="tooltip__title tooltip__title--datacommon">Tract ${clickedData[0].properties.ct10_id} (${clickedData[1].properties.municipal})</p>
+            <p class="tooltip__title tooltip__title--datacommon">Tract ${clickedTractId} (${clickedData[1].properties.municipal})</p>
             <p class="tooltip__text tooltip__text--datacommon">Response rate data unavailable</p>
           `)
           .addTo(map);
