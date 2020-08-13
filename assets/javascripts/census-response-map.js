@@ -78,6 +78,17 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
           'fill-color': choropleth
         },
       });
+      map.addLayer({
+        id: 'Tract borders',
+        type: 'line',
+        source: 'composite',
+        'source-layer': 'MAPC-tracts-2020-8vkizf',
+        minzoom: 10.5,
+        paint: {
+          'line-color': '#231F20',
+          'line-width': .5,
+        },
+      })
       map.moveLayer('MAPC municipal borders');
 
       map.on('click', 'Response Rate by Tract', (e) => {
