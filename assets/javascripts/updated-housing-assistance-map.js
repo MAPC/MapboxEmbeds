@@ -63,14 +63,17 @@ d3.csv('/MapboxEmbeds/assets/data/0718_housing_assistance.csv').then((response) 
     map.moveLayer('state-label')
     map.moveLayer('country-label')
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-    map.on('click', 'housing-assistance', (e) => {
+    map.on('click', 'Updated Housing Assistance', (e) => {
       let tooltipHtml = `<p class='tooltip__title'>${toCamelCase(e.features[0].properties.muni)}</p>`;
-      if (e.features[0].properties.total_Cost_assistance_regunemp) {
+      let housingAssistance = housingAssistanceObj[`${e.features[0].properties.muni}`];
+      let unemployment = unemploymentObj[`${e.features[0].properties.muni}`];
+      let households = householdsObj[`${e.features[0].properties.muni}`];
+      if (housingAssistance !== "-") {
         tooltipHtml += `
           <ul class='tooltip__list'>
-            <li class='tooltip__text'>$${d3.format(',')(Math.round(e.features[0].properties.total_Cost_assistance_regunemp))} in housing assistance need</li>
-            <li class='tooltip__text'>${d3.format(',')(e.features[0].properties['Total Layoffs'])} unemployment claims</li>
-            <li class='tooltip__text'>${d3.format(',')(Math.round(e.features[0].properties.total_hhds_impacted_assistance_regunemp))} households need assistance</li>
+            <li class='tooltip__text'>$${d3.format(',')(Math.round(housingAssistance))} in housing assistance need</li>
+            <li class='tooltip__text'>${d3.format(',')(unemployment)} unemployment claims</li>
+            <li class='tooltip__text'>${d3.format(',')(Math.round(households))} households need assistance</li>
           </ul>
         `;
       } else {
