@@ -7,7 +7,7 @@ description: "Click to view data visualization"
 <div class="map__overlays">
   <div class="map__title-box">
     <h1 class="map__title">Estimated Housing Assistance Need After CARES Act Benefits End (Monthly)</h1>
-    <h2 class="map__subtitle">Based on May 2nd Unemployment Claims</h2>
+    <h2 class="map__subtitle">Based on July 18th Unemployment Claims</h2>
   </div>
   <aside class="legend__wrapper">
     <div class="legend" style="max-height:330px;">

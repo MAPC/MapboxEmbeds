@@ -24,33 +24,20 @@ d3.csv('/MapboxEmbeds/assets/data/0718_housing_assistance.csv').then((response) 
   });
 
   map.on('load', () => {
-    // [
-    //     "#ffffd9",
-    //     10001,
-    //     "#edf8b1",
-    //     50001,
-    //     "#c7e9b4",
-    //     100001,
-    //     "#7fcdbb",
-    //     250001,
-    //     "#41b6c4",
-    //     500001,
-    //     "#1d91c0",
-    //     1000001,
-    //     "#225ea8",
-    //     3500001,
-    //     "#0c2c84"
-    //   ],
-    //   "#e8e8e8"
-    // ]
     const colorPolygon = (value) => {
       if (value >= 3500001) {
-        return colorPalette[4]
+        return colorPalette[7]
       } else if (value >= 1000001) {
-        return colorPalette[3]
+        return colorPalette[6]
       } else if (value >= 500001) {
-        return colorPalette[2]
+        return colorPalette[5]
+      } else if (value >= 250001) {
+        return colorPalette[4]
       } else if (value >= 100001) {
+        return colorPalette[3]
+      } else if (value >= 50001) {
+        return colorPalette[2]
+      } else if (value >= 10001) {
         return colorPalette[1]
       }
       return colorPalette[0]
@@ -60,7 +47,6 @@ d3.csv('/MapboxEmbeds/assets/data/0718_housing_assistance.csv').then((response) 
       colorExpression.push(row.muni, row.total_Cost_assistance_regunemp != '-' ? colorPolygon(row.total_Cost_assistance_regunemp) : colorPalette[8])
     });
     colorExpression.push('#B57F00');
-    console.log(map.getStyle().layers)
     map.addLayer({
       id: 'Updated Housing Assistance',
       type: 'fill',
@@ -68,8 +54,14 @@ d3.csv('/MapboxEmbeds/assets/data/0718_housing_assistance.csv').then((response) 
       'source-layer': 'CovidHousingAssistance',
       paint: {
         'fill-color': colorExpression,
+        'fill-outline-color': '#231F20'
       },
     });
+    map.moveLayer('settlement-subdivision-label')
+    map.moveLayer('settlement-minor-label')
+    map.moveLayer('settlement-major-label')
+    map.moveLayer('state-label')
+    map.moveLayer('country-label')
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     map.on('click', 'housing-assistance', (e) => {
       let tooltipHtml = `<p class='tooltip__title'>${toCamelCase(e.features[0].properties.muni)}</p>`;
