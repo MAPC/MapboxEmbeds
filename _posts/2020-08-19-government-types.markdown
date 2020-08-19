@@ -34,7 +34,17 @@ description: "Click to view data visualization"
       <rect x="2" y="114" width="32" height="16" fill="#D1D6D6" stroke="black" stroke-width="1px"  />
       <text x="42" y="126" class="legend__entry legend__entry--datacommon">Unknown</text>
     </svg>
-    <svg height="160" width="160" id="legend__cmo" style="display:none;">
+    <svg height="134" width="160" id="legend__cmo" style="display:none;">
+      <rect x="2" y="2" width="32" height="16" fill="#03332D" stroke="black" stroke-width="1px" />
+      <text x="42" y="14" class="legend__entry legend__entry--datacommon">Town Administrator</text>
+      <rect x="2" y="30" width="32" height="16" fill="#00613F" stroke="black" stroke-width="1px"  />
+      <text x="42" y="42" class="legend__entry legend__entry--datacommon">Town Manager</text>
+      <rect x="2" y="58" width="32" height="16" fill="#98D09A" stroke="black" stroke-width="1px"  />
+      <text x="42" y="70" class="legend__entry legend__entry--datacommon">Mayor</text>
+      <rect x="2" y="86" width="32" height="16" fill="#F0F8F3" stroke="black" stroke-width="1px"  />
+      <text x="42" y="98" class="legend__entry legend__entry--datacommon">Other</text>
+      <rect x="2" y="114" width="32" height="16" fill="#D1D6D6" stroke="black" stroke-width="1px"  />
+      <text x="42" y="126" class="legend__entry legend__entry--datacommon">Unknown</text>
     </svg>
   </div>
   <button type="button" class="button__collapsible button__collapsible--minus">-</button>

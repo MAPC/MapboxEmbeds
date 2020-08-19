@@ -28,6 +28,7 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
         return policyColorPalette[2]
       }
     }
+    const policyColorExpression = ['match', ['get', 'town']];
     const legislativeColorPalette = ["#D59C29", "#FDB525", "#fcd78a", "#FBF9EE"]
     const legislativeColor = (value) => {
       if (value === "Aldermen") {
@@ -40,14 +41,28 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
         return legislativeColorPalette[3]
       }
     }
-    const policyColorExpression = ['match', ['get', 'town']];
     const legislativeColorExpression = ['match', ['get', 'town']];
+    const cmoColorPalette = ["#03332D", "#00613F", "#98D09A", "#F0F8F3"];
+    const cmoColor = (value) => {
+      if (value === "Town Administrator") {
+        return cmoColorPalette[0]
+      } else if (value === "Town Manager") {
+        return cmoColorPalette[1]
+      } else if (value === "Mayor") {
+        return cmoColorPalette[2]
+      } else {
+        return cmoColorPalette[3]
+      } 
+    };
+    const cmoColorExpression = ['match', ['get', 'town']];
     response.forEach((row) => {
       policyColorExpression.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : '#D1D6D6')
       legislativeColorExpression.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : '#D1D6D6')
+      cmoColorExpression.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : '#D1D6D6')
     });
     policyColorExpression.push('#D1D6D6');
     legislativeColorExpression.push('#D1D6D6');
+    cmoColorExpression.push('#D1D6D6');
     map.addLayer({
       id: 'Muni choropleth',
       type: 'fill',
@@ -81,6 +96,8 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
           document.querySelector('#legend__policy-board').style.display ="none"
           document.querySelector('#legend__legislative-body').style.display ="none"
           document.querySelector('#legend__cmo').style.display ="inline"
+          map.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression)
+
           break;
       }
     })
