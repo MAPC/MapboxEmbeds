@@ -17,24 +17,23 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
 
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
-    const colorPalette = ["#edf8fb","#b2e2e2","#66c2a4","#238b45"];
+    document.querySelector('.legend__wrapper').style.display = 'unset';
+    const colorPalette = ["#4E1218","#973332","#F15B52"];
     const policyBoardColor = (value) => {
       if (value === "Select Board") {
-        return colorPalette[3]
+        return colorPalette[0]
       } else if (value === "Selectmen") {
-        return colorPalette[2]
-      } else if ("Council") {
         return colorPalette[1]
+      } else if ("Council") {
+        return colorPalette[2]
       }
     }
     const colorExpression = ['match', ['get', 'town']];
 
     response.forEach((row) => {
-      colorExpression.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : 'grey')
+      colorExpression.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : '#D1D6D6')
     });
     colorExpression.push('grey');
-
-    console.log(colorExpression)
     map.addLayer({
       id: 'Muni choropleth',
       type: 'fill',
@@ -50,4 +49,38 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
     map.moveLayer('settlement-major-label')
     map.moveLayer('settlement-minor-label')
   });
+
+  document.querySelector('.legend__select').addEventListener("change", (e) => {
+    switch(e.target.value) {
+      case 'policy':
+        document.querySelector('#legend__policy-board').style.display ="inline"
+        document.querySelector('#legend__legislative-body').style.display ="none"
+        document.querySelector('#legend__cmo').style.display ="none"
+        break;
+      case 'legislative':
+        document.querySelector('#legend__policy-board').style.display ="none"
+        document.querySelector('#legend__legislative-body').style.display ="inline"
+        document.querySelector('#legend__cmo').style.display ="none"
+        break;
+      case 'cmo':
+        document.querySelector('#legend__policy-board').style.display ="none"
+        document.querySelector('#legend__legislative-body').style.display ="none"
+        document.querySelector('#legend__cmo').style.display ="inline"
+        break;
+    }
+  })
 });
+
+document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
+  document.querySelector('.legend').style.maxHeight = "0";
+  document.querySelector('.maximize-instructions').style.display = 'inline';
+  document.querySelector('.button__collapsible--plus').style.display = 'inline';
+  document.querySelector('.button__collapsible--minus').style.display = 'none';
+})
+
+document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
+  document.querySelector('.legend').style.maxHeight = "188px";
+  document.querySelector('.maximize-instructions').style.display = 'none';
+  document.querySelector('.button__collapsible--minus').style.display = 'inline';
+  document.querySelector('.button__collapsible--plus').style.display = 'none';
+})
