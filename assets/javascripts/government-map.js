@@ -1,6 +1,5 @@
 d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
 .then((response) => {
-  console.log(response)
   let map = new mapboxgl.Map({
     container: 'map',
     zoom: 9.67,
@@ -18,6 +17,7 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
     document.querySelector('.legend__wrapper').style.display = 'unset';
+    const governmentInfo = {};
     const policyColorPalette = ["#4E1218","#973332","#F15B52"];
     const policyBoardColor = (value) => {
       if (value === "Select Board") {
@@ -56,6 +56,7 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
     };
     const cmoColorExpression = ['match', ['get', 'town']];
     response.forEach((row) => {
+      governmentInfo[`${row.TOWN}`] = row
       policyColorExpression.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : '#D1D6D6')
       legislativeColorExpression.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : '#D1D6D6')
       cmoColorExpression.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : '#D1D6D6')
@@ -77,6 +78,30 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
     map.moveLayer('MAPC outline')
     map.moveLayer('settlement-major-label')
     map.moveLayer('settlement-minor-label')
+
+    map.on('click', 'Muni choropleth', (e) => {
+      console.log(governmentInfo[`${e.features[0].properties.town}`])
+      let policyBoard = governmentInfo[`${e.features[0].properties.town}`]['Policy Board'] !== '' ?
+        governmentInfo[`${e.features[0].properties.town}`]['Policy Board'] 
+        : 'Policy board type unknown'
+      let legislativeBody = governmentInfo[`${e.features[0].properties.town}`]['Legislative Body'] !== '' ?
+        governmentInfo[`${e.features[0].properties.town}`]['Legislative Body']
+        : 'Legislative body unknown'
+      let cmo = governmentInfo[`${e.features[0].properties.town}`]['Chief Municipal Official'] !== '' ?
+      governmentInfo[`${e.features[0].properties.town}`]['Chief Municipal Official']
+      : 'Chief Municipal Official unknown'
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`
+          <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.town}</p>
+          <ul class='tooltip__list'>
+          <li class="tooltip__text tooltip__text--datacommon">${policyBoard}</li>
+          <li class="tooltip__text tooltip__text--datacommon">${legislativeBody}</li>
+          <li class="tooltip__text tooltip__text--datacommon">${cmo}</li>
+          </ul>
+        `)
+        .addTo(map);
+    })
 
     document.querySelector('.legend__select').addEventListener("change", (e) => {
       switch(e.target.value) {
