@@ -18,29 +18,43 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
     document.querySelector('.legend__wrapper').style.display = 'unset';
-    const colorPalette = ["#4E1218","#973332","#F15B52"];
+    const policyColorPalette = ["#4E1218","#973332","#F15B52"];
     const policyBoardColor = (value) => {
       if (value === "Select Board") {
-        return colorPalette[0]
+        return policyColorPalette[0]
       } else if (value === "Selectmen") {
-        return colorPalette[1]
+        return policyColorPalette[1]
       } else if ("Council") {
-        return colorPalette[2]
+        return policyColorPalette[2]
       }
     }
-    const colorExpression = ['match', ['get', 'town']];
-
+    const legislativeColorPalette = ["#D59C29", "#FDB525", "#fcd78a", "#FBF9EE"]
+    const legislativeColor = (value) => {
+      if (value === "Aldermen") {
+        return legislativeColorPalette[0]
+      } else if (value === "Council") {
+        return legislativeColorPalette[1]
+      } else if ("Open Town Meeting") {
+        return legislativeColorPalette[2]
+      } else if ("Representative Town Meeting") {
+        return legislativeColorPalette[3]
+      }
+    }
+    const policyColorExpression = ['match', ['get', 'town']];
+    const legislativeColorExpression = ['match', ['get', 'town']];
     response.forEach((row) => {
-      colorExpression.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : '#D1D6D6')
+      policyColorExpression.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : '#D1D6D6')
+      legislativeColorExpression.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : '#D1D6D6')
     });
-    colorExpression.push('grey');
+    policyColorExpression.push('#D1D6D6');
+    legislativeColorExpression.push('#D1D6D6');
     map.addLayer({
       id: 'Muni choropleth',
       type: 'fill',
       source: 'composite',
       'source-layer': 'MA_Munis',
       paint: {
-        'fill-color': colorExpression,
+        'fill-color': policyColorExpression,
         'fill-outline-color': 'black',
       }
     })
@@ -48,27 +62,29 @@ d3.csv('/MapboxEmbeds/assets/data/government-1920.csv')
     map.moveLayer('MAPC outline')
     map.moveLayer('settlement-major-label')
     map.moveLayer('settlement-minor-label')
-  });
 
-  document.querySelector('.legend__select').addEventListener("change", (e) => {
-    switch(e.target.value) {
-      case 'policy':
-        document.querySelector('#legend__policy-board').style.display ="inline"
-        document.querySelector('#legend__legislative-body').style.display ="none"
-        document.querySelector('#legend__cmo').style.display ="none"
-        break;
-      case 'legislative':
-        document.querySelector('#legend__policy-board').style.display ="none"
-        document.querySelector('#legend__legislative-body').style.display ="inline"
-        document.querySelector('#legend__cmo').style.display ="none"
-        break;
-      case 'cmo':
-        document.querySelector('#legend__policy-board').style.display ="none"
-        document.querySelector('#legend__legislative-body').style.display ="none"
-        document.querySelector('#legend__cmo').style.display ="inline"
-        break;
-    }
-  })
+    document.querySelector('.legend__select').addEventListener("change", (e) => {
+      switch(e.target.value) {
+        case 'policy':
+          document.querySelector('#legend__policy-board').style.display ="inline"
+          document.querySelector('#legend__legislative-body').style.display ="none"
+          document.querySelector('#legend__cmo').style.display ="none"
+          map.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression)
+          break;
+        case 'legislative':
+          document.querySelector('#legend__policy-board').style.display ="none"
+          document.querySelector('#legend__legislative-body').style.display ="inline"
+          document.querySelector('#legend__cmo').style.display ="none"
+          map.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression)
+          break;
+        case 'cmo':
+          document.querySelector('#legend__policy-board').style.display ="none"
+          document.querySelector('#legend__legislative-body').style.display ="none"
+          document.querySelector('#legend__cmo').style.display ="inline"
+          break;
+      }
+    })
+  });
 });
 
 document.querySelector('.button__collapsible--minus').addEventListener('click', () => {

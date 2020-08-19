@@ -22,19 +22,17 @@ description: "Click to view data visualization"
       <rect x="2" y="86" width="32" height="16" fill="#D1D6D6" stroke="black" stroke-width="1px"  />
       <text x="42" y="98" class="legend__entry legend__entry--datacommon">Unknown</text>
     </svg>
-    <svg height="160" width="160" id="legend__legislative-body" style="display: none;">
-      <rect x="2" y="2" width="32" height="16" fill="#4E1218" stroke="black" stroke-width="1px" />
+    <svg height="134" width="160" id="legend__legislative-body" style="display: none;">
+      <rect x="2" y="2" width="32" height="16" fill="#D59C29" stroke="black" stroke-width="1px" />
       <text x="42" y="14" class="legend__entry legend__entry--datacommon">Aldermen</text>
-      <rect x="2" y="30" width="32" height="16" fill="#973332" stroke="black" stroke-width="1px"  />
+      <rect x="2" y="30" width="32" height="16" fill="#FDB525" stroke="black" stroke-width="1px"  />
       <text x="42" y="42" class="legend__entry legend__entry--datacommon">Council</text>
-      <rect x="2" y="58" width="32" height="16" fill="#F15B52" stroke="black" stroke-width="1px"  />
-      <text x="42" y="70" class="legend__entry legend__entry--datacommon">Legislative Body</text>
-      <rect x="2" y="86" width="32" height="16" fill="#D1D6D6" stroke="black" stroke-width="1px"  />
-      <text x="42" y="98" class="legend__entry legend__entry--datacommon">Open Town Meeting</text>
-      <rect x="2" y="114" width="32" height="16" fill="#e02d2f" stroke="black" stroke-width="1px"  />
-      <text x="42" y="126" class="legend__entry legend__entry--datacommon">Representative Town Meeting</text>
-      <rect x="2" y="142" width="32" height="16" fill="#74004b" stroke="black" stroke-width="1px"  />
-      <text x="42" y="154" class="legend__entry legend__entry--datacommon">Unknown</text>
+      <rect x="2" y="58" width="32" height="16" fill="#fcd78a" stroke="black" stroke-width="1px"  />
+      <text x="42" y="70" class="legend__entry legend__entry--datacommon">Open Town Meeting</text>
+      <rect x="2" y="86" width="32" height="16" fill="#FBF9EE" stroke="black" stroke-width="1px"  />
+      <text x="42" y="98" class="legend__entry legend__entry--datacommon">Representative Town Meeting</text>
+      <rect x="2" y="114" width="32" height="16" fill="#D1D6D6" stroke="black" stroke-width="1px"  />
+      <text x="42" y="126" class="legend__entry legend__entry--datacommon">Unknown</text>
     </svg>
     <svg height="160" width="160" id="legend__cmo" style="display:none;">
     </svg>
