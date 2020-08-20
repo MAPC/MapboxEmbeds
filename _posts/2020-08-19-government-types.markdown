@@ -12,6 +12,11 @@ description: "Click to view data visualization"
       <option value="legislative">Legislative body</option>
       <option value="cmo">Chief municipal officer</option>
     </select>
+    <span class="legend__title legend__title--datacommon">Year</span>
+    <select id="year" name="year" class="legend__select">
+      <option value="2019" checked>2019–⁠2020</option>
+      <option value="2018">2018–⁠2019</option>
+    </select>
     <svg height="104" width="160" id="legend__policy-board">
       <rect x="2" y="2" width="32" height="16" fill="#4E1218" stroke="black" stroke-width="1px" />
       <text x="42" y="14" class="legend__entry legend__entry--datacommon">Select Board</text>
