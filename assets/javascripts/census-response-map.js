@@ -17,7 +17,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
       minZoom: 6,
       maxZoom: 13,
       center,
-      style: "mapbox://styles/ihill/ckdq3sla500qn1io6hxywp97v/",
+      style: "mapbox://styles/ihill/ckdq3sla500qn1io6hxywp97v/draft",
       accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     });
     response.shift()
@@ -65,9 +65,9 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
     choropleth.push(colors[5]);
     map.on('load', () => {
       map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-      map.setPaintProperty('background', 'background-color', '#F0F8F3');
-      map.setPaintProperty('Non MAPC municipalities', 'fill-color', '#F0F8F3');
-      map.setPaintProperty('External State', 'fill-color', '#F0F8F3');
+      map.setPaintProperty('background', 'background-color', '#fefbf8');
+      map.setPaintProperty('Non MAPC municipalities', 'fill-color', '#fefbf8');
+      map.setPaintProperty('External State', 'fill-color', '#fefbf8');
       map.setPaintProperty('MAPC municipal borders', 'line-width', 1);
       map.addLayer({
         id: 'Response Rate by Tract',
@@ -90,6 +90,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
         },
       })
       map.moveLayer('MAPC municipal borders');
+      map.moveLayer('MAPC Outline')
 
       map.on('click', 'Response Rate by Tract', (e) => {
         const clickedData = map.queryRenderedFeatures(

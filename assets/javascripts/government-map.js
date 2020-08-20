@@ -13,7 +13,7 @@ Promise.all([
       [-74.728, 38.167], // Southwest bound
       [-66.541, 46.032], // Northeast bound
     ],
-    style: "mapbox://styles/ihill/ckd4s0ptt1byo1hrlkjyn5zvy",
+    style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
   });
 
@@ -23,38 +23,36 @@ Promise.all([
     "2019": {},
     "2018": {}
   };
-  const policyColorPalette = ["#4E1218","#973332","#F15B52"];
-  const legislativeColorPalette = ["#D59C29", "#FDB525", "#fcd78a", "#FBF9EE"];
-  const cmoColorPalette = ["#03332D", "#00613F", "#98D09A", "#F0F8F3"];
+  const colorPalette = ["#92C9ED","#3B66B0","#233069", "#111436"];
   const policyBoardColor = (value) => {
-    if (value === "Select Board") {
-      return policyColorPalette[0]
-    } else if (value === "Selectmen") {
-      return policyColorPalette[1]
-    } else if ("Council") {
-      return policyColorPalette[2]
+    if (value === "Selectmen") {
+      return colorPalette[0]
+    } else if (value === "Select Board") {
+      return colorPalette[1]
+    } else if (value ===  "Council") {
+      return colorPalette[2]
     }
   };
   const legislativeColor = (value) => {
-    if (value === "Aldermen") {
-      return legislativeColorPalette[0]
+    if (value === "Open Town Meeting") {
+      return colorPalette[0]
     } else if (value === "Council") {
-      return legislativeColorPalette[1]
-    } else if ("Open Town Meeting") {
-      return legislativeColorPalette[2]
-    } else if ("Representative Town Meeting") {
-      return legislativeColorPalette[3]
+      return colorPalette[1]
+    } else if (value === "Representative Town Meeting") {
+      return colorPalette[2]
+    } else if (value === "Aldermen") {
+      return colorPalette[3]
     }
   };
   const cmoColor = (value) => {
     if (value === "Town Administrator") {
-      return cmoColorPalette[0]
+      return colorPalette[0]
     } else if (value === "Town Manager") {
-      return cmoColorPalette[1]
+      return colorPalette[1]
     } else if (value === "Mayor") {
-      return cmoColorPalette[2]
+      return colorPalette[2]
     } else {
-      return cmoColorPalette[3]
+      return colorPalette[3]
     } 
   };
   const policyColorExpression19 = ['match', ['get', 'town']];
@@ -77,6 +75,7 @@ Promise.all([
     legislativeColorExpression18.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : '#D1D6D6')
     cmoColorExpression18.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : '#D1D6D6')
   });
+
   policyColorExpression19.push('#D1D6D6');
   legislativeColorExpression19.push('#D1D6D6');
   cmoColorExpression19.push('#D1D6D6');
@@ -86,6 +85,8 @@ Promise.all([
 
   map.on('load', () => {
     document.querySelector('.legend__wrapper').style.display = 'unset';
+    map.setPaintProperty('background', 'background-color', '#F2F5FB');
+    map.setPaintProperty('External State', 'fill-color', '#F2F5FB');
     map.addLayer({
       id: 'Muni choropleth',
       type: 'fill',
@@ -96,11 +97,9 @@ Promise.all([
         'fill-outline-color': 'black',
       }
     })
-    map.moveLayer('MA muni borders')
+    map.moveLayer('Muni borders')
     map.moveLayer('MAPC outline')
-    map.moveLayer('settlement-major-label')
-    map.moveLayer('settlement-minor-label')
-
+ 
     map.on('click', 'Muni choropleth', (e) => {
       let muni = e.features[0].properties.town;
       let year = document.querySelector('#year').value;
@@ -169,7 +168,7 @@ Promise.all([
         map.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression18);
       } else if (e.target.value === '2019' && document.querySelector('#type').value === 'legislative') {
         map.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression19);
-      } else if (e.target.value === '2018' && document.querySelector('#type').value === 'legistlative') {
+      } else if (e.target.value === '2018' && document.querySelector('#type').value === 'legislative') {
         map.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression18);
       } else if (e.target.value === '2019' && document.querySelector('#type').value === 'cmo') {
         map.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression19);
@@ -188,7 +187,7 @@ document.querySelector('.button__collapsible--minus').addEventListener('click', 
 })
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.legend').style.maxHeight = "188px";
+  document.querySelector('.legend').style.maxHeight = "291px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';
