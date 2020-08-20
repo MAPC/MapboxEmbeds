@@ -3,8 +3,6 @@ Promise.all([
   d3.csv('/MapboxEmbeds/assets/data/government-1819.csv')
 ])
 .then((response) => {
-  console.log(response[0])
-  console.log(response[1])
   let map = new mapboxgl.Map({
     container: 'map',
     zoom: 9.67,
@@ -103,26 +101,27 @@ Promise.all([
     map.moveLayer('settlement-major-label')
     map.moveLayer('settlement-minor-label')
 
-    console.log(governmentInfo)
     map.on('click', 'Muni choropleth', (e) => {
-      // console.log(governmentInfo[`${e.features[0].properties.town}`])
-      let policyBoard = governmentInfo[`${e.features[0].properties.town}`]['Policy Board'] !== '' ?
-        governmentInfo[`${e.features[0].properties.town}`]['Policy Board'] 
-        : 'Policy board type unknown'
-      let legislativeBody = governmentInfo[`${e.features[0].properties.town}`]['Legislative Body'] !== '' ?
-        governmentInfo[`${e.features[0].properties.town}`]['Legislative Body']
-        : 'Legislative body unknown'
-      let cmo = governmentInfo[`${e.features[0].properties.town}`]['Chief Municipal Official'] !== '' ?
-      governmentInfo[`${e.features[0].properties.town}`]['Chief Municipal Official']
-      : 'Chief Municipal Official unknown'
+      let muni = e.features[0].properties.town;
+      let year = document.querySelector('#year').value;
+      let yearRange = year === '2019' ? '2019–⁠2020' : '2018–⁠2019'
+      let policyBoard = governmentInfo[`${year}`][`${muni}`]['Policy Board'] !== '' ?
+        governmentInfo[`${year}`][`${muni}`]['Policy Board'] 
+        : 'unknown'
+      let legislativeBody = governmentInfo[`${year}`][`${muni}`]['Legislative Body'] !== '' ?
+        governmentInfo[`${year}`][`${muni}`]['Legislative Body']
+        : 'unknown'
+      let cmo = governmentInfo[`${year}`][`${muni}`]['Chief Municipal Official'] !== '' ?
+      governmentInfo[`${year}`][`${muni}`]['Chief Municipal Official']
+      : 'unknown'
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(`
-          <p class="tooltip__title tooltip__title--datacommon">${e.features[0].properties.town}</p>
+          <p class="tooltip__title tooltip__title--datacommon">${muni} (${yearRange})</p>
           <ul class='tooltip__list'>
-          <li class="tooltip__text tooltip__text--datacommon">${policyBoard}</li>
-          <li class="tooltip__text tooltip__text--datacommon">${legislativeBody}</li>
-          <li class="tooltip__text tooltip__text--datacommon">${cmo}</li>
+          <li class="tooltip__text tooltip__text--datacommon">Policy board type: ${policyBoard}</li>
+          <li class="tooltip__text tooltip__text--datacommon">Legislative body type: ${legislativeBody}</li>
+          <li class="tooltip__text tooltip__text--datacommon">Chief Municipal Official: ${cmo}</li>
           </ul>
         `)
         .addTo(map);
