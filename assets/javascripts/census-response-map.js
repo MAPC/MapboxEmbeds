@@ -17,7 +17,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
       minZoom: 6,
       maxZoom: 13,
       center,
-      style: "mapbox://styles/ihill/ckdq3sla500qn1io6hxywp97v/draft",
+      style: "mapbox://styles/ihill/ckdq3sla500qn1io6hxywp97v",
       accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     });
     response.shift()
@@ -64,6 +64,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
 
     choropleth.push(colors[5]);
     map.on('load', () => {
+      console.log(map.getStyle())
       map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       map.setPaintProperty('background', 'background-color', '#fefbf8');
       map.setPaintProperty('Non MAPC municipalities', 'fill-color', '#fefbf8');
@@ -73,7 +74,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
         id: 'Response Rate by Tract',
         type: 'fill',
         source: 'composite',
-        'source-layer': 'MAPC-tracts-2020-8vkizf',
+        'source-layer': 'Tracts2020',
         paint: {
           'fill-color': choropleth
         },
@@ -82,7 +83,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
         id: 'Tract borders',
         type: 'line',
         source: 'composite',
-        'source-layer': 'MAPC-tracts-2020-8vkizf',
+        'source-layer': 'Tracts2020',
         minzoom: 10.5,
         paint: {
           'line-color': '#231F20',
