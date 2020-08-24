@@ -28,7 +28,7 @@ description: "Click to view data visualization"
           <rect x="2" y="170" width="16" height="16" fill="#225ea8" stroke="#231F20"/>
           <text x="28" y="182" class="legend__entry" fill="#231F20">$1,000,001 – $3,500,000</text>
           <rect x="2" y="198" width="16" height="16" fill="#0c2c84" stroke="#231F20"/>
-          <text x="28" y="210" class="legend__entry" fill="#231F20">$3,500,001 – $15,500,000</text>
+          <text x="28" y="210" class="legend__entry" fill="#231F20">$3,500,001 – $18,500,000</text>
           <rect x="2" y="226" width="16" height="16" fill="#e8e8e8" stroke="#231F20"/>
           <text x="28" y="238" class="legend__entry" fill="#231F20">Data unavailable</text>
         </svg>
