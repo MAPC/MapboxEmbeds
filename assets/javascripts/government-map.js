@@ -19,7 +19,7 @@ Promise.all([
 
   let rightMap = new mapboxgl.Map({
     container: 'right-map',
-    style: 'mapbox://styles/mapbox/dark-v10',
+    style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
     center: [-71.566, 42.112],
     zoom: 7,
     minZoom: 6,
@@ -31,9 +31,7 @@ Promise.all([
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
   });
 
-  let container = '.map__container'
-
-  let comparisonMap = new mapboxgl.Compare(leftMap, rightMap, container, {
+  let comparisonMap = new mapboxgl.Compare(leftMap, rightMap, '.map__container', {
     // Set this to enable comparing two maps by mouse movement:
     // mousemove: true
     });
@@ -114,90 +112,56 @@ Promise.all([
       source: 'composite',
       'source-layer': 'MA_Munis',
       paint: {
-        'fill-color': policyColorExpression19,
+        'fill-color': policyColorExpression18,
         'fill-outline-color': 'black',
       }
     })
     leftMap.moveLayer('Muni borders')
     leftMap.moveLayer('MAPC outline')
- 
-    leftMap.on('click', 'Muni choropleth', (e) => {
-      let muni = e.features[0].properties.town;
-      let year = document.querySelector('#year').value;
-      let yearRange = year === '2019' ? '2019–⁠2020' : '2018–⁠2019'
-      let policyBoard = governmentInfo[`${year}`][`${muni}`]['Policy Board'] !== '' ?
-        governmentInfo[`${year}`][`${muni}`]['Policy Board'] 
-        : 'unknown'
-      let legislativeBody = governmentInfo[`${year}`][`${muni}`]['Legislative Body'] !== '' ?
-        governmentInfo[`${year}`][`${muni}`]['Legislative Body']
-        : 'unknown'
-      let cmo = governmentInfo[`${year}`][`${muni}`]['Chief Municipal Official'] !== '' ?
-      governmentInfo[`${year}`][`${muni}`]['Chief Municipal Official']
-      : 'unknown'
-      new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(`
-          <p class="tooltip__title tooltip__title--datacommon">${muni} (${yearRange})</p>
-          <ul class='tooltip__list'>
-          <li class="tooltip__text tooltip__text--datacommon">Policy board type: ${policyBoard}</li>
-          <li class="tooltip__text tooltip__text--datacommon">Legislative body type: ${legislativeBody}</li>
-          <li class="tooltip__text tooltip__text--datacommon">Chief Municipal Official: ${cmo}</li>
-          </ul>
-        `)
-        .addTo(leftMap);
-    })
-
-    document.querySelector('#type').addEventListener("change", (e) => {
-      switch(e.target.value) {
-        case 'policy':
-          document.querySelector('#legend__policy-board').style.display ="inline"
-          document.querySelector('#legend__legislative-body').style.display ="none"
-          document.querySelector('#legend__cmo').style.display ="none"
-          if (document.querySelector("#year").value === '2019') {
-            map.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression19)
-          } else if (document.querySelector("#year").value === '2018') {
-            map.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression18)
-          }
-          break;
-        case 'legislative':
-          document.querySelector('#legend__policy-board').style.display ="none"
-          document.querySelector('#legend__legislative-body').style.display ="inline"
-          document.querySelector('#legend__cmo').style.display ="none"
-          if (document.querySelector("#year").value === '2019') {
-            map.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression19)
-          } else if (document.querySelector("#year").value === '2018') {
-            map.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression18)
-          }
-          break;
-        case 'cmo':
-          document.querySelector('#legend__policy-board').style.display ="none"
-          document.querySelector('#legend__legislative-body').style.display ="none"
-          document.querySelector('#legend__cmo').style.display ="inline"
-          if (document.querySelector("#year").value === '2019') {
-            map.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression19)
-          } else if (document.querySelector("#year").value === '2018') {
-            map.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression18)
-          }
-          break;
-      }
-    })
-
-    document.querySelector('#year').addEventListener("change", (e) => {
-      if (e.target.value === '2019' && document.querySelector('#type').value === 'policy') {
-        leftMap.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression19);
-      } else if (e.target.value === '2018' && document.querySelector('#type').value === 'policy') {
-        leftMap.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression18);
-      } else if (e.target.value === '2019' && document.querySelector('#type').value === 'legislative') {
-        leftMap.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression19);
-      } else if (e.target.value === '2018' && document.querySelector('#type').value === 'legislative') {
-        leftMap.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression18);
-      } else if (e.target.value === '2019' && document.querySelector('#type').value === 'cmo') {
-        leftMap.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression19);
-      } else if (e.target.value === '2018' && document.querySelector('#type').value === 'cmo') {
-        leftMap.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression18);
-      }
-    })
   });
+
+  rightMap.on('load', () => {
+    rightMap.setPaintProperty('background', 'background-color', '#F2F5FB');
+    rightMap.setPaintProperty('External State', 'fill-color', '#F2F5FB');
+    rightMap.addLayer({
+      id: 'Muni choropleth',
+      type: 'fill',
+      source: 'composite',
+      'source-layer': 'MA_Munis',
+      paint: {
+        'fill-color': policyColorExpression19,
+        'fill-outline-color': 'black',
+      }
+    })
+    rightMap.moveLayer('Muni borders')
+    rightMap.moveLayer('MAPC outline')
+  })
+
+  document.querySelector('#type').addEventListener("change", (e) => {
+    switch(e.target.value) {
+      case 'policy':
+        document.querySelector('#legend__policy-board').style.display ="inline"
+        document.querySelector('#legend__legislative-body').style.display ="none"
+        document.querySelector('#legend__cmo').style.display ="none"
+        leftMap.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression18)
+        rightMap.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression19)
+        break;
+      case 'legislative':
+        document.querySelector('#legend__policy-board').style.display ="none"
+        document.querySelector('#legend__legislative-body').style.display ="inline"
+        document.querySelector('#legend__cmo').style.display ="none"
+        leftMap.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression18)
+        rightMap.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression19)
+        break;
+      case 'cmo':
+        document.querySelector('#legend__policy-board').style.display ="none"
+        document.querySelector('#legend__legislative-body').style.display ="none"
+        document.querySelector('#legend__cmo').style.display ="inline"
+        leftMap.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression18)
+        rightMap.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression19)
+        break;
+    }
+  })
 });
 
 document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
