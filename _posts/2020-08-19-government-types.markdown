@@ -9,42 +9,52 @@ description: "Click to view data visualization"
   <div id="right-map" class="map map__comparison"></div>
 </main>
 <aside class="legend__wrapper legend__wrapper--datacommon" style="display: none;">
-  <div class="legend" style="max-height: 291px;">
+  <div class="legend" style="max-height: 263px;">
     <span class="legend__title legend__title--datacommon">Municipal Government Types</span>
     <select id="type" name="type" class="legend__select">
       <option value="policy" checked>Policy board</option>
       <option value="legislative">Legislative body</option>
       <option value="cmo">Chief municipal officer</option>
     </select>
-    <svg height="104" width="160" id="legend__policy-board">
-      <rect x="2" y="2" width="16" height="16" fill="#92C9ED" stroke="black" stroke-width="1px" />
+    <svg height="204" width="160" id="legend__policy-board">
+      <rect x="2" y="2" width="16" height="16" fill="#3B66B0" stroke="black" stroke-width="1px" />
       <text x="26" y="14" class="legend__entry legend__entry--datacommon">Selectmen</text>
-      <rect x="2" y="30" width="16" height="16" fill="#3B66B0" stroke="black" stroke-width="1px"  />
+      <rect x="2" y="30" width="16" height="16" fill="#FDB525" stroke="black" stroke-width="1px"  />
       <text x="26" y="42" class="legend__entry legend__entry--datacommon">Select Board</text>
-      <rect x="2" y="58" width="16" height="16" fill="#233069" stroke="black" stroke-width="1px"  />
+      <rect x="2" y="58" width="16" height="16" fill="#C7004E" stroke="black" stroke-width="1px"  />
       <text x="26" y="70" class="legend__entry legend__entry--datacommon">Council</text>
       <rect x="2" y="86" width="16" height="16" fill="#D1D6D6" stroke="black" stroke-width="1px"  />
-      <text x="26" y="98" class="legend__entry legend__entry--datacommon">Unknown</text>
+      <text x="26" y="98" class="legend__entry legend__entry--datacommon">N/A</text>
+      <rect x='2' y='114' width='16' height='16' style='fill:#737373; stroke: black; stroke-width: 1px;'></rect>
+      <circle cx='10' cy='122' r='5.5' fill='#f5f5f5'></circle>
+      <text x='26' y='126' class='legend__entry legend__entry--datacommon'>3-member Board</text>
+      <text x='26' y='144' class='legend__entry legend__entry--datacommon'>of Selectmen</text>
+      <rect x='2' y='151' width='16' height='16' style='fill:#737373; stroke: black; stroke-width: 1px;'></rect>
+      <line x1='2' y1='159' x2='10' y2='151' style='stroke: #f5f5f5;' stroke-width="1.5px"></line>
+      <line x1='2' y1='167' x2='18' y2='151' style='stroke: #f5f5f5;' stroke-width="1.5px"></line>
+      <line x1='10' y1='167' x2='18' y2='159' style='stroke: #f5f5f5;' stroke-width="1.5px"></line>
+      <text x='26' y='163' class='legend__entry legend__entry--datacommon'>5-member Board</text>
+      <text x='26' y='181' class='legend__entry legend__entry--datacommon'>of Selectmen</text>
     </svg>
     <svg height="120" width="160" id="legend__legislative-body" style="display: none;">
-      <rect x="2" y="2" width="16" height="16" fill="#92C9ED" stroke="black" stroke-width="1px" />
+      <rect x="2" y="2" width="16" height="16" fill="#3B66B0" stroke="black" stroke-width="1px" />
       <text x="26" y="14" class="legend__entry legend__entry--datacommon">Open Town Meeting</text>
-      <rect x="2" y="30" width="16" height="16" fill="#3B66B0" stroke="black" stroke-width="1px"  />
+      <rect x="2" y="30" width="16" height="16" fill="#FDB525" stroke="black" stroke-width="1px"  />
       <text x="26" y="42" class="legend__entry legend__entry--datacommon">Council</text>
-      <rect x="2" y="58" width="16" height="16" fill="#233069" stroke="black" stroke-width="1px"  />
+      <rect x="2" y="58" width="16" height="16" fill="#C7004E" stroke="black" stroke-width="1px"  />
       <text x="26" y="70" class="legend__entry legend__entry--datacommon">Representative</text>
       <text x="26" y="88" class="legend__entry legend__entry--datacommon">Town Meeting</text>
-      <rect x="2" y="98" width="16" height="16" fill="#111436" stroke="black" stroke-width="1px"  />
+      <rect x="2" y="98" width="16" height="16" fill="#4DC1B9" stroke="black" stroke-width="1px"  />
       <text x="26" y="112" class="legend__entry legend__entry--datacommon">Aldermen</text>
     </svg>
     <svg height="134" width="160" id="legend__cmo" style="display:none;">
-      <rect x="2" y="2" width="16" height="16" fill="#92C9ED" stroke="black" stroke-width="1px" />
+      <rect x="2" y="2" width="16" height="16" fill="#3B66B0" stroke="black" stroke-width="1px" />
       <text x="26" y="14" class="legend__entry legend__entry--datacommon">Town Administrator</text>
-      <rect x="2" y="30" width="16" height="16" fill="#3B66B0" stroke="black" stroke-width="1px"  />
+      <rect x="2" y="30" width="16" height="16" fill="#FDB525" stroke="black" stroke-width="1px"  />
       <text x="26" y="42" class="legend__entry legend__entry--datacommon">Town Manager</text>
-      <rect x="2" y="58" width="16" height="16" fill="#233069" stroke="black" stroke-width="1px"  />
+      <rect x="2" y="58" width="16" height="16" fill="#C7004E" stroke="black" stroke-width="1px"  />
       <text x="26" y="70" class="legend__entry legend__entry--datacommon">Mayor</text>
-      <rect x="2" y="86" width="16" height="16" fill="#111436" stroke="black" stroke-width="1px"  />
+      <rect x="2" y="86" width="16" height="16" fill="#4DC1B9" stroke="black" stroke-width="1px"  />
       <text x="26" y="98" class="legend__entry legend__entry--datacommon">Other</text>
       <rect x="2" y="114" width="16" height="16" fill="#D1D6D6" stroke="black" stroke-width="1px"  />
       <text x="26" y="126" class="legend__entry legend__entry--datacommon">Unknown</text>
