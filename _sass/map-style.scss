@@ -17,6 +17,42 @@ p {
   margin: 0;
 }
 
+.mapboxgl-compare::before,
+.mapboxgl-compare::after {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1) !important;
+  display: inline-block;
+  background-color: #f4f7fb;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 30px 0 0 30px;
+  font-size: 12px;
+  color: #23374d;
+  font-family: 'Open Sans', sans-serif !important;
+  font-weight: bold;
+  width: 130px;
+  text-align: center;
+  position: relative;
+}
+
+.compare-swiper-vertical::after {
+  display: none;
+}
+
+.mapboxgl-compare::before {
+  content: '2018–2019';
+  border-radius: 30px 0 0 30px;
+  transform: translate(-100%, -24px);
+  top: 50%;
+}
+
+.mapboxgl-compare::after {
+  content: '2019–2020';
+  border-radius: 0px 30px 30px 0px;
+  transform: translate(0, -70px);
+  top: 50%;
+  z-index: -1;
+}
+
 .map {
   bottom: 0;
   top: 0;
