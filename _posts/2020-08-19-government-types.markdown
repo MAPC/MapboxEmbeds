@@ -3,7 +3,11 @@ layout: post
 title:  "Calendar - Government Types"
 description: "Click to view data visualization"
 ---
-<main id="map" class="map"></main>
+
+<main class="map__container">
+  <div id="left-map" class="map map__comparison"></div>
+  <div id="right-map" class="map map__comparison"></div>
+</main>
 <aside class="legend__wrapper legend__wrapper--datacommon" style="display: none;">
   <div class="legend" style="max-height: 291px;">
     <span class="legend__title legend__title--datacommon">Municipal Government Types</span>
@@ -59,3 +63,9 @@ description: "Click to view data visualization"
   </div>
 </aside>
 <script src="{{'assets/javascripts/government-map.js' | absolute_url }}" type="module"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
+<link
+rel="stylesheet"
+href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css"
+type="text/css"
+/>

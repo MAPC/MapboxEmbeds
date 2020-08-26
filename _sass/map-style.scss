@@ -22,6 +22,14 @@ p {
   top: 0;
   width: 100%;
 
+  &__container {
+    width: 100%;
+  }
+
+  &__comparison {
+    position: absolute;
+  }
+
   &__overlays {
     display: flex;
     justify-content: space-between;
@@ -273,6 +281,10 @@ p {
       font-size: 1rem;
       line-height: 1.05rem;
     }
+  }
+
+  .mapboxgl-compare {
+    height: 500px!important;
   }
 }
 
