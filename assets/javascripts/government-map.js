@@ -3,12 +3,21 @@ Promise.all([
   d3.csv('/MapboxEmbeds/assets/data/government-1819.csv')
 ])
 .then((response) => {
+  let zoom = 9;
+  let center = [-71.0408, 42.3317];
+  if (window.innerWidth <= 500) {
+    zoom = 7.75;
+    center = [-71.109, 42.356];
+  } else if (window.innerWidth <= 700) {
+    zoom = 8.27;
+    center = [-70.89, 42.369];
+  }
   let leftMap = new mapboxgl.Map({
     container: 'left-map',
-    center: [-71.566, 42.112],
-    zoom: 7,
+    zoom,
     minZoom: 6,
     maxZoom: 13,
+    center,
     maxBounds: [
       [-74.728, 38.167], // Southwest bound
       [-66.541, 46.032], // Northeast bound
@@ -20,10 +29,10 @@ Promise.all([
   let rightMap = new mapboxgl.Map({
     container: 'right-map',
     style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
-    center: [-71.566, 42.112],
-    zoom: 7,
+    zoom,
     minZoom: 6,
     maxZoom: 13,
+    center,
     maxBounds: [
       [-74.728, 38.167], // Southwest bound
       [-66.541, 46.032], // Northeast bound
@@ -31,18 +40,16 @@ Promise.all([
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
   });
 
-  let comparisonMap = new mapboxgl.Compare(leftMap, rightMap, '.map__container', {
-    // Set this to enable comparing two maps by mouse movement:
-    // mousemove: true
-    });
+  let comparisonMap = new mapboxgl.Compare(leftMap, rightMap, '.map__container', {});
 
   leftMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+  rightMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
   const governmentInfo = {
     "2019": {},
     "2018": {}
   };
-  const colorPalette = ["#3B66B0", "#FDB525", "#C7004E", "#4DC1B9"]
+  const colorPalette = ['#3b66b0', '#9cacd6', '#a28fba', '#472b78', '#2C003B']
   const policyBoardColor = (value) => {
     if (value === "Selectmen") {
       return colorPalette[0]
@@ -70,9 +77,11 @@ Promise.all([
       return colorPalette[1]
     } else if (value === "Mayor") {
       return colorPalette[2]
-    } else {
+    } else if (value === "Chair of the Board of Selectmen") {
       return colorPalette[3]
-    } 
+    } else {
+      return colorPalette[4]
+    }
   };
 
   const selectBoardPattern = (value) => {
@@ -95,36 +104,35 @@ Promise.all([
   
   response[0].forEach((row) => {
     governmentInfo["2019"][`${row.TOWN}`] = row
-    policyColorExpression19.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : '#D1D6D6')
-    legislativeColorExpression19.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : '#D1D6D6')
-    cmoColorExpression19.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : '#D1D6D6')
+    policyColorExpression19.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : colorPalette[3])
+    legislativeColorExpression19.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : colorPalette[4])
+    cmoColorExpression19.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : colorPalette[4])
     selectBoardExpression19.push(row.TOWN, row['Policy Board Member Count'] !== '' ? selectBoardPattern(row['Policy Board Member Count']) : 'blank')
   
   });
 
   response[1].forEach((row) => {
     governmentInfo["2018"][`${row.TOWN}`] = row
-    policyColorExpression18.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : '#D1D6D6')
-    legislativeColorExpression18.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : '#D1D6D6')
-    cmoColorExpression18.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : '#D1D6D6')
+    policyColorExpression18.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : colorPalette[3])
+    legislativeColorExpression18.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : colorPalette[4])
+    cmoColorExpression18.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : colorPalette[4])
     selectBoardExpression18.push(row.TOWN, row['Policy Board Member Count'] !== '' ? selectBoardPattern(row['Policy Board Member Count']) : 'blank')
   });
 
-  policyColorExpression18.push('#D1D6D6');
-  legislativeColorExpression18.push('#D1D6D6');
-  cmoColorExpression18.push('#D1D6D6');
+  policyColorExpression18.push(colorPalette[3]);
+  legislativeColorExpression18.push(colorPalette[4]);
+  cmoColorExpression18.push(colorPalette[4]);
   selectBoardExpression18.push('blank');
 
-  policyColorExpression19.push('#D1D6D6');
-  legislativeColorExpression19.push('#D1D6D6');
-  cmoColorExpression19.push('#D1D6D6');
+  policyColorExpression19.push(colorPalette[3]);
+  legislativeColorExpression19.push(colorPalette[4]);
+  cmoColorExpression19.push(colorPalette[4]);
   selectBoardExpression19.push('blank');
 
   leftMap.on('load', () => {
-    console.log(leftMap.getStyle())
     document.querySelector('.legend__wrapper').style.display = 'unset';
-    leftMap.setPaintProperty('background', 'background-color', '#f5f5f5');
-    leftMap.setPaintProperty('External State', 'fill-color', '#f5f5f5');
+    leftMap.setPaintProperty('background', 'background-color', '#FCF2FB');
+    leftMap.setPaintProperty('External State', 'fill-color', '#FCF2FB');
     leftMap.addLayer({
       id: 'Muni choropleth',
       type: 'fill',
@@ -132,7 +140,6 @@ Promise.all([
       'source-layer': 'MA_Munis',
       paint: {
         'fill-color': policyColorExpression18,
-        'fill-outline-color': 'black',
       }
     })
 
@@ -145,13 +152,34 @@ Promise.all([
         'fill-pattern': selectBoardExpression18,
       }
     })
+    leftMap.setPaintProperty('Muni borders', 'line-color', 'white');
     leftMap.moveLayer('Muni borders')
     leftMap.moveLayer('MAPC outline')
+
+    leftMap.on('click', 'Muni choropleth', (e) => {
+      let muni = e.features[0].properties.town;
+      let policyBoard = governmentInfo['2018'][`${muni}`]['Policy Board'] !== '' ?
+        governmentInfo['2018'][`${muni}`]['Policy Board'] 
+        : 'N/A'
+      let legislativeBody = governmentInfo['2018'][`${muni}`]['Legislative Body']
+      let cmo = governmentInfo['2018'][`${muni}`]['Chief Municipal Official']
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`
+          <p class="tooltip__title tooltip__title--datacommon">${muni} (2018–⁠2019)</p>
+          <ul class='tooltip__list'>
+          <li class="tooltip__text tooltip__text--datacommon">Policy board type: ${policyBoard}</li>
+          <li class="tooltip__text tooltip__text--datacommon">Legislative body type: ${legislativeBody}</li>
+          <li class="tooltip__text tooltip__text--datacommon">Chief Municipal Official: ${cmo}</li>
+          </ul>
+        `)
+        .addTo(leftMap);
+    })
   });
 
   rightMap.on('load', () => {
-    rightMap.setPaintProperty('background', 'background-color', '#f5f5f5');
-    rightMap.setPaintProperty('External State', 'fill-color', '#f5f5f5');
+    rightMap.setPaintProperty('background', 'background-color', '#FCF2FB');
+    rightMap.setPaintProperty('External State', 'fill-color', '#FCF2FB');
     rightMap.addLayer({
       id: 'Muni choropleth',
       type: 'fill',
@@ -159,11 +187,10 @@ Promise.all([
       'source-layer': 'MA_Munis',
       paint: {
         'fill-color': policyColorExpression19,
-        'fill-outline-color': 'black',
       }
     })
     rightMap.addLayer({
-      id: '2019-2020 Selectmen choropleth',
+      id: 'Selectmen choropleth',
       type: 'fill',
       source: 'composite',
       'source-layer': 'MA_Munis',
@@ -171,8 +198,29 @@ Promise.all([
         'fill-pattern': selectBoardExpression19,
       }
     })
+    rightMap.setPaintProperty('Muni borders', 'line-color', 'white');
     rightMap.moveLayer('Muni borders')
     rightMap.moveLayer('MAPC outline')
+
+    rightMap.on('click', 'Muni choropleth', (e) => {
+      let muni = e.features[0].properties.town;
+      let policyBoard = governmentInfo['2019'][`${muni}`]['Policy Board'] !== '' ?
+        governmentInfo['2019'][`${muni}`]['Policy Board'] 
+        : 'N/A'
+      let legislativeBody = governmentInfo['2019'][`${muni}`]['Legislative Body']
+      let cmo = governmentInfo['2019'][`${muni}`]['Chief Municipal Official']
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`
+          <p class="tooltip__title tooltip__title--datacommon">${muni} (2019–⁠2020)</p>
+          <ul class='tooltip__list'>
+          <li class="tooltip__text tooltip__text--datacommon">Policy board type: ${policyBoard}</li>
+          <li class="tooltip__text tooltip__text--datacommon">Legislative body type: ${legislativeBody}</li>
+          <li class="tooltip__text tooltip__text--datacommon">Chief Municipal Official: ${cmo}</li>
+          </ul>
+        `)
+        .addTo(rightMap);
+    })
   })
 
   document.querySelector('#type').addEventListener("change", (e) => {
@@ -183,6 +231,8 @@ Promise.all([
         document.querySelector('#legend__cmo').style.display ="none"
         leftMap.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression18)
         rightMap.setPaintProperty('Muni choropleth', 'fill-color', policyColorExpression19)
+        leftMap.setLayoutProperty('Selectmen choropleth', 'visibility', 'visible');
+        rightMap.setLayoutProperty('Selectmen choropleth', 'visibility', 'visible');
         break;
       case 'legislative':
         document.querySelector('#legend__policy-board').style.display ="none"
@@ -190,6 +240,8 @@ Promise.all([
         document.querySelector('#legend__cmo').style.display ="none"
         leftMap.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression18)
         rightMap.setPaintProperty('Muni choropleth', 'fill-color', legislativeColorExpression19)
+        leftMap.setLayoutProperty('Selectmen choropleth', 'visibility', 'none');
+        rightMap.setLayoutProperty('Selectmen choropleth', 'visibility', 'none');
         break;
       case 'cmo':
         document.querySelector('#legend__policy-board').style.display ="none"
@@ -197,6 +249,8 @@ Promise.all([
         document.querySelector('#legend__cmo').style.display ="inline"
         leftMap.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression18)
         rightMap.setPaintProperty('Muni choropleth', 'fill-color', cmoColorExpression19)
+        leftMap.setLayoutProperty('Selectmen choropleth', 'visibility', 'none');
+        rightMap.setLayoutProperty('Selectmen choropleth', 'visibility', 'none');
         break;
     }
   })
