@@ -17,41 +17,37 @@ p {
   margin: 0;
 }
 
-.mapboxgl-compare::before,
-.mapboxgl-compare::after {
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1) !important;
-  display: inline-block;
-  background-color: #f4f7fb;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border-radius: 30px 0 0 30px;
-  font-size: 12px;
-  color: #23374d;
-  font-family: 'Open Sans', sans-serif !important;
-  font-weight: bold;
-  width: 130px;
-  text-align: center;
-  position: relative;
+.mapboxgl-compare {
+  &__label {
+    background-color: #ffffff;
+    border-radius: 30px 0 0 30px;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1) !important;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    position: relative;
+    text-align: center;
+    top: 50%;
+    width: 100px;
+  }
+
+  &__before {
+    border-radius: 30px 0 0 30px;
+    padding-right: 1rem;
+    transform: translate(-100%, -24px);
+  }
+
+  &__after {
+    border-radius: 0px 30px 30px 0px;
+    overflow: hidden;
+    padding-left: 1rem;
+    transform: translate(0, -70px);
+    z-index: -1;
+  }
 }
 
-.compare-swiper-vertical::after {
-  display: none;
-}
-
-.mapboxgl-compare::before {
-  content: '2018–2019';
-  border-radius: 30px 0 0 30px;
-  transform: translate(-100%, -24px);
-  top: 50%;
-}
-
-.mapboxgl-compare::after {
-  content: '2019–2020';
-  border-radius: 0px 30px 30px 0px;
-  transform: translate(0, -70px);
-  top: 50%;
-  z-index: -1;
-}
 
 .map {
   bottom: 0;

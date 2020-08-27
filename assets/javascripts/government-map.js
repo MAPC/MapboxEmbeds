@@ -254,6 +254,15 @@ Promise.all([
         break;
     }
   })
+  const compareButton = document.querySelector('.compare-swiper-vertical')
+  const beforeText = document.createElement("span")
+  beforeText.innerText = "2018-2019"
+  beforeText.classList = 'mapboxgl-compare__label mapboxgl-compare__before'
+  const afterText = document.createElement("span")
+  afterText.innerText = '2019-2020'
+  afterText.classList = 'mapboxgl-compare__label mapboxgl-compare__after'
+  compareButton.parentNode.insertBefore(beforeText, compareButton)
+  compareButton.parentNode.insertBefore(afterText, compareButton.nextSibling)
 });
 
 document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
