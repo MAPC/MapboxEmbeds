@@ -129,6 +129,10 @@ Promise.all([
   cmoColorExpression19.push(colorPalette[4]);
   selectBoardExpression19.push('blank');
 
+  let muniEl = document.querySelector('#muni')
+  let entry18El = document.querySelector('#entry18')
+  let entry19El = document.querySelector('#entry19')
+
   leftMap.on('load', () => {
     document.querySelector('.legend__wrapper').style.display = 'unset';
     leftMap.setPaintProperty('background', 'background-color', '#FCF2FB');
@@ -155,26 +159,7 @@ Promise.all([
     leftMap.setPaintProperty('Muni borders', 'line-color', 'white');
     leftMap.moveLayer('Muni borders')
     leftMap.moveLayer('MAPC outline')
-
-    leftMap.on('click', 'Muni choropleth', (e) => {
-      let muni = e.features[0].properties.town;
-      let policyBoard = governmentInfo['2018'][`${muni}`]['Policy Board'] !== '' ?
-        governmentInfo['2018'][`${muni}`]['Policy Board'] 
-        : 'N/A'
-      let legislativeBody = governmentInfo['2018'][`${muni}`]['Legislative Body']
-      let cmo = governmentInfo['2018'][`${muni}`]['Chief Municipal Official']
-      new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(`
-          <p class="tooltip__title tooltip__title--datacommon">${muni} (2018–⁠2019)</p>
-          <ul class='tooltip__list'>
-          <li class="tooltip__text tooltip__text--datacommon">Policy board type: ${policyBoard}</li>
-          <li class="tooltip__text tooltip__text--datacommon">Legislative body type: ${legislativeBody}</li>
-          <li class="tooltip__text tooltip__text--datacommon">Chief Municipal Official: ${cmo}</li>
-          </ul>
-        `)
-        .addTo(leftMap);
-    })
+    leftMap.on('click', 'Muni choropleth', (e) => setLegend(e))
   });
 
   rightMap.on('load', () => {
@@ -201,26 +186,7 @@ Promise.all([
     rightMap.setPaintProperty('Muni borders', 'line-color', 'white');
     rightMap.moveLayer('Muni borders')
     rightMap.moveLayer('MAPC outline')
-
-    rightMap.on('click', 'Muni choropleth', (e) => {
-      let muni = e.features[0].properties.town;
-      let policyBoard = governmentInfo['2019'][`${muni}`]['Policy Board'] !== '' ?
-        governmentInfo['2019'][`${muni}`]['Policy Board'] 
-        : 'N/A'
-      let legislativeBody = governmentInfo['2019'][`${muni}`]['Legislative Body']
-      let cmo = governmentInfo['2019'][`${muni}`]['Chief Municipal Official']
-      new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(`
-          <p class="tooltip__title tooltip__title--datacommon">${muni} (2019–⁠2020)</p>
-          <ul class='tooltip__list'>
-          <li class="tooltip__text tooltip__text--datacommon">Policy board type: ${policyBoard}</li>
-          <li class="tooltip__text tooltip__text--datacommon">Legislative body type: ${legislativeBody}</li>
-          <li class="tooltip__text tooltip__text--datacommon">Chief Municipal Official: ${cmo}</li>
-          </ul>
-        `)
-        .addTo(rightMap);
-    })
+    rightMap.on('click', 'Muni choropleth', (e) => setLegend(e))
   })
 
   document.querySelector('#type').addEventListener("change", (e) => {
@@ -254,6 +220,23 @@ Promise.all([
         break;
     }
   })
+
+  const setLegend = (e) => {
+    document.querySelector('.map__title-box').style.display = 'inline'
+    let muni = e.features[0].properties.town
+    muniEl.innerText = muni;
+    if (document.querySelector('#type').value === 'policy') {
+      entry18El.innerText = `2018 – 2019 Policy board: ${governmentInfo['2018'][`${muni}`]['Policy Board']}`
+      entry19El.innerText = `2019 – 2020 Policy board: ${governmentInfo['2019'][`${muni}`]['Policy Board']}`
+    } else if (document.querySelector('#type').value === 'legislative') {
+      entry18El.innerText = `2018 – 2019 Legislative body: ${governmentInfo['2018'][`${muni}`]['Legislative Body']}`
+      entry19El.innerText = `2019 – 2020 Legislative: ${governmentInfo['2018'][`${muni}`]['LEgislative Body']}`
+    } else if (document.querySelector('#type').value === 'cmo') {
+      entry18El.innerText = `2018 – 2019 Chief municipal officer: ${governmentInfo['2018'][`${muni}`]['Chief Municipal Official']}`
+      entry19El.innerText = `2019 – 2020 Chief municipal officer: ${governmentInfo['2018'][`${muni}`]['Chief Municipal Official']}`
+    }
+  }
+
   const compareButton = document.querySelector('.compare-swiper-vertical')
   const beforeText = document.createElement("span")
   beforeText.innerText = "2018-2019"
