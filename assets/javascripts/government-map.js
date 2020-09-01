@@ -246,6 +246,10 @@ Promise.all([
   afterText.classList = 'mapboxgl-compare__label mapboxgl-compare__after'
   compareButton.parentNode.insertBefore(beforeText, compareButton)
   compareButton.parentNode.insertBefore(afterText, compareButton.nextSibling)
+
+  compareButton.style.top = '70%'
+  beforeText.style.top = '70%'
+  afterText.style.top = '70%'
 });
 
 document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
