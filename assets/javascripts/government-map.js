@@ -222,12 +222,20 @@ Promise.all([
   })
 
   const setLegend = (e) => {
-    document.querySelector('.map__title-box').style.display = 'inline'
+    document.querySelector('.map__title-box').style.display = 'unset'
     let muni = e.features[0].properties.town
     muniEl.innerText = muni;
     if (document.querySelector('#type').value === 'policy') {
-      entry18El.innerText = `2018 – 2019 Policy board: ${governmentInfo['2018'][`${muni}`]['Policy Board']}`
-      entry19El.innerText = `2019 – 2020 Policy board: ${governmentInfo['2019'][`${muni}`]['Policy Board']}`
+      if (governmentInfo['2018'][`${muni}`]['Policy Board'] !== '') {
+        entry18El.innerText = `2018 – 2019 Policy board: ${governmentInfo['2018'][`${muni}`]['Policy Board']}`
+      } else {
+        entry18El.innerText = `No 2018 – 2019 policy board`
+      }
+      if (governmentInfo['2019'][`${muni}`]['Policy Board'] !== '') {
+        entry19El.innerText = `2019 – 2020 Policy board: ${governmentInfo['2019'][`${muni}`]['Policy Board']}`
+      } else {
+        entry18El.innerText = `No 2019 – 2020 policy board`
+      }
     } else if (document.querySelector('#type').value === 'legislative') {
       entry18El.innerText = `2018 – 2019 Legislative body: ${governmentInfo['2018'][`${muni}`]['Legislative Body']}`
       entry19El.innerText = `2019 – 2020 Legislative: ${governmentInfo['2018'][`${muni}`]['LEgislative Body']}`

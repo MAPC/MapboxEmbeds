@@ -10,7 +10,7 @@ description: "Click to view data visualization"
 </main>
 
 <div class="map__overlays">
-  <div class="map__title-box" style="display: none;">
+  <div class="map__title-box map__title-box--datacommon" style="display: none;">
     <p class="legend__title legend__title--datacommon" id="muni"></p>
     <ul class="tooltip__list">
       <li class="legend__entry legend__entry--datacommon" id="entry18"></li>
@@ -25,7 +25,7 @@ description: "Click to view data visualization"
         <option value="legislative">Legislative body</option>
         <option value="cmo">Chief municipal officer</option>
       </select>
-      <svg height="204" width="160" id="legend__policy-board">
+      <svg height="164" width="160" id="legend__policy-board">
         <rect x="2" y="2" width="16" height="16" fill="#3b66b0" stroke="black" stroke-width="1px" />
         <text x="26" y="14" class="legend__entry legend__entry--datacommon">Selectmen</text>
         <rect x="2" y="30" width="16" height="16" fill="#9cacd6" stroke="black" stroke-width="1px"  />
@@ -33,17 +33,15 @@ description: "Click to view data visualization"
         <rect x="2" y="58" width="16" height="16" fill="#a28fba" stroke="black" stroke-width="1px"  />
         <text x="26" y="70" class="legend__entry legend__entry--datacommon">Council</text>
         <rect x="2" y="86" width="16" height="16" fill="#472b78" stroke="black" stroke-width="1px"  />
-        <text x="26" y="98" class="legend__entry legend__entry--datacommon">N/A</text>
+        <text x="26" y="98" class="legend__entry legend__entry--datacommon">No policy board</text>
         <rect x='2' y='114' width='16' height='16' fill="#472b78" style='stroke: black; stroke-width: 1px;'></rect>
         <circle cx='10' cy='122' r='5.5' fill='#f5f5f5'></circle>
-        <text x='26' y='126' class='legend__entry legend__entry--datacommon'>3-member Board</text>
-        <text x='26' y='144' class='legend__entry legend__entry--datacommon'>of Selectmen</text>
-        <rect x='2' y='151' width='16' height='16' fill="#472b78" style='stroke: black; stroke-width: 1px;'></rect>
-        <line x1='2' y1='159' x2='10' y2='151' style='stroke: #f5f5f5;' stroke-width="1.5px"></line>
-        <line x1='2' y1='167' x2='18' y2='151' style='stroke: #f5f5f5;' stroke-width="1.5px"></line>
-        <line x1='10' y1='167' x2='18' y2='159' style='stroke: #f5f5f5;' stroke-width="1.5px"></line>
-        <text x='26' y='163' class='legend__entry legend__entry--datacommon'>5-member Board</text>
-        <text x='26' y='181' class='legend__entry legend__entry--datacommon'>of Selectmen</text>
+        <text x='26' y='126' class='legend__entry legend__entry--datacommon'>3-member board</text>
+        <rect x='2' y='142' width='16' height='16' fill="#472b78" style='stroke: black; stroke-width: 1px;'></rect>
+        <line x1='2' y1='150' x2='10' y2='142' style='stroke: #f5f5f5;' stroke-width="1.5px"></line>
+        <line x1='2' y1='158' x2='18' y2='142' style='stroke: #f5f5f5;' stroke-width="1.5px"></line>
+        <line x1='10' y1='158' x2='18' y2='150' style='stroke: #f5f5f5;' stroke-width="1.5px"></line>
+        <text x='26' y='154' class='legend__entry legend__entry--datacommon'>5-member board</text>
       </svg>
       <svg height="120" width="160" id="legend__legislative-body" style="display: none;">
         <rect x="2" y="2" width="16" height="16" fill="#3b66b0" stroke="black" stroke-width="1px" />
