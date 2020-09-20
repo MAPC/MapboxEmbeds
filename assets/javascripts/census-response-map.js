@@ -64,7 +64,6 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
 
     choropleth.push(colors[5]);
     map.on('load', () => {
-      console.log(map.getStyle())
       map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       map.setPaintProperty('background', 'background-color', '#fefbf8');
       map.setPaintProperty('Non MAPC municipalities', 'fill-color', '#fefbf8');

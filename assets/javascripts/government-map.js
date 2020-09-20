@@ -51,22 +51,22 @@ Promise.all([
   };
   const colorPalette = ['#3b66b0', '#9cacd6', '#a28fba', '#472b78', '#2C003B']
   const policyBoardColor = (value) => {
-    if (value === "Selectmen") {
+    if (value === "Select Board") {
       return colorPalette[0]
-    } else if (value === "Select Board") {
+    } else if (value === "Selectmen") {
       return colorPalette[1]
     } else if (value ===  "Council") {
       return colorPalette[2]
     }
   };
   const legislativeColor = (value) => {
-    if (value === "Open Town Meeting") {
+    if (value === "Representative Town Meeting") {
       return colorPalette[0]
-    } else if (value === "Council") {
+    } else if (value === "Open Town Meeting") {
       return colorPalette[1]
-    } else if (value === "Representative Town Meeting") {
-      return colorPalette[2]
     } else if (value === "Aldermen") {
+      return colorPalette[2]
+    } else if (value === "Council") {
       return colorPalette[3]
     }
   };
@@ -238,10 +238,10 @@ Promise.all([
       }
     } else if (document.querySelector('#type').value === 'legislative') {
       entry18El.innerText = `2018 – 2019 Legislative body: ${governmentInfo['2018'][`${muni}`]['Legislative Body']}`
-      entry19El.innerText = `2019 – 2020 Legislative: ${governmentInfo['2018'][`${muni}`]['LEgislative Body']}`
+      entry19El.innerText = `2019 – 2020 Legislative body: ${governmentInfo['2019'][`${muni}`]['Legislative Body']}`
     } else if (document.querySelector('#type').value === 'cmo') {
-      entry18El.innerText = `2018 – 2019 Chief municipal officer: ${governmentInfo['2018'][`${muni}`]['Chief Municipal Official']}`
-      entry19El.innerText = `2019 – 2020 Chief municipal officer: ${governmentInfo['2018'][`${muni}`]['Chief Municipal Official']}`
+      entry18El.innerText = `2018 – 2019 Chief municipal official: ${governmentInfo['2018'][`${muni}`]['Chief Municipal Official']}`
+      entry19El.innerText = `2019 – 2020 Chief municipal official: ${governmentInfo['2019'][`${muni}`]['Chief Municipal Official']}`
     }
   }
 
