@@ -224,7 +224,7 @@ Promise.all([
   const setLegend = (e) => {
     document.querySelector('.map__title-box').style.display = 'unset'
     let muni = e.features[0].properties.town
-    muniEl.innerText = muni;
+    muniEl.innerText = `${toCamelCase(muni)} (${governmentInfo['2019'][`${muni}`]['Town/City']})`;
     if (document.querySelector('#type').value === 'policy') {
       if (governmentInfo['2018'][`${muni}`]['Policy Board'] !== '') {
         entry18El.innerText = `2018 – 2019 Policy board: ${governmentInfo['2018'][`${muni}`]['Policy Board']}`
@@ -273,3 +273,9 @@ document.querySelector('.button__collapsible--plus').addEventListener('click', (
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';
 })
+
+function toCamelCase(muniName) {
+  return muniName.split(" ")
+    .map((word) => word.charAt(0).concat(word.slice(1).toLowerCase()))
+    .join(' ');
+}
