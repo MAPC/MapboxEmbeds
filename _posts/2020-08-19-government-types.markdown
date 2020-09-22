@@ -18,7 +18,7 @@ description: "Click to view data visualization"
     </ul>
   </div>
   <aside class="legend__wrapper legend__wrapper--datacommon" style="display: none;">
-    <div class="legend" style="max-height: 263px;">
+    <div class="legend" style="max-height: 300px;">
       <span class="legend__title legend__title--datacommon">Municipal Government Types</span>
       <select id="type" name="type" class="legend__select">
         <option value="policy" checked>Policy board</option>
@@ -66,7 +66,11 @@ description: "Click to view data visualization"
         <rect x="2" y="114" width="16" height="16" fill='#2C003B' stroke="black" stroke-width="1px"  />
         <text x="26" y="126" class="legend__entry legend__entry--datacommon">Other</text>
       </svg>
-      <a href="https://datacommon.mapc.org/browser/datasets/413" target="_PARENT" class="legend__title legend__title--datacommon">Explore & Download Data</a>
+      <span class="legend__title legend__title--datacommon">Explore & Download Data</span>
+      <ul class="tooltip__list">
+        <li class="legend__entry legend__entry--datacommon"><a href="https://www.mma.org/resource/form-of-government-for-each-community-in-massachusetts/muni_forms_of_gov2018/" target="_PARENT">2018–2019 data (PDF)</a></li>
+        <li class="legend__entry legend__entry--datacommon"><a href="https://www.mma.org/resource/form-of-government-for-each-community-in-massachusetts/formsofgov2019-2020massmunidirectory/" target="_PARENT">2019–2020 data (PDF)</a></li>
+      </ul>
     </div>
     <button type="button" class="button__collapsible button__collapsible--minus">-</button>
     <div>

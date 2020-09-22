@@ -227,30 +227,30 @@ Promise.all([
     muniEl.innerText = `${toCamelCase(muni)} (${governmentInfo['2019'][`${muni}`]['Town/City']})`;
     if (document.querySelector('#type').value === 'policy') {
       if (governmentInfo['2018'][`${muni}`]['Policy Board'] !== '') {
-        entry18El.innerText = `2018 – 2019 Policy board: ${governmentInfo['2018'][`${muni}`]['Policy Board']}`
+        entry18El.innerText = `2018–2019 Policy board: ${governmentInfo['2018'][`${muni}`]['Policy Board']}`
       } else {
-        entry18El.innerText = `No 2018 – 2019 policy board`
+        entry18El.innerText = `No 2018–2019 policy board`
       }
       if (governmentInfo['2019'][`${muni}`]['Policy Board'] !== '') {
-        entry19El.innerText = `2019 – 2020 Policy board: ${governmentInfo['2019'][`${muni}`]['Policy Board']}`
+        entry19El.innerText = `2019–2020 Policy board: ${governmentInfo['2019'][`${muni}`]['Policy Board']}`
       } else {
-        entry18El.innerText = `No 2019 – 2020 policy board`
+        entry18El.innerText = `No 2019–2020 policy board`
       }
     } else if (document.querySelector('#type').value === 'legislative') {
-      entry18El.innerText = `2018 – 2019 Legislative body: ${governmentInfo['2018'][`${muni}`]['Legislative Body']}`
-      entry19El.innerText = `2019 – 2020 Legislative body: ${governmentInfo['2019'][`${muni}`]['Legislative Body']}`
+      entry18El.innerText = `2018–2019 Legislative body: ${governmentInfo['2018'][`${muni}`]['Legislative Body']}`
+      entry19El.innerText = `2019–2020 Legislative body: ${governmentInfo['2019'][`${muni}`]['Legislative Body']}`
     } else if (document.querySelector('#type').value === 'cmo') {
-      entry18El.innerText = `2018 – 2019 Chief municipal official: ${governmentInfo['2018'][`${muni}`]['Chief Municipal Official']}`
-      entry19El.innerText = `2019 – 2020 Chief municipal official: ${governmentInfo['2019'][`${muni}`]['Chief Municipal Official']}`
+      entry18El.innerText = `2018–2019 Chief municipal official: ${governmentInfo['2018'][`${muni}`]['Chief Municipal Official']}`
+      entry19El.innerText = `2019–2020 Chief municipal official: ${governmentInfo['2019'][`${muni}`]['Chief Municipal Official']}`
     }
   }
 
   const compareButton = document.querySelector('.compare-swiper-vertical')
   const beforeText = document.createElement("span")
-  beforeText.innerText = "2018-2019"
+  beforeText.innerText = "2018–2019"
   beforeText.classList = 'mapboxgl-compare__label mapboxgl-compare__before'
   const afterText = document.createElement("span")
-  afterText.innerText = '2019-2020'
+  afterText.innerText = '2019–2020'
   afterText.classList = 'mapboxgl-compare__label mapboxgl-compare__after'
   compareButton.parentNode.insertBefore(beforeText, compareButton)
   compareButton.parentNode.insertBefore(afterText, compareButton.nextSibling)
@@ -268,7 +268,7 @@ document.querySelector('.button__collapsible--minus').addEventListener('click', 
 })
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.legend').style.maxHeight = "263px";
+  document.querySelector('.legend').style.maxHeight = "300px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';
