@@ -1,20 +1,18 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 
-const colorPalette = ['#3b66b0', '#9cacd6', '#a28fba', '#472b78', '#2C003B']
+const colorPalette = ["#233069", "#0097C4", "#92C9ED", "#C4E7EB", "#fecd6d"]
 const colorExpression = ['match', ['get', 'town']];
 const polygonColor = (value) => {
-  if (value >= 30) {
-    console.log("!")
-    return colorPalette[4]
-  } else if (value >= 20) {
-    console.log("?")
-    return colorPalette[3]
-  } else if (value >= 15) {
-    return colorPalette[2]
-  } else if (value >= 10) {
+  if (value >= 10) {
+    return colorPalette[0]
+  } else if (value >= 9) {
     return colorPalette[1]
+  } else if (value >= 6) {
+    return colorPalette[2]
+  } else if (value >= 3) {
+    return colorPalette[3]
   }
-  return colorPalette[0]
+  return colorPalette[4]
 }
 
 const dogInfo = {};
@@ -70,18 +68,17 @@ fetch('https://staging.datacommon.mapc.org/calendar/dogs')
       return munis
     }, [])
 
-    console.log(reducedData)
-
     reducedData.forEach((row) => {
       dogInfo[`${row.muni}`] = row
       colorExpression.push(row.muni.toUpperCase(), polygonColor(row.dogs.length))
     });
     colorExpression.push(colorPalette[4])
-    console.log(colorExpression)
+
+    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
     map.on('load', () => {
       document.querySelector('.legend__wrapper').style.display = 'unset';
-      // map.setPaintProperty('background', 'background-color', '#FCF2FB');
-      // map.setPaintProperty('External State', 'fill-color', '#FCF2FB');
+      map.setPaintProperty('background', 'background-color', '#fff5e0');
+      map.setPaintProperty('External State', 'fill-color', '#fff5e0');
       map.addLayer({
         id: 'Muni choropleth',
         type: 'fill',
@@ -94,4 +91,18 @@ fetch('https://staging.datacommon.mapc.org/calendar/dogs')
       map.moveLayer('Muni borders')
       map.moveLayer('MAPC outline')
     })
+  })
+
+  document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
+    document.querySelector('.legend').style.maxHeight = "0";
+    document.querySelector('.maximize-instructions').style.display = 'inline';
+    document.querySelector('.button__collapsible--plus').style.display = 'inline';
+    document.querySelector('.button__collapsible--minus').style.display = 'none';
+  })
+  
+  document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
+    document.querySelector('.legend').style.maxHeight = "200px";
+    document.querySelector('.maximize-instructions').style.display = 'none';
+    document.querySelector('.button__collapsible--minus').style.display = 'inline';
+    document.querySelector('.button__collapsible--plus').style.display = 'none';
   })
