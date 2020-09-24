@@ -1,5 +1,3 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
-
 const colorPalette = ["#233069", "#0097C4", "#92C9ED", "#C4E7EB", "#fecd6d"]
 const colorExpression = ['match', ['get', 'town']];
 const polygonColor = (value) => {
@@ -67,6 +65,8 @@ fetch('https://staging.datacommon.mapc.org/calendar/dogs')
       }
       return munis
     }, [])
+
+    console.log(reducedData)
 
     reducedData.forEach((row) => {
       dogInfo[`${row.muni}`] = row
