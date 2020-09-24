@@ -90,6 +90,31 @@ fetch('https://staging.datacommon.mapc.org/calendar/dogs')
       })
       map.moveLayer('Muni borders')
       map.moveLayer('MAPC outline')
+
+      map.on('click', 'Muni choropleth', (e) => {
+        const muni = toCamelCase(e.features[0].properties.town)
+        if (dogInfo[muni]) {
+          const i = getRandomIndex(dogInfo[muni].dogs.length)
+          const selectedDog = dogInfo[muni].dogs[i]
+          console.log(selectedDog)
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(`
+              <p class="tooltip__title tooltip__title--datacommon">${muni} (${dogInfo[muni].dogs.length} available dogs)</p>
+              <p class="tooltip__text tooltip__text--datacommon">Meet ${selectedDog.name}!</p>
+              <img class="tooltip__image" src="${selectedDog.primary_photo_cropped.small}" />
+            `)
+            .addTo(map);
+        } else {
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(`
+              <p class="tooltip__title tooltip__title--datacommon">${muni}</p>
+              <p class="tooltip__text tooltip__text--datacommon">No dogs listed</p>
+            `)
+            .addTo(map);
+        }
+      })
     })
   })
 
@@ -106,3 +131,13 @@ fetch('https://staging.datacommon.mapc.org/calendar/dogs')
     document.querySelector('.button__collapsible--minus').style.display = 'inline';
     document.querySelector('.button__collapsible--plus').style.display = 'none';
   })
+
+function toCamelCase(muniName) {
+  return muniName.split(" ")
+    .map((word) => word.charAt(0).concat(word.slice(1).toLowerCase()))
+    .join(' ');
+}
+
+function getRandomIndex(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}

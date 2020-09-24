@@ -216,6 +216,10 @@ p {
       font-family: 'Montserrat';
     }
   }
+
+  &__image {
+    max-width: 120px;
+  }
 }
 
 .toggle {
