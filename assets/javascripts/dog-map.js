@@ -24,23 +24,23 @@ if (window.innerWidth <= 500) {
   zoom = 8.27;
   center = [-70.89, 42.369];
 }
-const map = new mapboxgl.Map({
-  container: 'map',
-  zoom,
-  minZoom: 6,
-  maxZoom: 13,
-  center,
-  maxBounds: [
-    [-74.728, 38.167], // Southwest bound
-    [-66.541, 46.032], // Northeast bound
-  ],
-  style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
-  accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
-});
 
 fetch('https://staging.datacommon.mapc.org/calendar/dogs')
   .then(response => response.json())
   .then((data) => {
+    const map = new mapboxgl.Map({
+      container: 'map',
+      zoom,
+      minZoom: 6,
+      maxZoom: 13,
+      center,
+      maxBounds: [
+        [-74.728, 38.167], // Southwest bound
+        [-66.541, 46.032], // Northeast bound
+      ],
+      style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
+      accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
+    });
     console.log(data)
     const neighborhoodSwap = {
       "Turners Falls": "Monatgue",
