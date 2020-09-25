@@ -73,7 +73,7 @@ fetch('https://staging.datacommon.mapc.org/calendar/dogs')
       colorExpression.push(row.muni.toUpperCase(), polygonColor(row.dogs.length))
     });
     colorExpression.push(colorPalette[4])
-
+    
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
     map.on('load', () => {
       document.querySelector('.legend__wrapper').style.display = 'unset';
@@ -96,13 +96,12 @@ fetch('https://staging.datacommon.mapc.org/calendar/dogs')
         if (dogInfo[muni]) {
           const i = getRandomIndex(dogInfo[muni].dogs.length)
           const selectedDog = dogInfo[muni].dogs[i]
-          console.log(selectedDog)
           new mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(`
               <p class="tooltip__title tooltip__title--datacommon">${muni} (${dogInfo[muni].dogs.length} available dogs)</p>
-              <p class="tooltip__text tooltip__text--datacommon">Meet ${selectedDog.name}!</p>
-              <img class="tooltip__image" src="${selectedDog.primary_photo_cropped.small}" />
+              <a href="${selectedDog.url}" class="tooltip__text tooltip__text--datacommon">Meet ${selectedDog.name}!</a>
+              <br/><img class="tooltip__image" src="${selectedDog.primary_photo_cropped.small}" />
             `)
             .addTo(map);
         } else {
