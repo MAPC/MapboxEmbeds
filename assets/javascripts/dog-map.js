@@ -12,8 +12,6 @@ const polygonColor = (value) => {
   }
 }
 
-const dogInfo = {};
-
 let zoom = 9;
 let center = [-71.0408, 42.3317];
 if (window.innerWidth <= 500) {
@@ -41,32 +39,53 @@ fetch('https://staging.datacommon.mapc.org/calendar/dogs')
       accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     });
     console.log(data)
+    
     const neighborhoodSwap = {
-      "Turners Falls": "Monatgue",
+      "Turners Falls": "Montague",
       "Nutting Lake": "Billerica",
       "Centerville": "Barnstable",
       "Cherry Valley": "Leicester",
       "Vineyard Haven": "Tisbury"
     }
+    const starterArray = [{
+      muni: "Montague",
+      dogs: []
+    }, {
+      muni: "Billerica",
+      dogs: []
+    }, {
+      muni: "Barnstable",
+      dogs: []
+    }, {
+      muni: "Leicester",
+      dogs: []
+    }, {
+      muni: "Tisbury",
+      dogs: []
+    },
+  ]
     const reducedData = data.reduce((munis, dog) => {
-      // Need to handle bucketing these 5 neighborhoods into proper town bucket
-      if (dog.contact.address.state === 'MA' && !Object.keys(neighborhoodSwap).includes(dog.contact.address.city)) {
-        let muni = munis.find(row => row.muni === dog.contact.address.city)
-        if (!muni) {
-          muni = {
-            muni: dog.contact.address.city,
-            state: dog.contact.address.state,
-            dogs: []
+      if (dog.contact.address.state === 'MA') {
+        if (!Object.keys(neighborhoodSwap).includes(dog.contact.address.city)) {
+          let muni = munis.find(row => row.muni === dog.contact.address.city)
+          if (!muni) {
+            muni = {
+              muni: dog.contact.address.city,
+              dogs: []
+            }
+            munis.push(muni)
           }
-          munis.push(muni)
+          muni.dogs.push(dog)
+        } else {
+          let muni = munis.find(row => row.muni === neighborhoodSwap[dog.contact.address.city])
+          muni.dogs.push(dog)
         }
-        muni.dogs.push(dog)
       }
       return munis
-    }, [])
+    }, starterArray)
 
     console.log(reducedData)
-
+    const dogInfo = {};
     reducedData.forEach((row) => {
       dogInfo[`${row.muni}`] = row
       colorExpression.push(row.muni.toUpperCase(), polygonColor(row.dogs.length))
