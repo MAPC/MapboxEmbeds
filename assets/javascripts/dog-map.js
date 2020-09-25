@@ -3,14 +3,13 @@ const colorExpression = ['match', ['get', 'town']];
 const polygonColor = (value) => {
   if (value >= 10) {
     return colorPalette[0]
-  } else if (value >= 9) {
+  } else if (value >= 7) {
     return colorPalette[1]
-  } else if (value >= 6) {
+  } else if (value >= 4) {
     return colorPalette[2]
-  } else if (value >= 3) {
+  } else {
     return colorPalette[3]
   }
-  return colorPalette[4]
 }
 
 const dogInfo = {};
