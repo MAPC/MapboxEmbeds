@@ -6,7 +6,7 @@ description: "Click to view data visualization"
 <main id="map" class="map"></main>
 <aside class="legend__wrapper legend__wrapper--datacommon">
   <div class="legend" style="max-height: 309px;">
-    <span class="legend__title legend__title--datacommon">Census Response Rates (August 31, 2020)</span>
+    <span class="legend__title legend__title--datacommon">Census Response Rates (September 30, 2020)</span>
     <svg height="160" width="160">
       <rect x="2" y="2" width="32" height="16" fill="#feedde" stroke="black" stroke-width="1px" />
       <text x="42" y="14" class="legend__entry legend__entry--datacommon">80%+</text>
