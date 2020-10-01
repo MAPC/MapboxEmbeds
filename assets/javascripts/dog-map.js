@@ -22,7 +22,7 @@ if (window.innerWidth <= 500) {
   center = [-70.89, 42.369];
 }
 
-fetch('https://staging.datacommon.mapc.org/calendar/dogs')
+fetch('https://datacommon.mapc.org/calendar/dogs')
   .then(response => response.json())
   .then((data) => {
     const map = new mapboxgl.Map({
@@ -118,8 +118,8 @@ fetch('https://staging.datacommon.mapc.org/calendar/dogs')
             .setLngLat(e.lngLat)
             .setHTML(`
               <p class="tooltip__title tooltip__title--datacommon">${muni} (${dogInfo[muni].dogs.length} available dogs)</p>
-              <a href="${selectedDog.url}" class="tooltip__text tooltip__text--datacommon">Meet ${selectedDog.name}!</a>
-              <br/><img class="tooltip__image" src="${selectedDog.primary_photo_cropped.small}" />
+              <img class="tooltip__image" src="${selectedDog.primary_photo_cropped.small}" />
+              <br/><a href="${selectedDog.url}" class="tooltip__text tooltip__text--datacommon">Meet ${selectedDog.name}!</a>
             `)
             .addTo(map);
         } else {
