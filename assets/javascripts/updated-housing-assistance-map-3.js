@@ -1,5 +1,5 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
-d3.csv('/MapboxEmbeds/assets/data/0718_housing_assistance.csv').then((response) => {
+d3.csv('/MapboxEmbeds/assets/data/Data_map_0905.csv').then((response) => {
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/ihill/ckdyniqrf00bc19pioqescksy',
@@ -25,7 +25,7 @@ d3.csv('/MapboxEmbeds/assets/data/0718_housing_assistance.csv').then((response) 
 
   map.on('load', () => {
     const colorPolygon = (value) => {
-      if (value >= 3500001) {
+      if (value >= 2500001) {
         return colorPalette[7]
       } else if (value >= 1000001) {
         return colorPalette[6]
