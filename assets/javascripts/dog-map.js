@@ -45,7 +45,9 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       "Nutting Lake": "Billerica",
       "Centerville": "Barnstable",
       "Cherry Valley": "Leicester",
-      "Vineyard Haven": "Tisbury"
+      "Vineyard Haven": "Tisbury",
+      "Charlestown": "Boston",
+      "North Easton": "Easton",
     }
     const starterArray = [{
       muni: "Montague",
@@ -61,6 +63,12 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       dogs: []
     }, {
       muni: "Tisbury",
+      dogs: []
+    }, {
+      muni: "Boston",
+      dogs: []
+    }, {
+      muni: "Easton",
       dogs: []
     },
   ]
@@ -111,15 +119,19 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
 
       map.on('click', 'Muni choropleth', (e) => {
         const muni = toCamelCase(e.features[0].properties.town)
+        const bottomText = dogInfo[muni].dogs.length > 1 ? 
+          `<p class="tooltip__text tooltip__text--datacommon">One of ${dogInfo[muni].dogs.length} great adoptable dogs in ${muni}</p>`
+          : `<p class="tooltip__text tooltip__text--datacommon">A great adoptable dog in ${muni}</p>`
+
         if (dogInfo[muni]) {
           const i = getRandomIndex(dogInfo[muni].dogs.length)
           const selectedDog = dogInfo[muni].dogs[i]
           new mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(`
-              <p class="tooltip__title tooltip__title--datacommon">${muni} (${dogInfo[muni].dogs.length} available dogs)</p>
               <img class="tooltip__image" src="${selectedDog.primary_photo_cropped.small}" />
-              <br/><a href="${selectedDog.url}" class="tooltip__text tooltip__text--datacommon">Meet ${selectedDog.name}!</a>
+              <p style="text-align: center;"><a href="${selectedDog.url}" class="tooltip__title tooltip__title--datacommon">Meet ${selectedDog.name}!</a></p>
+              ${bottomText}
             `)
             .addTo(map);
         } else {

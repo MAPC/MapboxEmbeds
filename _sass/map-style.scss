@@ -218,7 +218,10 @@ p {
   }
 
   &__image {
-    max-width: 150px;
+    display: flex;
+    margin: 8px auto;
+    max-height: 220px;
+    max-width: 220px;
   }
 }
 
