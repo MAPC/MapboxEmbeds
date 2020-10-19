@@ -6,7 +6,7 @@ description: "Click to view data visualization"
 <main id="map" class="map"></main>
 <aside class="legend__wrapper legend__wrapper--datacommon">
   <div class="legend" style="max-height: 309px;">
-    <span class="legend__title legend__title--datacommon">Number of Adoptable Dogs</span>
+    <span class="legend__title legend__title--datacommon">Number of Adoptable Dog Listings</span>
     <svg height="136" width="160">
       <rect x="2" y="2" width="32" height="16" fill="#233069" stroke="black" stroke-width="1px" />
       <text x="42" y="14" class="legend__entry legend__entry--datacommon">10+</text>
@@ -19,7 +19,7 @@ description: "Click to view data visualization"
       <rect x="2" y="114" width="32" height="16" fill="#fecd6d" stroke="black" stroke-width="1px"  />
       <text x="42" y="126" class="legend__entry legend__entry--datacommon">No dogs listed</text>
     </svg>
-    <p class="legend__disclaimer legend__disclaimer--datacommon">This map uses the Petfinder API to pull its data</p>
+    <p class="legend__disclaimer legend__disclaimer--datacommon">This map uses the Petfinder API to pull its data.</p>
   </div>
   <button type="button" class="button__collapsible button__collapsible--minus">-</button>
   <div>

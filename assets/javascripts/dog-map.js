@@ -42,13 +42,14 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
     });
     
     const neighborhoodSwap = {
-      "Turners Falls": "MONTAGUE",
-      "Nutting Lake": "BILLERICA",
-      "Centerville": "BARNSTABLE",
-      "Cherry Valley": "LEICESTER",
-      "Vineyard Haven": "TISBURY",
-      "Charlestown": "BOSTON",
-      "North Easton": "EASTON",
+      "TURNERS FALLS": "MONTAGUE",
+      "NUTTING LAKE": "BILLERICA",
+      "CENTERVILLE": "BARNSTABLE",
+      "CHERRY VALLEY": "LEICESTER",
+      "VINEYARD HAVEN": "TISBURY",
+      "CHARLESTOWN": "BOSTON",
+      "NORTH EASTON": "EASTON",
+      "FORESTDALE": "SANDWICH",
     }
     const starterArray = [{
       muni: "MONTAGUE",
@@ -71,6 +72,9 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
     }, {
       muni: "EASTON",
       dogs: []
+    }, {
+      muni: "SANDWICH",
+      dogs: [],
     }]
     
     const reducedData = data.reduce((munis, dog) => {
@@ -92,8 +96,6 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       }
       return munis
     }, starterArray)
-
-    console.log(reducedData)
 
     const dogInfo = {};
     reducedData.forEach((row) => {
@@ -156,7 +158,7 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
   })
   
   document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-    document.querySelector('.legend').style.maxHeight = "200px";
+    document.querySelector('.legend').style.maxHeight = "213px";
     document.querySelector('.maximize-instructions').style.display = 'none';
     document.querySelector('.button__collapsible--minus').style.display = 'inline';
     document.querySelector('.button__collapsible--plus').style.display = 'none';
