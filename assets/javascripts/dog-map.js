@@ -133,7 +133,7 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
             .setLngLat(e.lngLat)
             .setHTML(`
               <img class="tooltip__image" src="${selectedDog.primary_photo_cropped.small}" />
-              <p style="text-align: center;"><a href="${selectedDog.url}" class="tooltip__title tooltip__title--datacommon">Meet ${selectedDog.name}!</a></p>
+              <p style="text-align: center;"><a href="${selectedDog.url}" target="_PARENT" class="tooltip__title tooltip__title--datacommon">Meet ${selectedDog.name}!</a></p>
               ${bottomText}
             `)
             .addTo(map);
