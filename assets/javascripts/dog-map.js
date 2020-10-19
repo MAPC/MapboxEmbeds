@@ -7,8 +7,10 @@ const polygonColor = (value) => {
     return colorPalette[1]
   } else if (value >= 4) {
     return colorPalette[2]
-  } else {
+  } else if (value >= 1) {
     return colorPalette[3]
+  } else {
+    return colorPalette[4]
   }
 }
 
@@ -38,54 +40,53 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
       accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     });
-    console.log(data)
     
     const neighborhoodSwap = {
-      "Turners Falls": "Montague",
-      "Nutting Lake": "Billerica",
-      "Centerville": "Barnstable",
-      "Cherry Valley": "Leicester",
-      "Vineyard Haven": "Tisbury",
-      "Charlestown": "Boston",
-      "North Easton": "Easton",
+      "Turners Falls": "MONTAGUE",
+      "Nutting Lake": "BILLERICA",
+      "Centerville": "BARNSTABLE",
+      "Cherry Valley": "LEICESTER",
+      "Vineyard Haven": "TISBURY",
+      "Charlestown": "BOSTON",
+      "North Easton": "EASTON",
     }
     const starterArray = [{
-      muni: "Montague",
+      muni: "MONTAGUE",
       dogs: []
     }, {
-      muni: "Billerica",
+      muni: "BILLERICA",
       dogs: []
     }, {
-      muni: "Barnstable",
+      muni: "BARNSTABLE",
       dogs: []
     }, {
-      muni: "Leicester",
+      muni: "LEICESTER",
       dogs: []
     }, {
-      muni: "Tisbury",
+      muni: "TISBURY",
       dogs: []
     }, {
-      muni: "Boston",
+      muni: "BOSTON",
       dogs: []
     }, {
-      muni: "Easton",
+      muni: "EASTON",
       dogs: []
-    },
-  ]
+    }]
+    
     const reducedData = data.reduce((munis, dog) => {
       if (dog.contact.address.state === 'MA') {
-        if (!Object.keys(neighborhoodSwap).includes(dog.contact.address.city)) {
-          let muni = munis.find(row => row.muni === dog.contact.address.city)
+        if (!Object.keys(neighborhoodSwap).includes(dog.contact.address.city.toUpperCase())) {
+          let muni = munis.find(row => row.muni === dog.contact.address.city.toUpperCase())
           if (!muni) {
             muni = {
-              muni: dog.contact.address.city,
-              dogs: []
+              muni: dog.contact.address.city.toUpperCase(),
+              dogs: [dog]
             }
-            munis.push(muni)
+            return [...munis, muni];
           }
           muni.dogs.push(dog)
         } else {
-          let muni = munis.find(row => row.muni === neighborhoodSwap[dog.contact.address.city])
+          let muni = munis.find(row => row.muni === neighborhoodSwap[dog.contact.address.city.toUpperCase()])
           muni.dogs.push(dog)
         }
       }
@@ -93,6 +94,7 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
     }, starterArray)
 
     console.log(reducedData)
+
     const dogInfo = {};
     reducedData.forEach((row) => {
       dogInfo[`${row.muni}`] = row
@@ -118,14 +120,13 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       map.moveLayer('MAPC outline')
 
       map.on('click', 'Muni choropleth', (e) => {
-        const muni = toCamelCase(e.features[0].properties.town)
-        const bottomText = dogInfo[muni].dogs.length > 1 ? 
-          `<p class="tooltip__text tooltip__text--datacommon">One of ${dogInfo[muni].dogs.length} great adoptable dogs in ${muni}</p>`
-          : `<p class="tooltip__text tooltip__text--datacommon">A great adoptable dog in ${muni}</p>`
-
-        if (dogInfo[muni]) {
+        const muni = e.features[0].properties.town
+        if (dogInfo[muni] && dogInfo[muni].dogs.length) {
           const i = getRandomIndex(dogInfo[muni].dogs.length)
-          const selectedDog = dogInfo[muni].dogs[i]
+          const selectedDog = dogInfo[muni].dogs[i];
+          const bottomText = dogInfo[muni].dogs.length > 1 ? 
+          `<p class="tooltip__text tooltip__text--datacommon">One of ${dogInfo[muni].dogs.length} great adoptable dogs in ${toCamelCase(muni)}</p>`
+          : `<p class="tooltip__text tooltip__text--datacommon">A great adoptable dog in ${toCamelCase(muni)}</p>`
           new mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(`
@@ -138,7 +139,7 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
           new mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(`
-              <p class="tooltip__title tooltip__title--datacommon">${muni}</p>
+              <p class="tooltip__title tooltip__title--datacommon">${toCamelCase(muni)}</p>
               <p class="tooltip__text tooltip__text--datacommon">No dogs listed</p>
             `)
             .addTo(map);
