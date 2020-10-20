@@ -120,7 +120,8 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       })
       map.moveLayer('Muni borders')
       map.moveLayer('MAPC outline')
-
+      map.doubleClickZoom.disable();
+    
       map.on('click', 'Muni choropleth', (e) => {
         const muni = e.features[0].properties.town
         if (dogInfo[muni] && dogInfo[muni].dogs.length) {
