@@ -12,31 +12,32 @@ d3.csv('/MapboxEmbeds/assets/data/broadband_data.csv').then((response) => {
       [-66.541, 46.032], // Northeast bound
     ]
   });
-  const colorPalette = ["#ffffd9", "#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4"]
+  const colorPalette = ['#F3F3F3', '#B1C6D8', '#50789D', '#2e4b66', '#c1b9bb'];
   const colorExpression = ['match', ['get', 'town']];
   const medianObj = {};
   response.forEach((row) => {
     medianObj[row.muni] = row.median_download_speed_mbps_2020;
   });
 
-  map.on('load', () => {
-    const colorPolygon = (value) => {
-      if (value >= 300) {
-        return colorPalette[4]
-      } else if (value >= 200) {
-        return colorPalette[3]
-      } else if (value >= 100) {
-        return colorPalette[2]
-      } else if (value >= 50) {
-        return colorPalette[1]
-      }
-      return colorPalette[0]
+  const colorPolygon = (value) => {
+    if (value >= 200) {
+      return colorPalette[3]
+    } else if (value >= 100) {
+      return colorPalette[2]
+    } else if (value >= 50) {
+      return colorPalette[1]
     }
+    return colorPalette[0]
+  }
 
-    response.forEach((row) => {
-      colorExpression.push(row.muni, row.median_download_speed_mbps_2020 != '-' ? colorPolygon(+row.median_download_speed_mbps_2020) : colorPalette[4])
-    });
-    colorExpression.push('#B57F00');
+  response.forEach((row) => {
+    colorExpression.push(row.muni, row.median_download_speed_mbps_2020 != '-' ? colorPolygon(+row.median_download_speed_mbps_2020) : colorPalette[4])
+  });
+  colorExpression.push(colorPalette[4]);
+
+  map.on('load', () => {
+    map.setPaintProperty('background', 'background-color', '#E5E5E5');
+    map.setPaintProperty('External State', 'fill-color', '#E5E5E5');
 
     map.addLayer({
       id: 'Median Download Speed',
