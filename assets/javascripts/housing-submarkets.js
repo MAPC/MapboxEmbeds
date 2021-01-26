@@ -102,12 +102,14 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
   const yrbltColorExpression = ['match', ['get', 'ct10_id']];
   const cashColorExpression = ['match', ['get', 'ct10_id']];
   const chMedhvColorExpression = ['match', ['get', 'ct10_id']];
+  const tractInfo = {};
     response.forEach((row) => {
       medhvColorExpression.push(row.ct10_id, row.medhv ? choropleths.medhv(+row.medhv) : dataNa);
       rhuColorExpression.push(row.ct10_id, row.rhu_p ? choropleths['rhu_p'](+row.rhu_p) : dataNa);
       yrbltColorExpression.push(row.ct10_id, row.yrblt59_p ? choropleths['yrblt59_p'](+row.yrblt59_p) : dataNa);
       cashColorExpression.push(row.ct10_id, row.cash17_p ? choropleths['cash17_p'](+row.cash17_p) : dataNa);
       chMedhvColorExpression.push(row.ct10_id, row.ch_medhv_p ? choropleths['ch_medhv_p'](+row.ch_medhv_p) : dataNa);
+      tractInfo[`${row.ct10_id}`] = row;
     });
     medhvColorExpression.push(dataNa);
     rhuColorExpression.push(dataNa);
@@ -124,11 +126,48 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
         paint: { 'fill-color': medhvColorExpression, 'fill-outline-color': '#707070' }
       })
       map.addLayer({
-        id: 'Muni borders',
+        id: 'Muni borders - polygon',
+        type: 'fill',
+        source: 'composite',
+        'source-layer': 'MAPC_borders-0im3ea',
+        paint: { 'fill-color': 'rgba(0, 0, 0, 0)' }
+      })
+
+      map.addLayer({
+        id: 'Muni borders - lines',
         type: 'line',
         source: 'composite',
         'source-layer': 'MAPC_borders-0im3ea',
       })
+
+      map.on('click', (e) => {
+        const clickedData = map.queryRenderedFeatures(
+          [e.point.x, e.point.y],
+          { layers: ['Tract choropleth', 'Muni borders - polygon'] },
+        );
+
+        if (clickedData.length === 2) {
+          const title = `
+          <p class="tooltip__title tooltip__title--datacommon">Tract ${clickedData[1].properties.ct10_id} (${clickedData[0].properties.municipal})</p>
+        `;
+          const selectedTract = tractInfo[clickedData[1].properties.ct10_id];
+
+          const body = selectedTract ?
+          `<ul class='tooltip__list'>
+            <li class='tooltip__text tooltip__text--datacommon'>${d3.format('$,')(selectedTract.medhv)} median home value</li>
+            <li class='tooltip__text tooltip__text--datacommon'>${selectedTract.rhu_p}% renter households</li>
+            <li class='tooltip__text tooltip__text--datacommon'>${selectedTract.yrblt59_p}% year built prior to 1960</li>
+            <li class='tooltip__text tooltip__text--datacommon'>${selectedTract.cash17_p}% cash sales</li>
+            <li class='tooltip__text tooltip__text--datacommon'>${selectedTract.ch_medhv_p}% change in median home value</li>
+          </ul>`
+            : `<p class="tooltip__text tooltip__text--datacommon">Tract data unavailable<p>`;
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(title + body)
+            .addTo(map);
+        }
+      });
+
       document.querySelector('#type').addEventListener("change", (e) => {
         switch(e.target.value) {
           case 'medhv':
