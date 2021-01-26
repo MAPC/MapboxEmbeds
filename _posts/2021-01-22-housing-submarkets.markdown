@@ -7,42 +7,89 @@ description: "Click to view data visualization"
 <aside class="legend__wrapper legend__wrapper--datacommon">
   <div class="legend" style="max-height:330px;">
     <select id="type" name="type" class="legend__select">
-      <option value="mhi" checked>Median Household Income</option>
-      <option value="ch_rhu_p">Change in % Rented Housing Units</option>
+      <option value="medhv" checked>Median home value</option>
+      <option value="rhu_p">Percent renter households</option>
+      <option value="yrblt59_p">Percent year build prior to 1960</option>
+      <option value="cash17_p">Percent cash sales</option>
+      <option value="ch_medhv_p">Percent change in median home value</option>
     </select>
-    <svg height="216" width="168" id="legend__mhi">
+    <svg height="216" width="168" id="legend__medhv">
       <rect x="2" y="2" width="16" height="16" fill="#F2F0F7" stroke="#231F20"/>
-      <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">$16,000 – $35,000</text>
+      <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">$147,000 – $300,000</text>
       <rect x="2" y="30" width="16" height="16" fill="#DADAEB" stroke="#231F20"/>
-      <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">$35,001 – $50,000</text>
+      <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">$300,001 – $450,000</text>
       <rect x="2" y="58" width="16" height="16" fill="#BCBDDC" stroke="#231F20"/>
-      <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">$50,001 – $75,000</text>
+      <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">$450,001 – $600,000</text>
       <rect x="2" y="86" width="16" height="16" fill="#9E9AC8" stroke="#231F20"/>
-      <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">$75,001 – $100,000</text>
+      <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">$600,001 – $750,000</text>
       <rect x="2" y="114" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
-      <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">$100,001 – $150,000</text>
+      <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">$750,001 – $900,000</text>
       <rect x="2" y="142" width="16" height="16" fill="#6A51A3" stroke="#231F20"/>
-      <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">$150,001 – $200,000</text>
+      <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">$900,001 – $1,050,000</text>
       <rect x="2" y="170" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
-      <text x="28" y="182" class="legend__entry legend__entry--datacommon" fill="#231F20">$200,001+</text>
+      <text x="28" y="182" class="legend__entry legend__entry--datacommon" fill="#231F20">$1,050,001+</text>
       <rect x="2" y="198" width="16" height="16" fill="#707070" stroke="#231F20"/>
       <text x="28" y="210" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
     </svg>
-    <svg height="216" width="168" id="legend__ch_rhu_p" style="display: none;">
+    <svg height="160" width="168" id="legend__rhu_p" style="display: none;">
+      <rect x="2" y="2" width="16" height="16" fill="#BCBDDC" stroke="#231F20"/>
+      <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">0% – 20%</text>
+      <rect x="2" y="30" width="16" height="16" fill="#9E9AC8" stroke="#231F20"/>
+      <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">20% – 40%</text>
+      <rect x="2" y="58" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
+      <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">40% – 60%</text>
+      <rect x="2" y="86" width="16" height="16" fill="#6A51A3" stroke="#231F20"/>
+      <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">60% – 80%</text>
+      <rect x="2" y="114" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
+      <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">80% – 100%</text>
+      <rect x="2" y="142" width="16" height="16" fill="#707070" stroke="#231F20"/>
+      <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
+    </svg>
+    <svg height="160" width="168" id="legend__yrblt59_p" style="display: none;">
+      <rect x="2" y="2" width="16" height="16" fill="#BCBDDC" stroke="#231F20"/>
+      <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">0% – 20%</text>
+      <rect x="2" y="30" width="16" height="16" fill="#9E9AC8" stroke="#231F20"/>
+      <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">20% – 40%</text>
+      <rect x="2" y="58" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
+      <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">40% – 60%</text>
+      <rect x="2" y="86" width="16" height="16" fill="#6A51A3" stroke="#231F20"/>
+      <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">60% – 80%</text>
+      <rect x="2" y="114" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
+      <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">80% – 100%</text>
+      <rect x="2" y="142" width="16" height="16" fill="#707070" stroke="#231F20"/>
+      <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
+    </svg>
+    <svg height="190" width="168" id="legend__cash17_p" style="display: none;">
+      <rect x="2" y="2" width="16" height="16" fill="#DADAEB" stroke="#231F20"/>
+      <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">0% – 15%</text>
+      <rect x="2" y="30" width="16" height="16" fill="#BCBDDC" stroke="#231F20"/>
+      <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">15% – 30%</text>
+      <rect x="2" y="58" width="16" height="16" fill="#9E9AC8" stroke="#231F20"/>
+      <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">30% – 45%</text>
+      <rect x="2" y="86" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
+      <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">$45% – 60%</text>
+      <rect x="2" y="114" width="16" height="16" fill="#6A51A3" stroke="#231F20"/>
+      <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">60% – 75%</text>
+      <rect x="2" y="142" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
+      <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">75% – 90%</text>
+      <rect x="2" y="170" width="16" height="16" fill="#707070" stroke="#231F20"/>
+      <text x="28" y="182" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
+    </svg>
+    <svg height="216" width="168" id="legend__ch_medhv_p" style="display: none;">
       <rect x="2" y="2" width="16" height="16" fill="#F2F0F7" stroke="#231F20"/>
-      <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">-100% – -25%</text>
+      <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">-50% – 0%</text>
       <rect x="2" y="30" width="16" height="16" fill="#DADAEB" stroke="#231F20"/>
-      <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">-25% – 25%</text>
+      <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">0% – 20%</text>
       <rect x="2" y="58" width="16" height="16" fill="#BCBDDC" stroke="#231F20"/>
-      <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">25% – 50%</text>
+      <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">20% – 40%</text>
       <rect x="2" y="86" width="16" height="16" fill="#9E9AC8" stroke="#231F20"/>
-      <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">51% – 100%</text>
+      <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">40% – 60%</text>
       <rect x="2" y="114" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
-      <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">101% – 200%</text>
+      <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">60% – 80%</text>
       <rect x="2" y="142" width="16" height="16" fill="#6A51A3" stroke="#231F20"/>
-      <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">200% - </text>
+      <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">80% – 100%</text>
       <rect x="2" y="170" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
-      <text x="28" y="182" class="legend__entry legend__entry--datacommon" fill="#231F20">200%</text>
+      <text x="28" y="182" class="legend__entry legend__entry--datacommon" fill="#231F20">100%+</text>
       <rect x="2" y="198" width="16" height="16" fill="#707070" stroke="#231F20"/>
       <text x="28" y="210" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
     </svg>

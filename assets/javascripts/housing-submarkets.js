@@ -11,38 +11,72 @@ if (window.innerWidth <= 500) {
 }
 
 const choropleths = {
-  mhi: (value) => {
-    if (value <= 35000) {
+  medhv: (value) => {
+    if (value <= 300000) {
       return choroplethColors[0];
-    } if (value <= 50000) {
+    } if (value <= 450000) {
       return choroplethColors[1];
-    } if (value <= 75000) {
+    } if (value <= 600000) {
       return choroplethColors[2];
-    } if (value <= 100000) {
+    } if (value <= 750000) {
       return choroplethColors[3];
-    } if (value <= 150000) {
+    } if (value <= 900000) {
       return choroplethColors[4];
-    } if (value <= 200000) {
+    } if (value <= 1050000) {
       return choroplethColors[5];
     }
     return choroplethColors[6];
   },
-  'ch_rhu_p': (value) => {
-    if (value <= -100) {
-      return choroplethColors[0];
-    } if (value <= -25) {
-      return choroplethColors[1];
-    } if (value <= 25) {
+  'rhu_p': (value) => {
+    if (value <= 20) {
       return choroplethColors[2];
-    } if (value <= 50) {
+    } if (value <= 40) {
       return choroplethColors[3];
-    } if (value <= 100) {
+    } if (value <= 60) {
       return choroplethColors[4];
-    } if (value <= 200) {
+    } if (value <= 80) {
       return choroplethColors[5];
     }
     return choroplethColors[6];
-  }
+  },
+  'yrblt59_p': (value) => {
+    if (value <= 20) {
+      return choroplethColors[2];
+    } if (value <= 40) {
+      return choroplethColors[3];
+    } if (value <= 60) {
+      return choroplethColors[4];
+    } if (value <= 80) {
+      return choroplethColors[5];
+    }
+    return choroplethColors[6];
+  },
+  'cash17_p': (value) => {
+    if (value <= 15) {
+      return choroplethColors[1];
+    } if (value <= 30) {
+      return choroplethColors[2];
+    } if (value <= 45) {
+      return choroplethColors[3];
+    } if (value <= 60) {
+      return choroplethColors[4];
+    } if (value <= 75) {
+      return choroplethColors[5];
+    }
+    return choroplethColors[6];
+  },
+  'ch_medhv_p': (value) => {
+    if (value <= 20) {
+      return choroplethColors[2];
+    } if (value <= 40) {
+      return choroplethColors[3];
+    } if (value <= 60) {
+      return choroplethColors[4];
+    } if (value <= 80) {
+      return choroplethColors[5];
+    }
+    return choroplethColors[6];
+  },
 };
 
 d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
@@ -63,14 +97,23 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
 
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-  const mhiColorExpression = ['match', ['get', 'ct10_id']];
+  const medhvColorExpression = ['match', ['get', 'ct10_id']];
   const rhuColorExpression = ['match', ['get', 'ct10_id']];
+  const yrbltColorExpression = ['match', ['get', 'ct10_id']];
+  const cashColorExpression = ['match', ['get', 'ct10_id']];
+  const chMedhvColorExpression = ['match', ['get', 'ct10_id']];
     response.forEach((row) => {
-      mhiColorExpression.push(row.ct10_id, row.mhi ? choropleths.mhi(+row.mhi) : gray);
-      rhuColorExpression.push(row.ct10_id, row.ch_rhu_p ? choropleths['ch_rhu_p'](+row.ch_rhu_p) : gray);
+      medhvColorExpression.push(row.ct10_id, row.medhv ? choropleths.medhv(+row.medhv) : dataNa);
+      rhuColorExpression.push(row.ct10_id, row.rhu_p ? choropleths['rhu_p'](+row.rhu_p) : dataNa);
+      yrbltColorExpression.push(row.ct10_id, row.yrblt59_p ? choropleths['yrblt59_p'](+row.yrblt59_p) : dataNa);
+      cashColorExpression.push(row.ct10_id, row.cash17_p ? choropleths['cash17_p'](+row.cash17_p) : dataNa);
+      chMedhvColorExpression.push(row.ct10_id, row.ch_medhv_p ? choropleths['ch_medhv_p'](+row.ch_medhv_p) : dataNa);
     });
-    mhiColorExpression.push(dataNa);
+    medhvColorExpression.push(dataNa);
     rhuColorExpression.push(dataNa);
+    yrbltColorExpression.push(dataNa);
+    cashColorExpression.push(dataNa);
+    chMedhvColorExpression.push(dataNa);
 
     map.on('load', () => {
       map.addLayer({
@@ -78,7 +121,7 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
         type: 'fill',
         source: 'composite',
         'source-layer': 'Tracts-2jsl06',
-        paint: { 'fill-color': mhiColorExpression, 'fill-outline-color': '#707070' }
+        paint: { 'fill-color': medhvColorExpression, 'fill-outline-color': '#707070' }
       })
       map.addLayer({
         id: 'Muni borders',
@@ -88,15 +131,45 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
       })
       document.querySelector('#type').addEventListener("change", (e) => {
         switch(e.target.value) {
-          case 'mhi':
-            map.setPaintProperty('Tract choropleth', 'fill-color', mhiColorExpression)
-            document.querySelector('#legend__mhi').style.display ="inline"
-            document.querySelector('#legend__ch_rhu_p').style.display ="none"
+          case 'medhv':
+            map.setPaintProperty('Tract choropleth', 'fill-color', medhvColorExpression)
+            document.querySelector('#legend__medhv').style.display ="inline";
+            document.querySelector('#legend__rhu_p').style.display ="none";
+            document.querySelector('#legend__yrblt59_p').style.display ="none";
+            document.querySelector('#legend__cash17_p').style.display ="none";
+            document.querySelector('#legend__ch_medhv_p').style.display ="none";
             break;
-          case 'ch_rhu_p':
+          case 'rhu_p':
             map.setPaintProperty('Tract choropleth', 'fill-color', rhuColorExpression)
-            document.querySelector('#legend__mhi').style.display ="none"
-            document.querySelector('#legend__ch_rhu_p').style.display ="inline"
+            document.querySelector('#legend__medhv').style.display ="none"
+            document.querySelector('#legend__rhu_p').style.display ="inline";
+            document.querySelector('#legend__yrblt59_p').style.display ="none";
+            document.querySelector('#legend__cash17_p').style.display ="none";
+            document.querySelector('#legend__ch_medhv_p').style.display ="none";
+            break;
+          case 'yrblt59_p':
+            map.setPaintProperty('Tract choropleth', 'fill-color', yrbltColorExpression)
+            document.querySelector('#legend__medhv').style.display ="none"
+            document.querySelector('#legend__rhu_p').style.display ="none";
+            document.querySelector('#legend__yrblt59_p').style.display ="inline";
+            document.querySelector('#legend__cash17_p').style.display ="none";
+            document.querySelector('#legend__ch_medhv_p').style.display ="none";
+            break;
+          case 'cash17_p':
+            map.setPaintProperty('Tract choropleth', 'fill-color', cashColorExpression)
+            document.querySelector('#legend__medhv').style.display ="none"
+            document.querySelector('#legend__rhu_p').style.display ="none";
+            document.querySelector('#legend__yrblt59_p').style.display ="none";
+            document.querySelector('#legend__cash17_p').style.display ="inline";
+            document.querySelector('#legend__ch_medhv_p').style.display ="none";
+            break;
+          case 'ch_medhv_p':
+            map.setPaintProperty('Tract choropleth', 'fill-color', chMedhvColorExpression)
+            document.querySelector('#legend__medhv').style.display ="none"
+            document.querySelector('#legend__rhu_p').style.display ="none";
+            document.querySelector('#legend__yrblt59_p').style.display ="none";
+            document.querySelector('#legend__cash17_p').style.display ="none";
+            document.querySelector('#legend__ch_medhv_p').style.display ="inline";
             break;
         }
       })
