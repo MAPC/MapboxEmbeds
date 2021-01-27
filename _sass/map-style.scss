@@ -18,6 +18,10 @@ p {
   margin: 0;
 }
 
+main {
+  height: 100%;
+}
+
 .mapboxgl-compare {
   &__label {
     background-color: #ffffff;

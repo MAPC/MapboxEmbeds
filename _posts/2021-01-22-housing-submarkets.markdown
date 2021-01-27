@@ -28,7 +28,7 @@ description: "Click to view data visualization"
       <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">$900,001 – $1,050,000</text>
       <rect x="2" y="170" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
       <text x="28" y="182" class="legend__entry legend__entry--datacommon" fill="#231F20">$1,050,001+</text>
-      <rect x="2" y="198" width="16" height="16" fill="#707070" stroke="#231F20"/>
+      <rect x="2" y="198" width="16" height="16" fill="#B6B6B6" stroke="#231F20"/>
       <text x="28" y="210" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
     </svg>
     <svg height="160" width="168" id="legend__rhu_p" style="display: none;">
@@ -42,7 +42,7 @@ description: "Click to view data visualization"
       <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">60% – 80%</text>
       <rect x="2" y="114" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
       <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">80% – 100%</text>
-      <rect x="2" y="142" width="16" height="16" fill="#707070" stroke="#231F20"/>
+      <rect x="2" y="142" width="16" height="16" fill="#B6B6B6" stroke="#231F20"/>
       <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
     </svg>
     <svg height="160" width="168" id="legend__yrblt59_p" style="display: none;">
@@ -56,7 +56,7 @@ description: "Click to view data visualization"
       <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">60% – 80%</text>
       <rect x="2" y="114" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
       <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">80% – 100%</text>
-      <rect x="2" y="142" width="16" height="16" fill="#707070" stroke="#231F20"/>
+      <rect x="2" y="142" width="16" height="16" fill="#B6B6B6" stroke="#231F20"/>
       <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
     </svg>
     <svg height="190" width="168" id="legend__cash17_p" style="display: none;">
@@ -72,7 +72,7 @@ description: "Click to view data visualization"
       <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">60% – 75%</text>
       <rect x="2" y="142" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
       <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">75% – 90%</text>
-      <rect x="2" y="170" width="16" height="16" fill="#707070" stroke="#231F20"/>
+      <rect x="2" y="170" width="16" height="16" fill="#B6B6B6" stroke="#231F20"/>
       <text x="28" y="182" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
     </svg>
     <svg height="216" width="168" id="legend__ch_medhv_p" style="display: none;">
@@ -90,7 +90,7 @@ description: "Click to view data visualization"
       <text x="28" y="154" class="legend__entry legend__entry--datacommon" fill="#231F20">80% – 100%</text>
       <rect x="2" y="170" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
       <text x="28" y="182" class="legend__entry legend__entry--datacommon" fill="#231F20">100%+</text>
-      <rect x="2" y="198" width="16" height="16" fill="#707070" stroke="#231F20"/>
+      <rect x="2" y="198" width="16" height="16" fill="#B6B6B6" stroke="#231F20"/>
       <text x="28" y="210" class="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
     </svg>
   </div>

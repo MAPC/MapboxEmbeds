@@ -1,5 +1,5 @@
 const choroplethColors = ['#F2F0F7', '#DADAEB', '#BCBDDC', '#9E9AC8', '#807DBA', '#6A51A3', '#4A1486'];
-const dataNa = '#707070';
+const dataNa = '#B6B6B6';
 let zoom = 9;
 let center = [-71.0408, 42.3317];
 if (window.innerWidth <= 500) {
