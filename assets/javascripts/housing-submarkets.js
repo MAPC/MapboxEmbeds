@@ -1,4 +1,4 @@
-const choroplethColors = ['#F2F0F7', '#DADAEB', '#BCBDDC', '#9E9AC8', '#807DBA', '#6A51A3', '#4A1486'];
+const choroplethColors = ['#F2F0F7', '#BCBDDC', '#807DBA', '#4A1486', '#2F0D56'];
 const dataNa = '#B6B6B6';
 let zoom = 9;
 let center = [-71.0408, 42.3317];
@@ -12,70 +12,64 @@ if (window.innerWidth <= 500) {
 
 const choropleths = {
   medhv: (value) => {
-    if (value <= 300000) {
+    if (value <= 250000) {
       return choroplethColors[0];
-    } if (value <= 450000) {
+    } if (value <= 500000) {
       return choroplethColors[1];
-    } if (value <= 600000) {
-      return choroplethColors[2];
     } if (value <= 750000) {
+      return choroplethColors[2];
+    } if (value <= 1000000) {
       return choroplethColors[3];
-    } if (value <= 900000) {
-      return choroplethColors[4];
-    } if (value <= 1050000) {
-      return choroplethColors[5];
     }
-    return choroplethColors[6];
+    return choroplethColors[4];
   },
   'rhu_p': (value) => {
     if (value <= 20) {
-      return choroplethColors[2];
+      return choroplethColors[0];
     } if (value <= 40) {
-      return choroplethColors[3];
+      return choroplethColors[1];
     } if (value <= 60) {
-      return choroplethColors[4];
+      return choroplethColors[2];
     } if (value <= 80) {
-      return choroplethColors[5];
+      return choroplethColors[3];
     }
-    return choroplethColors[6];
+    return choroplethColors[4];
   },
   'yrblt59_p': (value) => {
     if (value <= 20) {
-      return choroplethColors[2];
+      return choroplethColors[0];
     } if (value <= 40) {
-      return choroplethColors[3];
+      return choroplethColors[1];
     } if (value <= 60) {
-      return choroplethColors[4];
+      return choroplethColors[2];
     } if (value <= 80) {
-      return choroplethColors[5];
+      return choroplethColors[3];
     }
-    return choroplethColors[6];
+    return choroplethColors[4];
   },
   'cash17_p': (value) => {
-    if (value <= 15) {
+    if (value <= 10) {
+      return choroplethColors[0];
+    } if (value <= 20) {
       return choroplethColors[1];
     } if (value <= 30) {
       return choroplethColors[2];
-    } if (value <= 45) {
-      return choroplethColors[3];
-    } if (value <= 60) {
-      return choroplethColors[4];
-    } if (value <= 75) {
-      return choroplethColors[5];
-    }
-    return choroplethColors[6];
-  },
-  'ch_medhv_p': (value) => {
-    if (value <= 20) {
-      return choroplethColors[2];
     } if (value <= 40) {
       return choroplethColors[3];
-    } if (value <= 60) {
-      return choroplethColors[4];
-    } if (value <= 80) {
-      return choroplethColors[5];
     }
-    return choroplethColors[6];
+    return choroplethColors[4];
+  },
+  'ch_medhv_p': (value) => {
+    if (value <= 0) {
+      return choroplethColors[0];
+    } if (value <= 25) {
+      return choroplethColors[1];
+    } if (value <= 50) {
+      return choroplethColors[2];
+    } if (value <= 75) {
+      return choroplethColors[3];
+    }
+    return choroplethColors[4];
   },
 };
 
@@ -172,6 +166,7 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
       document.querySelector('#type').addEventListener("change", (e) => {
         switch(e.target.value) {
           case 'medhv':
+            document.querySelector('#title').innerText = "Median Home Value";
             map.setPaintProperty('Tract choropleth', 'fill-color', medhvColorExpression)
             document.querySelector('#legend__medhv').style.display ="inline";
             document.querySelector('#legend__rhu_p').style.display ="none";
@@ -180,6 +175,7 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
             document.querySelector('#legend__ch_medhv_p').style.display ="none";
             break;
           case 'rhu_p':
+            document.querySelector('#title').innerText = "Percent Renter Households";
             map.setPaintProperty('Tract choropleth', 'fill-color', rhuColorExpression)
             document.querySelector('#legend__medhv').style.display ="none"
             document.querySelector('#legend__rhu_p').style.display ="inline";
@@ -188,6 +184,7 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
             document.querySelector('#legend__ch_medhv_p').style.display ="none";
             break;
           case 'yrblt59_p':
+            document.querySelector('#title').innerText = "Percent Built Prior to 1960";
             map.setPaintProperty('Tract choropleth', 'fill-color', yrbltColorExpression)
             document.querySelector('#legend__medhv').style.display ="none"
             document.querySelector('#legend__rhu_p').style.display ="none";
@@ -196,6 +193,7 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
             document.querySelector('#legend__ch_medhv_p').style.display ="none";
             break;
           case 'cash17_p':
+            document.querySelector('#title').innerText = "Percent Cash Sales";
             map.setPaintProperty('Tract choropleth', 'fill-color', cashColorExpression)
             document.querySelector('#legend__medhv').style.display ="none"
             document.querySelector('#legend__rhu_p').style.display ="none";
@@ -204,6 +202,7 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
             document.querySelector('#legend__ch_medhv_p').style.display ="none";
             break;
           case 'ch_medhv_p':
+            document.querySelector('#title').innerText = "Percent Change in Median Home Value (2000 – 2017)";
             map.setPaintProperty('Tract choropleth', 'fill-color', chMedhvColorExpression)
             document.querySelector('#legend__medhv').style.display ="none"
             document.querySelector('#legend__rhu_p').style.display ="none";
@@ -224,7 +223,7 @@ document.querySelector('.button__collapsible--minus').addEventListener('click', 
 });
 
 document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
-  document.querySelector('.legend').style.maxHeight = "300px";
+  document.querySelector('.legend').style.maxHeight = "340px";
   document.querySelector('.maximize-instructions').style.display = 'none';
   document.querySelector('.button__collapsible--minus').style.display = 'inline';
   document.querySelector('.button__collapsible--plus').style.display = 'none';
