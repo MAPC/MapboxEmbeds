@@ -118,6 +118,7 @@ d3.csv('/MapboxEmbeds/assets/data/housing_submarkets.csv')
     chMedhvColorExpression.push(dataNa);
 
     map.on('load', () => {
+      map.resize();
       map.addLayer({
         id: 'Tract choropleth',
         type: 'fill',
