@@ -1,4 +1,4 @@
-const choroplethColors = ['#F2F0F7', '#BCBDDC', '#807DBA', '#4A1486', '#2F0D56'];
+const choroplethColors = ['#F2F0F7', '#BCBDDC', '#807DBA', '#5e279a', '#2F0D56'];
 const dataNa = '#B6B6B6';
 let zoom = 9;
 let center = [-71.0408, 42.3317];

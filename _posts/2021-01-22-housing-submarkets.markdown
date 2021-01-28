@@ -21,7 +21,7 @@ description: "Click to view data visualization"
       <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">$250,001 – $500,000</text>
       <rect x="2" y="58" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
       <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">$500,001 – $750,000</text>
-      <rect x="2" y="86" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
+      <rect x="2" y="86" width="16" height="16" fill="#5e279a" stroke="#231F20"/>
       <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">$750,001 – $1,000,000</text>
       <rect x="2" y="114" width="16" height="16" fill="#2F0D56" stroke="#231F20"/>
       <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">$1,000,001+</text>
@@ -35,7 +35,7 @@ description: "Click to view data visualization"
       <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">20% – 40%</text>
       <rect x="2" y="58" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
       <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">40% – 60%</text>
-      <rect x="2" y="86" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
+      <rect x="2" y="86" width="16" height="16" fill="#5e279a" stroke="#231F20"/>
       <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">60% – 80%</text>
       <rect x="2" y="114" width="16" height="16" fill="#2F0D56" stroke="#231F20"/>
       <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">80% – 100%</text>
@@ -49,7 +49,7 @@ description: "Click to view data visualization"
       <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">20% – 40%</text>
       <rect x="2" y="58" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
       <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">40% – 60%</text>
-      <rect x="2" y="86" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
+      <rect x="2" y="86" width="16" height="16" fill="#5e279a" stroke="#231F20"/>
       <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">60% – 80%</text>
       <rect x="2" y="114" width="16" height="16" fill="#2F0D56" stroke="#231F20"/>
       <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">80% – 100%</text>
@@ -63,7 +63,7 @@ description: "Click to view data visualization"
       <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">10% – 20%</text>
       <rect x="2" y="58" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
       <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">20% – 30%</text>
-      <rect x="2" y="86" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
+      <rect x="2" y="86" width="16" height="16" fill="#5e279a" stroke="#231F20"/>
       <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">30% – 40%</text>
       <rect x="2" y="114" width="16" height="16" fill="#2F0D56" stroke="#231F20"/>
       <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">40%+</text>
@@ -77,7 +77,7 @@ description: "Click to view data visualization"
       <text x="28" y="42" class="legend__entry legend__entry--datacommon" fill="#231F20">0% – 25%</text>
       <rect x="2" y="58" width="16" height="16" fill="#807DBA" stroke="#231F20"/>
       <text x="28" y="70" class="legend__entry legend__entry--datacommon" fill="#231F20">25% – 50%</text>
-      <rect x="2" y="86" width="16" height="16" fill="#4A1486" stroke="#231F20"/>
+      <rect x="2" y="86" width="16" height="16" fill="#5e279a" stroke="#231F20"/>
       <text x="28" y="98" class="legend__entry legend__entry--datacommon" fill="#231F20">50% – 75%</text>
       <rect x="2" y="114" width="16" height="16" fill="#2F0D56" stroke="#231F20"/>
       <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">75%+</text>
