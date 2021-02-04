@@ -24,6 +24,7 @@ d3.csv('/MapboxEmbeds/assets/data/Data_map_0905.csv').then((response) => {
   });
 
   map.on('load', () => {
+    map.resize();
     const colorPolygon = (value) => {
       if (value >= 2500001) {
         return colorPalette[7]

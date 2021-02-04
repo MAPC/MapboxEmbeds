@@ -17,7 +17,7 @@ const breakoutRooms = {
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 let center = [-71.14231, 42.35887];
-let zoom = 12; 
+let zoom = 12;
 if (window.innerWidth <= 500) {
   zoom = 7.75;
   center = [-71.109, 42.356];
@@ -38,6 +38,7 @@ const resultsMap = new mapboxgl.Map({
 resultsMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 resultsMap.on('load', () => {
+  resultsMap.resize();
   resultsMap.on('click', function(e) {
     const clickedData = resultsMap.queryRenderedFeatures(
       [e.point.x, e.point.y],

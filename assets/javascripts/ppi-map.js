@@ -23,6 +23,10 @@ const ppiMap = new mapboxgl.Map({
 });
 ppiMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
+ppiMap.on('load', () => {
+  map.resize();
+});
+
 document.querySelector('.button__collapsible--minus').addEventListener('click', () => {
   document.querySelector('.legend').style.maxHeight = "0";
   document.querySelector('.maximize-instructions').style.display = 'inline';

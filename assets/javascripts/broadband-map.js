@@ -36,6 +36,7 @@ d3.csv('/MapboxEmbeds/assets/data/broadband_data.csv').then((response) => {
   colorExpression.push(colorPalette[4]);
 
   map.on('load', () => {
+    map.resize();
     map.setPaintProperty('background', 'background-color', '#E5E5E5');
     map.setPaintProperty('External State', 'fill-color', '#E5E5E5');
 

@@ -13,6 +13,9 @@ const map = new mapboxgl.Map({
 });
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+map.on('load', () => {
+  map.resize();
+});
 
 map.on('click', 'housing-assistance', (e) => {
   let tooltipHtml = `<p class='tooltip__title'>${toCamelCase(e.features[0].properties.muni)}</p>`;

@@ -91,7 +91,7 @@ Promise.all([
       return 'Pattern_Hatching_White'
     } else {
       return 'blank'
-    } 
+    }
   }
   const policyColorExpression19 = ['match', ['get', 'town']];
   const selectBoardExpression19 = ['match', ['get', 'town']];
@@ -101,14 +101,14 @@ Promise.all([
   const selectBoardExpression18 = ['match', ['get', 'town']];
   const legislativeColorExpression18 = ['match', ['get', 'town']];
   const cmoColorExpression18 = ['match', ['get', 'town']];
-  
+
   response[0].forEach((row) => {
     governmentInfo["2019"][`${row.TOWN}`] = row
     policyColorExpression19.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : colorPalette[3])
     legislativeColorExpression19.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : colorPalette[4])
     cmoColorExpression19.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : colorPalette[4])
     selectBoardExpression19.push(row.TOWN, row['Policy Board Member Count'] !== '' ? selectBoardPattern(row['Policy Board Member Count']) : 'blank')
-  
+
   });
 
   response[1].forEach((row) => {
@@ -163,6 +163,8 @@ Promise.all([
   });
 
   rightMap.on('load', () => {
+    leftMap.resize();
+    rightMap.resize();
     rightMap.setPaintProperty('background', 'background-color', '#FCF2FB');
     rightMap.setPaintProperty('External State', 'fill-color', '#FCF2FB');
     rightMap.addLayer({

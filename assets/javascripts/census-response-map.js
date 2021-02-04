@@ -47,8 +47,8 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
       }
       return colors[4];
     };
-    
-    const choropleth = ['match', 
+
+    const choropleth = ['match',
       ['concat',
         ['get', 'STATE'],
         ['get', 'COUNTY'],
@@ -64,6 +64,7 @@ d3.json('/MapboxEmbeds/assets/data/census-september.json')
 
     choropleth.push(colors[5]);
     map.on('load', () => {
+      map.resize();
       map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       map.setPaintProperty('background', 'background-color', '#fefbf8');
       map.setPaintProperty('Non MAPC municipalities', 'fill-color', '#fefbf8');

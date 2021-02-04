@@ -40,7 +40,7 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       style: "mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp",
       accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     });
-    
+
     const neighborhoodSwap = {
       "TURNERS FALLS": "MONTAGUE",
       "NUTTING LAKE": "BILLERICA",
@@ -76,7 +76,7 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       muni: "SANDWICH",
       dogs: [],
     }]
-    
+
     const reducedData = data.reduce((munis, dog) => {
       if (dog.contact.address.state === 'MA') {
         if (!Object.keys(neighborhoodSwap).includes(dog.contact.address.city.toUpperCase())) {
@@ -103,10 +103,11 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       colorExpression.push(row.muni.toUpperCase(), polygonColor(row.dogs.length))
     });
     colorExpression.push(colorPalette[4])
-    
+
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
     map.on('load', () => {
       document.querySelector('.legend__wrapper').style.display = 'unset';
+      map.resize();
       map.setPaintProperty('background', 'background-color', '#fff5e0');
       map.setPaintProperty('External State', 'fill-color', '#fff5e0');
       map.addLayer({
@@ -121,13 +122,13 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
       map.moveLayer('Muni borders')
       map.moveLayer('MAPC outline')
       map.doubleClickZoom.disable();
-    
+
       map.on('click', 'Muni choropleth', (e) => {
         const muni = e.features[0].properties.town
         if (dogInfo[muni] && dogInfo[muni].dogs.length) {
           const i = getRandomIndex(dogInfo[muni].dogs.length)
           const selectedDog = dogInfo[muni].dogs[i];
-          const bottomText = dogInfo[muni].dogs.length > 1 ? 
+          const bottomText = dogInfo[muni].dogs.length > 1 ?
           `<p class="tooltip__text tooltip__text--datacommon">One of ${dogInfo[muni].dogs.length} great adoptable dogs in ${toCamelCase(muni)}</p>`
           : `<p class="tooltip__text tooltip__text--datacommon">A great adoptable dog in ${toCamelCase(muni)}</p>`
           new mapboxgl.Popup()
@@ -157,7 +158,7 @@ fetch('https://datacommon.mapc.org/calendar/dogs')
     document.querySelector('.button__collapsible--plus').style.display = 'inline';
     document.querySelector('.button__collapsible--minus').style.display = 'none';
   })
-  
+
   document.querySelector('.button__collapsible--plus').addEventListener('click', () => {
     document.querySelector('.legend').style.maxHeight = "213px";
     document.querySelector('.maximize-instructions').style.display = 'none';

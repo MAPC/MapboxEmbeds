@@ -71,6 +71,7 @@ d3.csv('/MapboxEmbeds/assets/data/towncityhalls.csv').then((response) => {
   questionText.innerText = `Where is ${selectedMuni.muni}'s ${selectedMuni.muni_type} Hall?`;
 
   townHallMap.on('load', () => {
+    townHallMap.resize();
     townHallMap.addLayer({
       'id': 'town-halls',
       'type': 'symbol',

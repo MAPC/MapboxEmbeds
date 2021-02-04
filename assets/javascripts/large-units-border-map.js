@@ -25,6 +25,7 @@ d3.csv('/MapboxEmbeds/assets/data/b25041_bedrooms_per_unit_ct.csv')
 
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
+    map.resize();
     const colorPolygon = d3.scaleQuantize()
       .domain([0,1])
       .range(colorPalette);

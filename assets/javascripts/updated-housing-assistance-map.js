@@ -24,6 +24,7 @@ d3.csv('/MapboxEmbeds/assets/data/0718_housing_assistance.csv').then((response) 
   });
 
   map.on('load', () => {
+    map.resize();
     const colorPolygon = (value) => {
       if (value >= 3500001) {
         return colorPalette[7]

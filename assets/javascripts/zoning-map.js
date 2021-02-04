@@ -30,6 +30,7 @@ map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 map.scrollZoom.disable();
 
 map.on('load', () => {
+  map.resize();
   let activePanel = 'item1';
   map.setPaintProperty('Zone Types', 'fill-opacity', 1);
   map.setPaintProperty('MultiFamily Housing', 'fill-opacity', 0)
@@ -48,13 +49,13 @@ map.on('load', () => {
       }
     }
   };
-  
+
   function isElementOnScreen(id) {
     var element = document.getElementById(id);
     var bounds = element.getBoundingClientRect();
     return bounds.top < window.innerHeight && bounds.bottom > 0;
   }
-  
+
 
   function setActivePanel(currentPanel) {
     if (currentPanel === activePanel) return;

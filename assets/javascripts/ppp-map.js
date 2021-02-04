@@ -54,6 +54,7 @@ d3.json('/MapboxEmbeds/assets/data/ppp-august2020-min.json')
 
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   map.on('load', () => {
+    map.resize();
     document.querySelector('.legend__wrapper').style.display = 'unset';
     const muniColor = (value) => {
       if (value >= .75) {
