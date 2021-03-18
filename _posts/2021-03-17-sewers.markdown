@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "April 2021: Sewer System"
+description: "Click to view data visualization"
+---
+<main id="map" class="map"></main>
+<aside class="legend__wrapper legend__wrapper--datacommon">
+  <div class="legend" style="max-height:340px;">
+    <span class="legend__title legend__title--datacommon" id="title">Wastewater Management</span>
+    <svg height="130" width="168" id="legend__medhv">
+      <rect x="2" y="2" width="16" height="16" fill="#FDB525" stroke="#231F20"/>
+      <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">Fully sewered, or</text>
+      <text x="28" y="32" class="legend__entry legend__entry--datacommon" fill="#231F20">nearly so</text>
+      <rect x="2" y="42" width="16" height="16" fill="#4FB965" stroke="#231F20"/>
+      <text x="28" y="56" class="legend__entry legend__entry--datacommon" fill="#231F20">Partially sewered</text>
+      <rect x="2" y="70" width="16" height="16" fill="#3B66B0" stroke="#231F20"/>
+      <text x="28" y="84" class="legend__entry legend__entry--datacommon" fill="#231F20">No centralized sewer</text>
+      <text x="28" y="102" class="legend__entry legend__entry--datacommon" fill="#231F20">system(s)</text>
+      <line x1="2" y1='126' x2="18" y2='110' style='stroke: black;'/>
+      <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">Sewer line</text>
+    </svg>
+  </div>
+  <button type="button" class="button__collapsible button__collapsible--minus">-</button>
+  <div>
+    <label for="button__collapsible--plus" class="maximize-instructions legend__entry legend__entry--datacommon">Expand legend</label>
+    <button type="button" class="button__collapsible button__collapsible--plus">+</button>
+  </div>
+</aside>
+
+<script src="{{'assets/javascripts/sewer-map.js' | absolute_url }}" type="module"></script>
