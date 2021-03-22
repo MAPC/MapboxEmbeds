@@ -58,9 +58,10 @@ d3.csv('/MapboxEmbeds/assets/data/WasteWater_System.csv')
         type: 'vector',
         url: 'mapbox://ihill.763lks2o'
       })
+
       map.addSource('Sewer Lines', {
         type: 'vector',
-        url: 'mapbox://ihill.5wqorrqo'
+        tiles: ['https://tiles.arcgis.com/tiles/c5WwApDsDjRhIVkH/arcgis/rest/services/Sewer_Lines/VectorTileServer/tile/{z}/{y}/{x}.pbf'],
       })
 
       map.addLayer({
@@ -70,11 +71,13 @@ d3.csv('/MapboxEmbeds/assets/data/WasteWater_System.csv')
         'source-layer': 'MAPC_borders-0im3ea',
         paint: { 'fill-color': sewerChoropleth, 'fill-outline-color': '#FFFFFF' }
       })
+
       map.addLayer({
         id: 'MAPC Sewer Lines',
         source: 'Sewer Lines',
-        'source-layer': 'MAPCSewerLines2013-9tfyjn',
-        type: 'line'
+        'source-layer': "Sewer Lines",
+        type: 'line',
+        paint: { 'line-color': 'black', 'line-width': .25 }
       })
 
       map.on('click', (e) => {
