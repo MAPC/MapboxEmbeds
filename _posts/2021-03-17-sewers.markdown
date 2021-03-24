@@ -4,10 +4,10 @@ title:  "April 2021: Sewer System"
 description: "Click to view data visualization"
 ---
 <main id="map" class="map"></main>
-<aside class="legend__wrapper legend__wrapper--datacommon">
+<aside class="legend__wrapper legend__wrapper--datacommon" style="max-width: 172px;">
   <div class="legend" style="max-height:340px;">
     <span class="legend__title legend__title--datacommon" id="title">Wastewater Management</span>
-    <svg height="230" width="168" id="legend__medhv">
+    <svg height="254" width="168" id="legend__medhv">
       <rect x="2" y="2" width="16" height="16" fill="#92C9ED" stroke="#231F20"/>
       <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">Fully sewered, or</text>
       <text x="28" y="32" class="legend__entry legend__entry--datacommon" fill="#231F20">nearly so (by MWRA)</text>
@@ -21,11 +21,17 @@ description: "Click to view data visualization"
       <text x="28" y="148" class="legend__entry legend__entry--datacommon" fill="#231F20">system(s)</text>
       <line x1="2" y1='176' x2="18" y2='160' style='stroke: black;'/>
       <text x="28" y="174" class="legend__entry legend__entry--datacommon" fill="#231F20">Sewer line</text>
-      <!-- <rect x='2' y='196' width='16' height='16' fill="#0097C4" stroke="#231F20"></rect> -->
-      <circle cx='10' cy='204' r='5.5' fill='#ffffff' stroke='#231F20' />
-      <text x='26' y='208' class='legend__entry legend__entry--datacommon'>Sewer line data</text>
-      <text x='26' y='226' class='legend__entry legend__entry--datacommon'>unavailable</text>
+      <circle cx='10' cy='198' r='5.5' fill='#ffffff' stroke='#231F20' />
+      <text x='26' y='202' class='legend__entry legend__entry--datacommon'>Sewer line data</text>
+      <text x='26' y='220' class='legend__entry legend__entry--datacommon'>unavailable</text>
+      <image x="2" y="232" href="/MapboxEmbeds/assets/images/baseline_grade_black_18dp.png" height="18" width="18"/>
+      <text x='26' y='246' class='legend__entry legend__entry--datacommon'>Deer Island</text>
     </svg>
+    <span class="legend__title legend__title--datacommon" id="title">Explore & Download Data</span>
+    <ul class="tooltip__list">
+      <li class="legend__entry legend__entry--datacommon"><a href="#" class="legend__link">Wastewater Management</a></li>
+      <li class="legend__entry legend__entry--datacommon"><a href="#" class="legend__link">Sewer Lines</a></li>
+    </ul>
   </div>
   <button type="button" class="button__collapsible button__collapsible--minus">-</button>
   <div>

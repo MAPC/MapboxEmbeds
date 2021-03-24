@@ -127,6 +127,34 @@ d3.csv('/MapboxEmbeds/assets/data/WasteWater_System.csv')
             .addTo(map);
         }
       });
+
+      map.loadImage(
+        '/MapboxEmbeds/assets/images/baseline_grade_black_18dp.png',
+        function (error, image) {
+        if (error) throw error;
+        map.addImage('star', image);
+        map.addSource('point', {
+          'type': 'geojson',
+          'data': {
+            'type': 'FeatureCollection',
+            'features': [{
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Point',
+                'coordinates': [-70.9578286, 42.3513861]
+              }
+            }]
+          }
+        });
+        map.addLayer({
+          'id': 'points',
+          'type': 'symbol',
+          'source': 'point',
+          'layout': {
+            'icon-image': 'star',
+          }
+        });
+        });
     })
 })
 
