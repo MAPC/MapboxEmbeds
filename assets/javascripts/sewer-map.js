@@ -14,7 +14,7 @@ d3.csv('/MapboxEmbeds/assets/data/WasteWater_System.csv')
 .then((response) => {
   const map = new mapboxgl.Map({
     container: 'map',
-    style: "mapbox://styles/ihill/ckmeybo3w0hse17pcxgsrd9g4?fresh=true",
+    style: "mapbox://styles/ihill/ckmeybo3w0hse17pcxgsrd9g4",
     accessToken: "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg",
     center,
     zoom,

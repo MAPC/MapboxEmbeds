@@ -1,58 +1,53 @@
 ﻿muni_id,muni_upper,municipal,mapc,WW type,WW provider,DW type,sewer_flag,Data_flag
-2,ACTON,Acton,1,Some sewer,,Public Water Supply,2,1
+34,BOLTON,Bolton,1,"Sewered (municipal buildings), Septic tanks (other)",Town of Bolton,Unknown,2,0
+119,HAMILTON,Hamilton,1,Septic tanks,,Groundwater,0,
+136,HOLLISTON,Holliston,1,Sewer for municipal facilities; Septic for everyone else,,Some Public Water Supply,2,0
+158,LITTLETON,Littleton,1,"Septic systems, some sewer in town center",,Groundwater,2,0
+208,NORFOLK,Norfolk,1,"Sewer & small WWTP for denser sites (e.g. condos), septic systems elsewhere",,Groundwater,0,
+213,NORTH READING,North Reading,1,Septic systems + a few decentralized private sewers.,Regional utility,Surface and Groundwater,2,0
+231,PEMBROKE,Pembroke,1,Septic/Sewered mix. Small sewers only.,,Unknown,2,0
+288,SUDBURY,Sudbury,1,Septic systems and decentralized wastewater treatment,Transitioned from all septic systems to ___ in 2011-2015,Public Water Supply,0,
+30,BEVERLY,Beverly,1,Sewered,?,Surface Water,1,0
+71,DANVERS,Danvers,1,Sewered,Danvers Sewer Division,Surface Water,1,0
+142,HULL,Hull,1,Sewered,Local Sewer System,Surface Water,1,0
+163,LYNN,Lynn,1,Sewered,Lynn regional WWTP,Surface Water,1,0
+168,MARBLEHEAD,Marblehead,1,Sewered,South Essex Sewer District?,Surface Water,1,0
+251,ROCKLAND,Rockland,1,Sewered,Local utility,Public Water Supply,1,0
+252,ROCKPORT,Rockport,1,Sewered,Local utility?,Unknown,1,0
+262,SAUGUS,Saugus,1,Sewered?,Lynn Regional WWTP,Surface Water,1,0
+65,COHASSET,Cohasset,1,Some Sewer,"North Cohasset Sewer District, Central Cohasset Sewer District/mid/north coastal cohasset, Municipal Sewer Areas. Aquarion runs one WWTP; also a 1996 agreement that Hull will treat some of Cohasset's waste water.",Surface Water,2,0
+82,DUXBURY,Duxbury,1,Some sewer (250 people served by Marshfield WWTP) + Septic systems,Marshfield WWTP?,Groundwater,2,0
+92,ESSEX,Essex,1,Town sewer + septic tanks,South Essex Sewer District?,Unknown,2,0
+164,LYNNFIELD,Lynnfield,1,Mix of sewered and septic tanks,Local utility,Unknown,2,0
+315,WAYLAND,Wayland,1,"Town center is sewered, others are septic systems?",Local utility,Public Water Supply,2,0
 10,ARLINGTON,Arlington,1,Sewered,MWRA,Surface Water,1,1
 14,ASHLAND,Ashland,1,Sewered,MWRA,Public Water Supply,1,1
 23,BEDFORD,Bedford,1,Sewered,MWRA,Surface Water,1,1
-25,BELLINGHAM,Bellingham,1,Some Sewer,Other,Public Water Supply,2,1
 26,BELMONT,Belmont,1,Sewered,MWRA,Surface Water,1,1
-30,BEVERLY,Beverly,1,Sewered,?,Surface Water,1,0
-34,BOLTON,Bolton,1,"Sewered (municipal buildings), Septic tanks (other)",Town of Bolton,Unknown,0,0
 35,BOSTON,Boston,1,Sewered,MWRA,Surface Water,1,1
-37,BOXBOROUGH,Boxborough,1,Unsewered,Septic tanks,Groundwater,0,
 40,BRAINTREE,Braintree,1,Sewered,MWRA,Unknown,1,1
 46,BROOKLINE,Brookline,1,Sewered,MWRA,Surface Water,1,1
 48,BURLINGTON,Burlington,1,Sewered,MWRA,Public Water Supply,1,1
 49,CAMBRIDGE,Cambridge,1,Sewered,MWRA,Surface Water,1,1
 50,CANTON,Canton,1,Sewered,MWRA,Surface Water,1,1
-51,CARLISLE,Carlisle,1,Septic Systems,,Groundwater,0,
 57,CHELSEA,Chelsea,1,Sewered,MWRA,Surface Water,1,1
-65,COHASSET,Cohasset,1,Some Sewer,"North Cohasset Sewer District, Central Cohasset Sewer District/mid/north coastal cohasset, Municipal Sewer Areas. Aquarion runs one WWTP; also a 1996 agreement that Hull will treat some of Cohasset's waste water.",Surface Water,2,0
-67,CONCORD,Concord,1,Some Sewer (town center),Other,Public Water Supply,2,1
-71,DANVERS,Danvers,1,Sewered,Danvers Sewer Division,Surface Water,1,0
 73,DEDHAM,Dedham,1,Sewered,MWRA,Public Water Supply,1,1
-78,DOVER,Dover,1,Septic Systems,,Some Public Water Supply,0,
-82,DUXBURY,Duxbury,1,Some sewer (250 people served by Marshfield WWTP) + Septic systems,Marshfield WWTP?,Groundwater,2,0
-92,ESSEX,Essex,1,Town sewer + septic tanks,South Essex Sewer District?,Unknown,2,0
 93,EVERETT,Everett,1,Sewered,MWRA,Surface Water,1,1
-99,FOXBOROUGH,Foxborough,1,Some Sewer,Other,Public Water Supply,2,1
 100,FRAMINGHAM,Framingham,1,Sewered,MWRA,Surface Water,1,1
 101,FRANKLIN,Franklin,1,Sewered,Local utility,Public Water Supply,1,1
 107,GLOUCESTER,Gloucester,1,Sewered,Other,Unknown,1,1
-119,HAMILTON,Hamilton,1,Septic tanks,,Groundwater,0,0
-122,HANOVER,Hanover,1,Septic tanks?,,Groundwater,0,
 131,HINGHAM,Hingham,1,Some Sewer,MWRA,Unknown,1,1
 133,HOLBROOK,Holbrook,1,Sewered,MWRA,Some Public Water Supply,1,1
-136,HOLLISTON,Holliston,1,Sewer for municipal facilities; Septic for everyone else,,Some Public Water Supply,0,0
-139,HOPKINTON,Hopkinton,1,Sewered/Some Sewer,Other,Public Water Supply,2,1
 141,HUDSON,Hudson,1,Sewered (at least partially),Local system,Surface and Groundwater,1,1
-142,HULL,Hull,1,Sewered,Local Sewer System,Surface Water,1,0
-144,IPSWICH,Ipswich,1,"Sewered (2100 customers), potentially also some septic?",Local wastewater department,Public Water Supply,2,1
 155,LEXINGTON,Lexington,1,Sewered,MWRA,Surface Water,1,1
-157,LINCOLN,Lincoln,1,Septic systems,,Surface and Groundwater,0,
-158,LITTLETON,Littleton,1,"Septic systems, some sewer in town center",,Groundwater,0,0
-163,LYNN,Lynn,1,Sewered,Lynn regional WWTP,Surface Water,1,0
-164,LYNNFIELD,Lynnfield,1,Mix of sewered and septic tanks,Local utility,Unknown,2,0
 165,MALDEN,Malden,1,Sewered,MWRA,Surface Water,1,1
 166,MANCHESTER,Manchester,1,Sewered,Other,Unknown,1,1
-168,MARBLEHEAD,Marblehead,1,Sewered,South Essex Sewer District?,Surface Water,1,0
 170,MARLBOROUGH,Marlborough,1,Sewered,Other,Surface Water,1,1
-171,MARSHFIELD,Marshfield,1,Septic systems; some sewer systems,Local sewer system,Unknown,2,1
 174,MAYNARD,Maynard,1,Sewered,Other,Some Public Water Supply,1,1
 175,MEDFIELD,Medfield,1,Sewered,Other,Public Water Supply,1,1
 176,MEDFORD,Medford,1,Sewered,MWRA,Surface Water,1,1
 177,MEDWAY,Medway,1,Sewered,Other,Some Public Water Supply,1,1
 178,MELROSE,Melrose,1,Sewered,MWRA,Surface Water,1,1
-184,MIDDLETON,Middleton,1,Septic systems only,,Surface Water,0,
 185,MILFORD,Milford,1,Sewered,Other,Public Water Supply,1,1
 187,MILLIS,Millis,1,Sewered,Other,Public Water Supply,1,1
 189,MILTON,Milton,1,Sewered,MWRA,Surface Water,1,1
@@ -60,44 +55,49 @@
 198,NATICK,Natick,1,Sewered,MWRA,Public Water Supply,1,1
 199,NEEDHAM,Needham,1,Sewered,MWRA,Surface Water,1,1
 207,NEWTON,Newton,1,Sewered,MWRA,Surface Water,1,1
-208,NORFOLK,Norfolk,1,"Sewer & small WWTP for denser sites (e.g. condos), septic systems elsewhere",,Groundwater,0,0
-213,NORTH READING,North Reading,1,Septic systems + a few decentralized private sewers.,Regional utility,Surface and Groundwater,0,0
-214,NORTHAMPTON,Northampton,0,,,,,
-219,NORWELL,Norwell,1,Septic systems only,,Groundwater,0,
 220,NORWOOD,Norwood,1,Sewered,MWRA,Surface Water,1,1
 229,PEABODY,Peabody,1,Sewered,Other,Surface Water,1,1
-231,PEMBROKE,Pembroke,1,Septic/Sewered mix. Small sewers only.,,Unknown,0,0
 243,QUINCY,Quincy,1,Sewered,MWRA,Surface Water,1,1
 244,RANDOLPH,Randolph,1,Sewered,MWRA,Unknown,1,1
 246,READING,Reading,1,Sewered,MWRA,Unknown,1,1
 248,REVERE,Revere,1,Sewered,MWRA,Surface Water,1,1
-251,ROCKLAND,Rockland,1,Sewered,Local utility,Public Water Supply,1,0
-252,ROCKPORT,Rockport,1,Sewered,Local utility?,Unknown,1,0
 258,SALEM,Salem,1,Sewered,Other,Surface Water,1,1
-262,SAUGUS,Saugus,1,Sewered?,Lynn Regional WWTP,Surface Water,1,0
 264,SCITUATE,Scituate,1,Some Sewer,Other,Unknown,1,1
-266,SHARON,Sharon,1,Some sewer??,Other,Public Water Supply,2,1
-269,SHERBORN,Sherborn,1,Septic Systems,,Groundwater,0,
 274,SOMERVILLE,Somerville,1,Sewered,MWRA,Surface Water,1,1
-277,SOUTHBOROUGH,Southborough,1,"Septic Systems (even ""downtown"" has no sewer system)",,Some Surface Water,0,
 284,STONEHAM,Stoneham,1,Sewered,MWRA,Surface Water,1,1
 285,STOUGHTON,Stoughton,1,Sewered,MWRA,Surface Water,1,1
-286,STOW,Stow,1,Septic systems only,,Groundwater,0,
-288,SUDBURY,Sudbury,1,Septic systems and decentralized wastewater treatment,Transitioned from all septic systems to ___ in 2011-2015,Public Water Supply,0,0
 291,SWAMPSCOTT,Swampscott,1,Sewered,Lynn Regional WWTP,Surface Water,1,1
-298,TOPSFIELD,Topsfield,1,Septic Systems only,,Groundwater,0,
 305,WAKEFIELD,Wakefield,1,Sewered,MWRA,Surface Water,1,1
 307,WALPOLE,Walpole,1,Sewered,MWRA,Public Water Supply,1,1
 308,WALTHAM,Waltham,1,Sewered,MWRA,Surface Water,1,1
 314,WATERTOWN,Watertown,1,Sewered,MWRA,Surface Water,1,1
-315,WAYLAND,Wayland,1,"Town center is sewered, others are septic systems?",Local utility,Public Water Supply,2,0
 317,WELLESLEY,Wellesley,1,Sewered,MWRA,Surface Water,1,1
-320,WENHAM,Wenham,1,Some sewer,Other,Unknown,2,1
-333,WESTON,Weston,1,Unsewered,Septic tanks,Surface Water,0,
 335,WESTWOOD,Westwood,1,Sewered,MWRA,Public Water Supply,1,1
 336,WEYMOUTH,Weymouth,1,Sewered,MWRA,Public Water Supply,1,1
 342,WILMINGTON,Wilmington,1,Sewered,MWRA,Unknown,1,1
 344,WINCHESTER,Winchester,1,Sewered,MWRA,Surface Water,1,1
 346,WINTHROP,Winthrop,1,Sewered,MWRA,Surface Water,1,1
 347,WOBURN,Woburn,1,Sewered,MWRA,Surface Water,1,1
+2,ACTON,Acton,1,Some sewer,,Public Water Supply,2,1
+25,BELLINGHAM,Bellingham,1,Some Sewer,Other,Public Water Supply,2,1
+67,CONCORD,Concord,1,Some Sewer (town center),Other,Public Water Supply,2,1
+99,FOXBOROUGH,Foxborough,1,Some Sewer,Other,Public Water Supply,2,1
+139,HOPKINTON,Hopkinton,1,Sewered/Some Sewer,Other,Public Water Supply,2,1
+144,IPSWICH,Ipswich,1,"Sewered (2100 customers), potentially also some septic?",Local wastewater department,Public Water Supply,2,1
+171,MARSHFIELD,Marshfield,1,Septic systems; some sewer systems,Local sewer system,Unknown,2,1
+266,SHARON,Sharon,1,Some sewer??,Other,Public Water Supply,2,1
+320,WENHAM,Wenham,1,Some sewer,Other,Unknown,2,1
+37,BOXBOROUGH,Boxborough,1,Unsewered,Septic tanks,Groundwater,0,
+51,CARLISLE,Carlisle,1,Septic Systems,,Groundwater,0,
+78,DOVER,Dover,1,Septic Systems,,Some Public Water Supply,0,
+122,HANOVER,Hanover,1,Septic tanks?,,Groundwater,0,
+157,LINCOLN,Lincoln,1,Septic systems,,Surface and Groundwater,0,
+184,MIDDLETON,Middleton,1,Septic systems only,,Surface Water,0,
+219,NORWELL,Norwell,1,Septic systems only,,Groundwater,0,
+269,SHERBORN,Sherborn,1,Septic Systems,,Groundwater,0,
+277,SOUTHBOROUGH,Southborough,1,"Septic Systems (even ""downtown"" has no sewer system)",,Some Surface Water,0,
+286,STOW,Stow,1,Septic systems only,,Groundwater,0,
+298,TOPSFIELD,Topsfield,1,Septic Systems only,,Groundwater,0,
+333,WESTON,Weston,1,Unsewered,Septic tanks,Surface Water,0,
 350,WRENTHAM,Wrentham,1,Septic Systems,,Groundwater,0,
+214,NORTHAMPTON,Northampton,0,,,,,
