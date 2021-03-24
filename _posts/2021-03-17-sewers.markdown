@@ -7,17 +7,24 @@ description: "Click to view data visualization"
 <aside class="legend__wrapper legend__wrapper--datacommon">
   <div class="legend" style="max-height:340px;">
     <span class="legend__title legend__title--datacommon" id="title">Wastewater Management</span>
-    <svg height="130" width="168" id="legend__medhv">
-      <rect x="2" y="2" width="16" height="16" fill="#FDB525" stroke="#231F20"/>
+    <svg height="230" width="168" id="legend__medhv">
+      <rect x="2" y="2" width="16" height="16" fill="#92C9ED" stroke="#231F20"/>
       <text x="28" y="14" class="legend__entry legend__entry--datacommon" fill="#231F20">Fully sewered, or</text>
-      <text x="28" y="32" class="legend__entry legend__entry--datacommon" fill="#231F20">nearly so</text>
-      <rect x="2" y="42" width="16" height="16" fill="#4FB965" stroke="#231F20"/>
-      <text x="28" y="56" class="legend__entry legend__entry--datacommon" fill="#231F20">Partially sewered</text>
-      <rect x="2" y="70" width="16" height="16" fill="#3B66B0" stroke="#231F20"/>
-      <text x="28" y="84" class="legend__entry legend__entry--datacommon" fill="#231F20">No centralized sewer</text>
-      <text x="28" y="102" class="legend__entry legend__entry--datacommon" fill="#231F20">system(s)</text>
-      <line x1="2" y1='126' x2="18" y2='110' style='stroke: black;'/>
-      <text x="28" y="126" class="legend__entry legend__entry--datacommon" fill="#231F20">Sewer line</text>
+      <text x="28" y="32" class="legend__entry legend__entry--datacommon" fill="#231F20">nearly so (by MWRA)</text>
+      <rect x="2" y="42" width="16" height="16" fill="#0097C4" stroke="#231F20"/>
+      <text x="28" y="56" class="legend__entry legend__entry--datacommon" fill="#231F20">Fully sewered, or</text>
+      <text x="28" y="74" class="legend__entry legend__entry--datacommon" fill="#231F20">nearly so (not MWRA)</text>
+      <rect x="2" y="90" width="16" height="16" fill="#4FB965" stroke="#231F20"/>
+      <text x="28" y="102" class="legend__entry legend__entry--datacommon" fill="#231F20">Partially sewered</text>
+      <rect x="2" y="118" width="16" height="16" fill="#FDB525" stroke="#231F20"/>
+      <text x="28" y="130" class="legend__entry legend__entry--datacommon" fill="#231F20">No centralized sewer</text>
+      <text x="28" y="148" class="legend__entry legend__entry--datacommon" fill="#231F20">system(s)</text>
+      <line x1="2" y1='176' x2="18" y2='160' style='stroke: black;'/>
+      <text x="28" y="174" class="legend__entry legend__entry--datacommon" fill="#231F20">Sewer line</text>
+      <!-- <rect x='2' y='196' width='16' height='16' fill="#0097C4" stroke="#231F20"></rect> -->
+      <circle cx='10' cy='204' r='5.5' fill='#ffffff' stroke='#231F20' />
+      <text x='26' y='208' class='legend__entry legend__entry--datacommon'>Sewer line data</text>
+      <text x='26' y='226' class='legend__entry legend__entry--datacommon'>unavailable</text>
     </svg>
   </div>
   <button type="button" class="button__collapsible button__collapsible--minus">-</button>

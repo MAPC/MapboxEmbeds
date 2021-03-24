@@ -30,7 +30,7 @@
 107,GLOUCESTER,Gloucester,1,Sewered,Other,Unknown,1,1
 119,HAMILTON,Hamilton,1,Septic tanks,,Groundwater,0,0
 122,HANOVER,Hanover,1,Septic tanks?,,Groundwater,0,
-131,HINGHAM,Hingham,1,Some Sewer,Other,Unknown,2,1
+131,HINGHAM,Hingham,1,Some Sewer,MWRA,Unknown,1,1
 133,HOLBROOK,Holbrook,1,Sewered,MWRA,Some Public Water Supply,1,1
 136,HOLLISTON,Holliston,1,Sewer for municipal facilities; Septic for everyone else,,Some Public Water Supply,0,0
 139,HOPKINTON,Hopkinton,1,Sewered/Some Sewer,Other,Public Water Supply,2,1
