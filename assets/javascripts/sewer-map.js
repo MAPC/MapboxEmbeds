@@ -67,10 +67,8 @@ d3.csv('/MapboxEmbeds/assets/data/WasteWater_System.csv')
   });
   sewerChoropleth.push(dataNa);
   dataChoropleth.push('blank')
-  console.log(dataChoropleth)
 
     map.on('load', () => {
-      console.log(map.getStyle())
       map.resize();
       map.addSource('MAPC Municipalities', {
         type: 'vector',
