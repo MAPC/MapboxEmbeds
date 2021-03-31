@@ -29,8 +29,8 @@ description: "Click to view data visualization"
     </svg>
     <span class="legend__title legend__title--datacommon" id="title">Explore & Download Data</span>
     <ul class="tooltip__list">
-      <li class="legend__entry legend__entry--datacommon"><a href="#" class="legend__link">Wastewater Management</a></li>
-      <li class="legend__entry legend__entry--datacommon"><a href="#" class="legend__link">Sewer Lines</a></li>
+      <li class="legend__entry legend__entry--datacommon"><a href="https://datacommon.mapc.org/browser/datasets/423" class="legend__link">Wastewater Management</a></li>
+      <li class="legend__entry legend__entry--datacommon"><a href="https://datacommon.mapc.org/browser/datasets/424" class="legend__link">Sewer Lines</a></li>
     </ul>
   </div>
   <button type="button" class="button__collapsible button__collapsible--minus">-</button>
