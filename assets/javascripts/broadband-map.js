@@ -54,7 +54,7 @@ d3.csv('/MapboxEmbeds/assets/data/broadband_data.csv').then((response) => {
 
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     map.on('click', 'Median Download Speed', (e) => {
-      console.log(e.features[0].properties)
+      // console.log(e.features[0].properties)
       // let tooltipHtml = `<p class='tooltip__title'>${toCamelCase(e.features[0].properties.muni)}</p>`;
       // let housingAssistance = housingAssistanceObj[`${e.features[0].properties.muni}`];
       // let unemployment = unemploymentObj[`${e.features[0].properties.muni}`];
