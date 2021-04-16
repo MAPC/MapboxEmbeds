@@ -43,7 +43,7 @@ d3.csv('/MapboxEmbeds/assets/data/WasteWater_System.csv')
     if (value === 0) {
       return 'dot-11-white'
     }
-    return 'blank'
+    return 'new-blank'
   }
 
   const sewerFlagFunc = (value, ww_provider) => {
@@ -62,11 +62,11 @@ d3.csv('/MapboxEmbeds/assets/data/WasteWater_System.csv')
   const muniInfo = {};
   response.forEach((row) => {
     sewerChoropleth.push(row.municipal, row.sewer_flag ? choropleth(+row.sewer_flag, row['WW provider']) : dataNa);
-    dataChoropleth.push(row.municipal, row.Data_flag ? iconChoropleth(+row.Data_flag) : 'blank')
+    dataChoropleth.push(row.municipal, row.Data_flag ? iconChoropleth(+row.Data_flag) : 'new-blank')
     muniInfo[row.municipal] = sewerFlagFunc(+row.sewer_flag, row['WW provider']);
   });
   sewerChoropleth.push(dataNa);
-  dataChoropleth.push('blank')
+  dataChoropleth.push('new-blank')
 
     map.on('load', () => {
       map.resize();
