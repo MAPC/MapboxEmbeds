@@ -90,7 +90,7 @@ Promise.all([
     } else if (value == 5) {
       return 'Pattern_Hatching_White'
     } else {
-      return 'blank'
+      return 'new-blank'
     }
   }
   const policyColorExpression19 = ['match', ['get', 'town']];
@@ -107,7 +107,7 @@ Promise.all([
     policyColorExpression19.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : colorPalette[3])
     legislativeColorExpression19.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : colorPalette[4])
     cmoColorExpression19.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : colorPalette[4])
-    selectBoardExpression19.push(row.TOWN, row['Policy Board Member Count'] !== '' ? selectBoardPattern(row['Policy Board Member Count']) : 'blank')
+    selectBoardExpression19.push(row.TOWN, row['Policy Board Member Count'] !== '' ? selectBoardPattern(row['Policy Board Member Count']) : 'new-blank')
 
   });
 
@@ -116,18 +116,18 @@ Promise.all([
     policyColorExpression18.push(row.TOWN, row['Policy Board'] !== '' ? policyBoardColor(row['Policy Board']) : colorPalette[3])
     legislativeColorExpression18.push(row.TOWN, row['Legislative Body'] !== '' ? legislativeColor(row['Legislative Body']) : colorPalette[4])
     cmoColorExpression18.push(row.TOWN, row['Chief Municipal Official'] !== '' ? cmoColor(row['Chief Municipal Official']) : colorPalette[4])
-    selectBoardExpression18.push(row.TOWN, row['Policy Board Member Count'] !== '' ? selectBoardPattern(row['Policy Board Member Count']) : 'blank')
+    selectBoardExpression18.push(row.TOWN, row['Policy Board Member Count'] !== '' ? selectBoardPattern(row['Policy Board Member Count']) : 'new-blank')
   });
 
   policyColorExpression18.push(colorPalette[3]);
   legislativeColorExpression18.push(colorPalette[4]);
   cmoColorExpression18.push(colorPalette[4]);
-  selectBoardExpression18.push('blank');
+  selectBoardExpression18.push('new-blank');
 
   policyColorExpression19.push(colorPalette[3]);
   legislativeColorExpression19.push(colorPalette[4]);
   cmoColorExpression19.push(colorPalette[4]);
-  selectBoardExpression19.push('blank');
+  selectBoardExpression19.push('new-blank');
 
   let muniEl = document.querySelector('#muni')
   let entry18El = document.querySelector('#entry18')
@@ -147,19 +147,25 @@ Promise.all([
       }
     })
 
-    leftMap.addLayer({
-      id: 'Selectmen choropleth',
-      type: 'fill',
-      source: 'composite',
-      'source-layer': 'MA_Munis',
-      paint: {
-        'fill-pattern': selectBoardExpression18,
-      }
+    leftMap.loadImage('/MapboxEmbeds/assets/images/blank-square.png', function (err, image) {
+      if (err) throw err;
+      leftMap.addImage('new-blank', image)
+
+      leftMap.addLayer({
+        id: 'Selectmen choropleth',
+        type: 'fill',
+        source: 'composite',
+        'source-layer': 'MA_Munis',
+        paint: {
+          'fill-pattern': selectBoardExpression18,
+        }
+      })
+      leftMap.setPaintProperty('Muni borders', 'line-color', 'white');
+      leftMap.moveLayer('Muni borders')
+      leftMap.moveLayer('MAPC outline')
+      leftMap.on('click', 'Muni choropleth', (e) => setLegend(e))
     })
-    leftMap.setPaintProperty('Muni borders', 'line-color', 'white');
-    leftMap.moveLayer('Muni borders')
-    leftMap.moveLayer('MAPC outline')
-    leftMap.on('click', 'Muni choropleth', (e) => setLegend(e))
+
   });
 
   rightMap.on('load', () => {
@@ -167,6 +173,8 @@ Promise.all([
     rightMap.resize();
     rightMap.setPaintProperty('background', 'background-color', '#FCF2FB');
     rightMap.setPaintProperty('External State', 'fill-color', '#FCF2FB');
+
+
     rightMap.addLayer({
       id: 'Muni choropleth',
       type: 'fill',
@@ -176,19 +184,25 @@ Promise.all([
         'fill-color': policyColorExpression19,
       }
     })
-    rightMap.addLayer({
-      id: 'Selectmen choropleth',
-      type: 'fill',
-      source: 'composite',
-      'source-layer': 'MA_Munis',
-      paint: {
-        'fill-pattern': selectBoardExpression19,
-      }
+
+    rightMap.loadImage('/MapboxEmbeds/assets/images/blank-square.png', function (err, image) {
+      if (err) throw err;
+      rightMap.addImage('new-blank', image)
+
+      rightMap.addLayer({
+        id: 'Selectmen choropleth',
+        type: 'fill',
+        source: 'composite',
+        'source-layer': 'MA_Munis',
+        paint: {
+          'fill-pattern': selectBoardExpression19,
+        }
+      })
+      rightMap.setPaintProperty('Muni borders', 'line-color', 'white');
+      rightMap.moveLayer('Muni borders')
+      rightMap.moveLayer('MAPC outline')
+      rightMap.on('click', 'Muni choropleth', (e) => setLegend(e))
     })
-    rightMap.setPaintProperty('Muni borders', 'line-color', 'white');
-    rightMap.moveLayer('Muni borders')
-    rightMap.moveLayer('MAPC outline')
-    rightMap.on('click', 'Muni choropleth', (e) => setLegend(e))
   })
 
   document.querySelector('#type').addEventListener("change", (e) => {
