@@ -33,10 +33,10 @@ d3.csv('/MapboxEmbeds/assets/data/b25041_bedrooms_per_unit_ct.csv')
     const patternExpression = ['match', ['get', 'ct10_id']];
     response.forEach((row) => {
       colorExpression.push(row.bg10_id, row.bd3u_pct_e !== 'NA' ? colorPolygon(+row.bd3u_pct_e) : '#B57F00')
-      patternExpression.push(row.bg10_id, (+row.bd3u_pct_m >= 30 && row.bd3u_pct_m !== 'NA' && row.bd3u_pct_e !== 'NA') ? 'Pattern_Hatching_Gray' : 'blank')
+      patternExpression.push(row.bg10_id, (+row.bd3u_pct_m >= 30 && row.bd3u_pct_m !== 'NA' && row.bd3u_pct_e !== 'NA') ? 'Pattern_Hatching_Gray' : 'new-blank')
     });
     colorExpression.push('#B57F00');
-    patternExpression.push('blank')
+    patternExpression.push('new-blank')
     map.addLayer({
       id: 'tracts-choropleth',
       type: 'fill',
@@ -47,17 +47,22 @@ d3.csv('/MapboxEmbeds/assets/data/b25041_bedrooms_per_unit_ct.csv')
       },
     });
 
-    map.addLayer({
-      id: 'tracts-pattern',
-      type: 'fill',
-      source: 'composite',
-      'source-layer': 'Tracts-2jsl06',
-      paint: {
-        'fill-pattern': patternExpression,
-      },
-    });
-    map.moveLayer('tracts-choropleth', 'MAPC municipal borders');
-    map.moveLayer('tracts-pattern', 'MAPC municipal borders');
+    map.loadImage('/MapboxEmbeds/assets/images/blank-square.png', function (err, image) {
+      if (err) throw err;
+      map.addImage('new-blank', image)
+
+      map.addLayer({
+        id: 'tracts-pattern',
+        type: 'fill',
+        source: 'composite',
+        'source-layer': 'Tracts-2jsl06',
+        paint: {
+          'fill-pattern': patternExpression,
+        },
+      });
+      map.moveLayer('tracts-choropleth', 'MAPC municipal borders');
+      map.moveLayer('tracts-pattern', 'MAPC municipal borders');
+    })
   });
 
 
