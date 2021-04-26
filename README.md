@@ -1,6 +1,8 @@
 # Mapbox Embeds
 A collection of maps created with Mapbox GL JS for easy embedding into other websites.
 
+*Note: this Jekyll site automatically deploys to GitHub Pages when code is pushed to the `main` branch. If edited maps are embedded into other sites, they will automatically update there.*
+
 ## Creating a map (for DataCommon)
 1. Create a new markdown file in `_posts`
 2. Copy starter template from `2021-04-14-template.markdown`
